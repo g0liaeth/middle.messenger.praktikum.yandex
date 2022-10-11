@@ -1,0 +1,20 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "---",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/g0liaeth/middle.messenger.praktikum.yandex.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/g0liaeth/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/g0liaeth/middle.messenger.praktikum.yandex#readme"
+}
