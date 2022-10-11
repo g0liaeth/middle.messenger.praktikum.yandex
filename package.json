@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/g0liaeth/middle.messenger.praktikum.yandex/issues"
   },
-  "homepage": "https://github.com/g0liaeth/middle.messenger.praktikum.yandex#readme"
+  "homepage": "https://github.com/g0liaeth/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "parcel": "^2.7.0"
+  }
 }
