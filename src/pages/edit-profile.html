@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="edit-profile.scss">
+  <title>Изменить данные</title>
+</head>
+
+<body>
+  <div class="main-container">
+    <div class="img-back">
+      <img src="mock-ava.png" alt="avatar" class="profile-img">
+      <span class="centered">Поменять аватар</span>
+    </div>
+    <div class="form-group">
+      <label for="email">Почта</label>
+      <input type="email" id="email" name="user_email" value="abcd@yandex.ru"/>
+    </div>
+    <div class="form-group">
+      <label for="login">Логин</label>
+      <input type="text" id="login" name="user_login" value="ivanivan"/>
+    </div>
+    <div class="form-group">
+      <label for="first_name">Имя</label>
+      <input type="text" id="first_name" name="user_first_name" value="Иван"/>
+    </div>
+    <div class="form-group">
+      <label for="second_name">Фамилия</label>
+      <input type="text" id="second_name" name="user_second_name" value="Иванов"/>
+    </div>
+    <div class="form-group">
+      <label for="display_name">Имя в чате</label>
+      <input type="text" id="display_name" name="user_display_name" value="Иванов"/>
+    </div>
+    <div class="form-group">
+      <label for="phone">Телефон</label>
+      <input type="tel" id="phone" name="user_phone" value="8-999-999-99-99"/>
+    </div>
+    <button class="btn-save">Сохранить</button>
+    <button class="btn-back">< назад к чатам</button>
+  </div>
+</body>
+
+</html>

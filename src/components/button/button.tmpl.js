@@ -1,3 +1,3 @@
 export default `
-<button class="btn">{{ label }}</button>
+<button class={{ className }}>{{ label }}</button>
 `

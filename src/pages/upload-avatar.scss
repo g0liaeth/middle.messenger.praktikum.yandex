@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap");
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Comfortaa", cursive;
+}
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.img-back {
+  background-color: #000;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  position: relative;
+  visibility: hidden;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.profile-img {
+  width: 100%;
+  border-radius: 100%;
+  position: absolute;
+  visibility: visible;
+}
+
+.img-back:hover {
+  visibility: visible;
+  cursor: pointer;
+}
+
+.img-back:hover img {
+  opacity: 0.4;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.centered {
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  color: #fff;
+  transform: translate(-50%, -50%);
+  visibility: inherit;
+  font-size: larger;
+}
+
+.profile-name {
+  margin-bottom: 40px;
+}
+
+.form-group {
+  width: 600px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom:1px solid #999999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-change {
+  margin-top: 15px;
+  width: 200px;
+  padding:10px;
+  font-family: 'Comfortaa', cursive;
+  background-color: #E0FAD8;
+}
+
+.btn-exit {
+  margin-top: 15px;
+  width: 200px;
+  padding:10px;
+  font-family: 'Comfortaa', cursive;
+  color: #B90000;
+  background-color: #D4E3F7;
+}
+
+.btn-back {
+  padding:10px;
+  font-family: 'Comfortaa', cursive;
+  color: #fff;
+  background-color: #000;
+  position: absolute;
+  left: 40px;
+  top: 40px
+}
+
+input {
+  border: 0;
+  font-family: 'Comfortaa', cursive;
+  color: #999999;
+  text-align: end;
+}
+
+input:focus{
+  outline: none;
+}
+
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+  /* opacity: 0;
+  visibility: hidden; */
+}
+
+.popup-body {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 10px;
+}
+
+.popup-content {
+  background-color: #fff;
+  border: 2px solid black;
+  color: #000;
+  width: 400px;
+  height: 250px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-form-group {
+  width: 100%;
+}
+
+.popup-form-label {
+  color: #999999;
+  font-size: small;
+  margin-bottom: 10px;
+}
+
+.popup-form-input input {
+
+}
+
+.popup-header {
+  margin-top: 20px;
+  margin-bottom: 60px;
+  font-size: large;
+  font-weight: bold;
+}
+
+.popup-form-button {
+  margin-top: 60px;
+  padding:10px;
+  width: 100%;
+  font-family: 'Comfortaa', cursive;
+  color: #fff;
+  background-color: #000;
+}
+
+label input { display: none; }
