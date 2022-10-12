@@ -1,10 +1,12 @@
+button {
+  cursor: pointer;
+}
 .btn-green {
   margin-top: 40px;
   width: 200px;
   padding:10px;
   font-family: 'Comfortaa', cursive;
   background-color: #E0FAD8;
-  cursor: pointer;
 }
 
 .btn-black {
@@ -13,5 +15,31 @@
   font-size: large;
   color: #fff;
   background-color: #000;
-  cursor: pointer;
+}
+
+.btn-change {
+  margin-top: 15px;
+  width: 200px;
+  padding:10px;
+  font-family: 'Comfortaa', cursive;
+  background-color: #E0FAD8;
+}
+
+.btn-exit {
+  margin-top: 15px;
+  width: 200px;
+  padding:10px;
+  font-family: 'Comfortaa', cursive;
+  color: #B90000;
+  background-color: #D4E3F7;
+}
+
+.btn-back {
+  padding:10px;
+  font-family: 'Comfortaa', cursive;
+  color: #fff;
+  background-color: #000;
+  position: absolute;
+  left: 40px;
+  top: 40px
 }

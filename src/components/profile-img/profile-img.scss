@@ -1,0 +1,38 @@
+.img-back {
+  background-color: #000;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  position: relative;
+  visibility: hidden;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.profile-img {
+  width: 100%;
+  border-radius: 100%;
+  position: absolute;
+  visibility: visible;
+}
+
+.img-back:hover {
+  visibility: visible;
+  cursor: pointer;
+}
+
+.img-back:hover img {
+  opacity: 0.4;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.img-back-text {
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  color: #fff;
+  transform: translate(-50%, -50%);
+  visibility: inherit;
+  font-size: larger;
+}

@@ -16,18 +16,24 @@ window.addEventListener("DOMContentLoaded", () => {
     registrationLinkClass: "simple-link",
     formItemList: [
       {
-        className: "form-group",
+        groupClassName: "form-group",
+        inputClassName: "login-input",
         labelText: "Логин",
         inputType: "text",
         inputId: "login",
-        inputName: "user_login"
+        inputName: "user_login",
+        disabled: null,
+        inputValue: null
       },
       {
-        className: "form-group",
+        groupClassName: "form-group",
+        inputClassName: "login-input",
         labelText: "Пароль",
         inputType: "password",
         inputId: "password",
-        inputName: "user_password"
+        inputName: "user_password",
+        disabled: null,
+        inputValue: null
       }
     ]
   })

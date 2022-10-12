@@ -16,49 +16,56 @@ window.addEventListener("DOMContentLoaded", () => {
     registrationLinkClass: "simple-link",
     formItemList: [
       {
-        className: "form-group",
+        groupClassName: "form-group",
+        inputClassName: "login-input",
         labelText: "Почта",
         inputType: "email",
         inputId: "email",
         inputName: "user_email"
       },
       {
-        className: "form-group",
+        groupClassName: "form-group",
+        inputClassName: "login-input",
         labelText: "Логин",
         inputType: "text",
         inputId: "login",
         inputName: "user_login"
       },
       {
-        className: "form-group",
+        groupClassName: "form-group",
+        inputClassName: "login-input",
         labelText: "Имя",
         inputType: "text",
         inputId: "first_name",
         inputName: "user_first_name"
       },
       {
-        className: "form-group",
+        groupClassName: "form-group",
+        inputClassName: "login-input",
         labelText: "Фамилия",
         inputType: "text",
         inputId: "second_name",
         inputName: "user_second_name"
       },
       {
-        className: "form-group",
+        groupClassName: "form-group",
+        inputClassName: "login-input",
         labelText: "Телефон",
         inputType: "tel",
         inputId: "phone",
         inputName: "user_phone"
       },
       {
-        className: "form-group",
+        groupClassName: "form-group",
+        inputClassName: "login-input",
         labelText: "Пароль",
         inputType: "password",
         inputId: "password",
         inputName: "user_password"
       },
       {
-        className: "form-group",
+        groupClassName: "form-group",
+        inputClassName: "login-input",
         labelText: "Пароль (ещё раз)",
         inputType: "password",
         inputId: "repeat_password",

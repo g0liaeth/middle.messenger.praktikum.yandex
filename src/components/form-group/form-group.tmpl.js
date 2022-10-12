@@ -1,6 +1,6 @@
 export default `
-<div class={{ className }}>
+<div class={{ groupClassName }}>
   {{> label labelFor=inputId text=labelText }}
-  {{> input inputType=inputType inputId=inputId InputName=InputName }}
+  {{> input }}
 </div>
 `
