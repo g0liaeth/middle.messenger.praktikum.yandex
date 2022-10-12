@@ -18,6 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
       {
         groupClassName: "form-group",
         inputClassName: "login-input",
+        labelClassName: "login-label",
         labelText: "Логин",
         inputType: "text",
         inputId: "login",
@@ -28,6 +29,7 @@ window.addEventListener("DOMContentLoaded", () => {
       {
         groupClassName: "form-group",
         inputClassName: "login-input",
+        labelClassName: "login-label",
         labelText: "Пароль",
         inputType: "password",
         inputId: "password",
