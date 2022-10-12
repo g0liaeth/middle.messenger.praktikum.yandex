@@ -1,5 +1,6 @@
 import Handlebars from "handlebars"
 import template from "./profile.tmpl"
+import popupTmpl from "../../components/popup/popup.tmpl"
 import "../../components"
 import img from "../../static/mock-ava.png"
 
@@ -71,5 +72,38 @@ window.addEventListener("DOMContentLoaded", () => {
     imgPath: img,
     usernameClass: "profile-name",
     usernameText: "Иван",
+  })
+
+  const addUserForm = {
+    headerClass: "header-form-md",
+    headerText: "Добавить пользователя",
+    groupClassName: "form-group",
+    inputClassName: "login-input",
+    labelClassName: "login-label",
+    labelText: "Логин",
+    inputType: "text",
+    inputId: "login",
+    inputName: "user_login",
+    btnLabel: "Добавить",
+    btnClass: "btn-black-w100"
+  }
+  const compiledPopup = Handlebars.compile(popupTmpl)
+  const newDiv = document.createElement('div')
+  newDiv.innerHTML = compiledPopup({
+    headerClass: "header-form-md",
+    headerText: "Загрузить файл",
+    inputType: "file",
+    inputId: "myfile",
+    inputName: "myfile",
+    btnLabel: "Поменять",
+    btnClass: "btn-black-w100"
+  })
+  const imgBlock = document.querySelector('.img-back')
+  imgBlock.addEventListener('click', () => {
+    root.append(newDiv)
+  })
+
+  newDiv.addEventListener('click', () => {
+    newDiv.remove()
   })
 })
