@@ -1,6 +1,6 @@
 import Handlebars from "handlebars"
 import template from "./500.tmpl"
-import "../components"
+import "../../components"
 
 window.addEventListener("DOMContentLoaded", () => {
   const compiled = Handlebars.compile(template)
