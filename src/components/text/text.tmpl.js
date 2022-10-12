@@ -1,4 +1,3 @@
 export default `
-<h2>sdfdsf</h2>
-{{> button label=label className=btn-class}}
+<span class={{ className }}>{{ value }}</span>
 `
