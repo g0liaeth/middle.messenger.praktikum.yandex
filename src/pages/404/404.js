@@ -12,6 +12,6 @@ window.addEventListener("DOMContentLoaded", () => {
     mainContent: "Не туда попали",
     contentClassName: "main-text",
     btnLabel: "Назад к чатам",
-    btnClassName: "btn-green"
+    btnClassName: "btn-green",
   })
 })

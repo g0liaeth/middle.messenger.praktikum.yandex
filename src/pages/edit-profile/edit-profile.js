@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", () => {
         inputType: "email",
         inputId: "email",
         inputName: "user_email",
-        inputValue: "abcd@yandex.ru"
+        inputValue: "abcd@yandex.ru",
       },
       {
         groupClassName: "form-group-profile",
@@ -25,7 +25,7 @@ window.addEventListener("DOMContentLoaded", () => {
         inputType: "text",
         inputId: "login",
         inputName: "user_login",
-        inputValue: "ivanivan"
+        inputValue: "ivanivan",
       },
       {
         groupClassName: "form-group-profile",
@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", () => {
         inputType: "text",
         inputId: "first_name",
         inputName: "user_first_name",
-        inputValue: "Иван"
+        inputValue: "Иван",
       },
       {
         groupClassName: "form-group-profile",
@@ -43,7 +43,7 @@ window.addEventListener("DOMContentLoaded", () => {
         inputType: "text",
         inputId: "second_name",
         inputName: "user_second_name",
-        inputValue: "Иванов"
+        inputValue: "Иванов",
       },
       {
         groupClassName: "form-group-profile",
@@ -52,7 +52,7 @@ window.addEventListener("DOMContentLoaded", () => {
         inputType: "text",
         inputId: "display_name",
         inputName: "user_display_name",
-        inputValue: "Иванов"
+        inputValue: "Иванов",
       },
       {
         groupClassName: "form-group-profile",
@@ -61,7 +61,7 @@ window.addEventListener("DOMContentLoaded", () => {
         inputType: "tel",
         inputId: "phone",
         inputName: "user_phone",
-        inputValue: "8-999-999-99-99"
+        inputValue: "8-999-999-99-99",
       },
     ],
     btnSaveLabel: "Сохранить",

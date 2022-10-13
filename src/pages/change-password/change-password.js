@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", () => {
         labelText: "Старый пароль",
         inputType: "password",
         inputId: "oldPassword",
-        inputName: "user_oldPassword"
+        inputName: "user_oldPassword",
       },
       {
         groupClassName: "form-group-profile",
@@ -23,7 +23,7 @@ window.addEventListener("DOMContentLoaded", () => {
         labelText: "Новый пароль",
         inputType: "password",
         inputId: "newPassword",
-        inputName: "user_newPassword"
+        inputName: "user_newPassword",
       },
       {
         groupClassName: "form-group-profile",
@@ -31,8 +31,8 @@ window.addEventListener("DOMContentLoaded", () => {
         labelText: "Повторите новый пароль",
         inputType: "password",
         inputId: "repeat_newPassword",
-        inputName: "user_repeat_newPassword"
-      }
+        inputName: "user_repeat_newPassword",
+      },
     ],
     btnSaveLabel: "Сохранить",
     btnSaveClass: "btn-change",

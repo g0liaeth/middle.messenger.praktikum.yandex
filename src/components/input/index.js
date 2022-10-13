@@ -1,4 +1,4 @@
-import Handlebars from "handlebars";
+import Handlebars from "handlebars"
 import template from "./input.tmpl"
 
-Handlebars.registerPartial('input', template)
+Handlebars.registerPartial("input", template)

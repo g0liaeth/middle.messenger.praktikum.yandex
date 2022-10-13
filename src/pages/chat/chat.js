@@ -74,10 +74,10 @@ window.addEventListener("DOMContentLoaded", () => {
       },
     ],
     messageList: [
-        {
-          date: "01-02-2022",
-          text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque tenetur qui laudantium autem omnis. Quod ex omnis, totam impedit tempore cupiditate laboriosam fugit, minima commodi assumenda excepturi inventore eaque exercitationem! Possimus voluptates numquam dignissimos natus atque vero iure sed ut adipisci eligendi! Voluptas quas vel quos, amet nemo omnis sit, recusandae iusto laudantium minus iure porro assumenda praesentium saepe ipsa!"
-        },
+      {
+        date: "01-02-2022",
+        text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque tenetur qui laudantium autem omnis. Quod ex omnis, totam impedit tempore cupiditate laboriosam fugit, minima commodi assumenda excepturi inventore eaque exercitationem! Possimus voluptates numquam dignissimos natus atque vero iure sed ut adipisci eligendi! Voluptas quas vel quos, amet nemo omnis sit, recusandae iusto laudantium minus iure porro assumenda praesentium saepe ipsa!",
+      },
     ],
     newMessageInputType: "text",
     newMessageInputId: "message",
@@ -91,7 +91,7 @@ window.addEventListener("DOMContentLoaded", () => {
   })
 
   const compiledPopup = Handlebars.compile(popupTmpl)
-  const newDiv = document.createElement('div')
+  const newDiv = document.createElement("div")
   newDiv.innerHTML = compiledPopup({
     headerClass: "header-form-md",
     headerText: "Добавить пользователя",
@@ -103,14 +103,14 @@ window.addEventListener("DOMContentLoaded", () => {
     inputId: "login",
     inputName: "user_login",
     btnLabel: "Добавить",
-    btnClass: "btn-black-w100"
+    btnClass: "btn-black-w100",
   })
   // const imgBlock = document.querySelector('.img-back')
   // imgBlock.addEventListener('click', () => {
   //   root.append(newDiv)
   // })
 
-  newDiv.addEventListener('click', () => {
+  newDiv.addEventListener("click", () => {
     newDiv.remove()
   })
 })

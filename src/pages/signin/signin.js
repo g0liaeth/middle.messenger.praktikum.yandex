@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", () => {
         labelText: "Почта",
         inputType: "email",
         inputId: "email",
-        inputName: "user_email"
+        inputName: "user_email",
       },
       {
         groupClassName: "form-group",
@@ -31,7 +31,7 @@ window.addEventListener("DOMContentLoaded", () => {
         labelText: "Логин",
         inputType: "text",
         inputId: "login",
-        inputName: "user_login"
+        inputName: "user_login",
       },
       {
         groupClassName: "form-group",
@@ -40,7 +40,7 @@ window.addEventListener("DOMContentLoaded", () => {
         labelText: "Имя",
         inputType: "text",
         inputId: "first_name",
-        inputName: "user_first_name"
+        inputName: "user_first_name",
       },
       {
         groupClassName: "form-group",
@@ -49,7 +49,7 @@ window.addEventListener("DOMContentLoaded", () => {
         labelText: "Фамилия",
         inputType: "text",
         inputId: "second_name",
-        inputName: "user_second_name"
+        inputName: "user_second_name",
       },
       {
         groupClassName: "form-group",
@@ -58,7 +58,7 @@ window.addEventListener("DOMContentLoaded", () => {
         labelText: "Телефон",
         inputType: "tel",
         inputId: "phone",
-        inputName: "user_phone"
+        inputName: "user_phone",
       },
       {
         groupClassName: "form-group",
@@ -67,7 +67,7 @@ window.addEventListener("DOMContentLoaded", () => {
         labelText: "Пароль",
         inputType: "password",
         inputId: "password",
-        inputName: "user_password"
+        inputName: "user_password",
       },
       {
         groupClassName: "form-group",
@@ -76,8 +76,8 @@ window.addEventListener("DOMContentLoaded", () => {
         labelText: "Пароль (ещё раз)",
         inputType: "password",
         inputId: "repeat_password",
-        inputName: "user_repeat_password"
+        inputName: "user_repeat_password",
       },
-    ]
+    ],
   })
 })

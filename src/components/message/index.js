@@ -1,4 +1,4 @@
-import Handlebars from "handlebars";
+import Handlebars from "handlebars"
 import template from "./message.tmpl"
 
-Handlebars.registerPartial('message', template)
+Handlebars.registerPartial("message", template)

@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
         inputId: "login",
         inputName: "user_login",
         disabled: null,
-        inputValue: null
+        inputValue: null,
       },
       {
         groupClassName: "form-group",
@@ -35,8 +35,8 @@ window.addEventListener("DOMContentLoaded", () => {
         inputId: "password",
         inputName: "user_password",
         disabled: null,
-        inputValue: null
-      }
-    ]
+        inputValue: null,
+      },
+    ],
   })
 })

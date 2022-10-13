@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
         inputId: "email",
         inputName: "user_email",
         disabled: "disabled",
-        inputValue: "abcd@yandex.ru"
+        inputValue: "abcd@yandex.ru",
       },
       {
         groupClassName: "form-group-profile",
@@ -28,7 +28,7 @@ window.addEventListener("DOMContentLoaded", () => {
         inputId: "login",
         inputName: "user_login",
         disabled: "disabled",
-        inputValue: "ivanivan"
+        inputValue: "ivanivan",
       },
       {
         groupClassName: "form-group-profile",
@@ -38,7 +38,7 @@ window.addEventListener("DOMContentLoaded", () => {
         inputId: "first_name",
         inputName: "user_first_name",
         disabled: "disabled",
-        inputValue: "Иван"
+        inputValue: "Иван",
       },
       {
         groupClassName: "form-group-profile",
@@ -48,7 +48,7 @@ window.addEventListener("DOMContentLoaded", () => {
         inputId: "second_name",
         inputName: "user_second_name",
         disabled: "disabled",
-        inputValue: "Иванов"
+        inputValue: "Иванов",
       },
       {
         groupClassName: "form-group-profile",
@@ -58,7 +58,7 @@ window.addEventListener("DOMContentLoaded", () => {
         inputId: "phone",
         inputName: "user_phone",
         disabled: "disabled",
-        inputValue: "8-999-999-99-99"
+        inputValue: "8-999-999-99-99",
       },
     ],
     btnChangeDataLabel: "Изменить данные",
@@ -85,10 +85,10 @@ window.addEventListener("DOMContentLoaded", () => {
     inputId: "login",
     inputName: "user_login",
     btnLabel: "Добавить",
-    btnClass: "btn-black-w100"
+    btnClass: "btn-black-w100",
   }
   const compiledPopup = Handlebars.compile(popupTmpl)
-  const newDiv = document.createElement('div')
+  const newDiv = document.createElement("div")
   newDiv.innerHTML = compiledPopup({
     headerClass: "header-form-md",
     headerText: "Загрузить файл",
@@ -96,14 +96,14 @@ window.addEventListener("DOMContentLoaded", () => {
     inputId: "myfile",
     inputName: "myfile",
     btnLabel: "Поменять",
-    btnClass: "btn-black-w100"
+    btnClass: "btn-black-w100",
   })
-  const imgBlock = document.querySelector('.img-back')
-  imgBlock.addEventListener('click', () => {
+  const imgBlock = document.querySelector(".img-back")
+  imgBlock.addEventListener("click", () => {
     root.append(newDiv)
   })
 
-  newDiv.addEventListener('click', () => {
+  newDiv.addEventListener("click", () => {
     newDiv.remove()
   })
 })
