@@ -1,8 +1,10 @@
+@import "../variables.scss";
+
 .popup {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: $locking-bacground;
   top: 0;
   left: 0;
 }
@@ -16,9 +18,9 @@
 }
 
 .popup-content {
-  background-color: #fff;
-  border: 2px solid black;
-  color: #000;
+  background-color: $primary-background;
+  border: 2px solid $primary-black;
+  color: $primary-black;
   width: 400px;
   height: 300px;
   padding: 50px;

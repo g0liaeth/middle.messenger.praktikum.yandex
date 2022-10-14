@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap");
+@import "../../components/variables.scss";
 
 body,
 html {
@@ -13,7 +14,7 @@ html {
 
 body {
   height: 100%;
-  background-color: #fff;
+  background-color: $primary-background;
 }
 
 *,
@@ -31,7 +32,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #f9f9f9;
+  background-color: $secondary-background;
 }
 
 .right-container {
@@ -41,7 +42,7 @@ body {
 }
 
 .chat-header {
-  background-color: #f9f9f9;
+  background-color: $secondary-background;
   flex: 1;
   display: flex;
   flex-direction: row;
@@ -58,7 +59,7 @@ body {
 }
 
 .chat-body {
-  background-color: #fff;
+  background-color: $primary-background;
   flex: 11;
   overflow-y: auto;
 }
@@ -70,7 +71,7 @@ body {
 }
 
 .incoming-message {
-  background-color: #f2faf1;
+  background-color: $incoming-color;
   max-width: 40%;
   align-self: flex-start;
   padding: 10px;
@@ -79,7 +80,7 @@ body {
 }
 
 .outgoing-message {
-  background-color: #f0f4fa;
+  background-color: $outgoing-color;
   max-width: 40%;
   align-self: flex-end;
   padding: 10px;
@@ -91,7 +92,7 @@ body {
   margin-top: 10px;
   font-size: x-small;
   align-self: flex-end;
-  color: #999999;
+  color: $secondary-black;
   display: flex;
   flex-direction: row;
 }
@@ -110,12 +111,12 @@ body {
 .day-divider {
   align-self: center;
   font-size: small;
-  color: #999999;
+  color: $secondary-black;
   margin-bottom: 20px;
 }
 
 .chat-footer {
-  background-color: #fff;
+  background-color: $primary-background;
   flex: 2;
 }
 

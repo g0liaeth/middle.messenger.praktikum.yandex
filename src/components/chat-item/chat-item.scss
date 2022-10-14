@@ -1,13 +1,15 @@
+@import "../variables.scss";
+
 .chat-item {
   display: flex;
   margin: 20px;
   padding-top: 10px;
-  border-top: 1px solid #999999;
+  border-top: 1px solid $secondary-black;
 }
 
 .active {
-  background-color: #f2faf1;
-  border-top: 1px solid #afdda2;
+  background-color: $active-chat-background-color;
+  border-top: 1px solid $active-chat-accent-color;
 }
 
 .chat-item-left {
@@ -27,8 +29,8 @@
 .new-messages {
   width: 25px;
   height: 25px;
-  background-color: #000;
-  color: #fff;
+  background-color: $primary-black;
+  color: $primary-background;
   text-align: center;
   vertical-align: middle;
   line-height: 25px;
@@ -36,20 +38,20 @@
 
 .last-message-time {
   font-size: small;
-  color: #999999;
+  color: $secondary-black;
 }
 
 .chat-info {
   padding-left: 10px;
-  color: #999999;
+  color: $secondary-black;
   font-size: small;
 }
 
 .last-message-sender {
-  color: #000;
+  color: $primary-black;
 }
 
 .sender {
-  color: #000;
+  color: $primary-black;
   margin-bottom: 5px;
 }
