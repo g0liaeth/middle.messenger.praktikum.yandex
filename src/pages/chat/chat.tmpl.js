@@ -7,7 +7,7 @@ export default `
       {{> input inputType=searchInputType inputPlaceholder=searchInputPlaceholder inputClassName=searchInputClassName }}
     </div>
     <div class="chat-list-container">
-      <div class="chat-list">
+      <div class="chat-list">//TODO redo list with ul->li
         {{#each chatList}}
           {{> chat-item }}
         {{/each }}

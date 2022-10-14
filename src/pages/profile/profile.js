@@ -98,12 +98,15 @@ window.addEventListener("DOMContentLoaded", () => {
     btnLabel: "Поменять",
     btnClass: "btn-black-w100",
   })
-  const imgBlock = document.querySelector(".img-back")
-  imgBlock.addEventListener("click", () => {
-    root.append(newDiv)
-  })
-
   newDiv.addEventListener("click", () => {
     newDiv.remove()
   })
+
+  const imgBlock = document.querySelector(".img-back")
+  if (imgBlock !== null) {
+    imgBlock.addEventListener("click", () => {
+      root.append(newDiv)
+    })
+  }
+
 })
