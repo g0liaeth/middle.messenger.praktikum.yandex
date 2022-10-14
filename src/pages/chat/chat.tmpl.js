@@ -1,3 +1,4 @@
+//TODO redo list with ul->li
 export default `
 <div class="left-container">
     <div class="profile-link-container">
@@ -7,7 +8,7 @@ export default `
       {{> input inputType=searchInputType inputPlaceholder=searchInputPlaceholder inputClassName=searchInputClassName }}
     </div>
     <div class="chat-list-container">
-      <div class="chat-list">//TODO redo list with ul->li
+      <div class="chat-list">
         {{#each chatList}}
           {{> chat-item }}
         {{/each }}
