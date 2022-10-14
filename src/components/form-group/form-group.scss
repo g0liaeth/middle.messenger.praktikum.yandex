@@ -1,0 +1,16 @@
+.form-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+}
+
+.form-group-profile {
+  width: 600px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #999999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

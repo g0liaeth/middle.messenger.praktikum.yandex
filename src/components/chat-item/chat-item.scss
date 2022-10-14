@@ -1,0 +1,57 @@
+@import "../variables.scss";
+
+.chat-item {
+  display: flex;
+  margin: 20px;
+  padding-top: 10px;
+  border-top: 1px solid $secondary-black;
+}
+
+.active {
+  background-color: $active-chat-background-color;
+  border-top: 1px solid $active-chat-accent-color;
+}
+
+.chat-item-left {
+  flex: 5;
+  display: flex;
+  align-items: center;
+}
+
+.chat-item-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.new-messages {
+  width: 25px;
+  height: 25px;
+  background-color: $primary-black;
+  color: $primary-background;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 25px;
+}
+
+.last-message-time {
+  font-size: small;
+  color: $secondary-black;
+}
+
+.chat-info {
+  padding-left: 10px;
+  color: $secondary-black;
+  font-size: small;
+}
+
+.last-message-sender {
+  color: $primary-black;
+}
+
+.sender {
+  color: $primary-black;
+  margin-bottom: 5px;
+}
