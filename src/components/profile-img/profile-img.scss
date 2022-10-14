@@ -1,5 +1,7 @@
+@import "../variables.scss";
+
 .img-back {
-  background-color: #000;
+  background-color: $primary-black;
   width: 150px;
   height: 150px;
   border-radius: 100%;
@@ -23,7 +25,7 @@
 
 .img-back:hover img {
   opacity: 0.4;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px $blackout-color;
 }
 
 .img-back-text {
@@ -31,7 +33,7 @@
   text-align: center;
   top: 50%;
   left: 50%;
-  color: #fff;
+  color: $primary-background;
   transform: translate(-50%, -50%);
   visibility: inherit;
   font-size: larger;

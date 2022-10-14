@@ -1,3 +1,5 @@
+@import "../variables.scss";
+
 button {
   cursor: pointer;
 }
@@ -6,15 +8,15 @@ button {
   width: 200px;
   padding: 10px;
   font-family: "Comfortaa", cursive;
-  background-color: #e0fad8;
+  background-color: $accept-button-color;
 }
 
 .btn-black {
   padding: 10px;
   font-family: "Comfortaa", cursive;
   font-size: large;
-  color: #fff;
-  background-color: #000;
+  color: $primary-background;
+  background-color: $primary-black;
 }
 
 .btn-black-w100 {
@@ -22,8 +24,8 @@ button {
   padding: 10px;
   font-family: "Comfortaa", cursive;
   font-size: large;
-  color: #fff;
-  background-color: #000;
+  color: $primary-background;
+  background-color: $primary-black;
 }
 
 .btn-change {
@@ -31,7 +33,7 @@ button {
   width: 200px;
   padding: 10px;
   font-family: "Comfortaa", cursive;
-  background-color: #e0fad8;
+  background-color: $accept-button-color;
 }
 
 .btn-exit {
@@ -39,15 +41,15 @@ button {
   width: 200px;
   padding: 10px;
   font-family: "Comfortaa", cursive;
-  color: #b90000;
-  background-color: #d4e3f7;
+  color: $danger-color;
+  background-color: $deny-button-color;
 }
 
 .btn-back {
   padding: 10px;
   font-family: "Comfortaa", cursive;
-  color: #fff;
-  background-color: #000;
+  color: $primary-background;
+  background-color: $primary-black;
   position: absolute;
   left: 40px;
   top: 40px;
