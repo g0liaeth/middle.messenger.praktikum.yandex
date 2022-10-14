@@ -5,7 +5,7 @@ export default `
   </div>
   <div class="message-meta">
     <img src="../static/check-double-solid.svg" alt="" class="message-meta-img">
-    <span>11:45</span>
+    <time datetime="11:45">11:45</time>
   </div>
 </div>
 <div class="outgoing-message">
@@ -14,7 +14,7 @@ export default `
   </div>
   <div class="message-meta">
     <img src="../static/check-solid.svg" alt="" class="message-meta-img">
-    <span>11:57</span>
+    <time datetime="11:57">11:57</time>
   </div>
 </div>
 `

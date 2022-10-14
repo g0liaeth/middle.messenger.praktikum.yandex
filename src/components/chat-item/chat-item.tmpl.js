@@ -12,7 +12,9 @@ export default `
   </div>
   <div class="chat-item-right">    
       <div class="last-message-time">
-        {{lastMessageTime}}
+        <time datetime={{lastMessageTime}}>
+          {{lastMessageTime}}
+        </time>
       </div>
       {{#if hasNewMessages}}
       <div class="new-messages">
