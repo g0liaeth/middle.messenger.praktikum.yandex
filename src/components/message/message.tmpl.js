@@ -4,7 +4,7 @@ export default `
     {{text}}
   </div>
   <div class="message-meta">
-    <img src="../static/check-double-solid.svg" alt="" class="message-meta-img">
+    <img src="../static/check-double-solid.svg" alt="read mark" class="message-meta-img">
     <time datetime="11:45">11:45</time>
   </div>
 </div>
@@ -13,7 +13,7 @@ export default `
     Круто!!!
   </div>
   <div class="message-meta">
-    <img src="../static/check-solid.svg" alt="" class="message-meta-img">
+    <img src="../static/check-solid.svg" alt="read mark" class="message-meta-img">
     <time datetime="11:57">11:57</time>
   </div>
 </div>
