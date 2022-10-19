@@ -1,4 +1,4 @@
-import Handlebars from "handlebars"
-import template from "./day-messages.tmpl"
+import Handlebars from 'handlebars';
+import template from './day-messages.tmpl';
 
-Handlebars.registerPartial("day-messages", template)
+Handlebars.registerPartial('day-messages', template);

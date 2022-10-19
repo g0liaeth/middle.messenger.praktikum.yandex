@@ -9,4 +9,4 @@ export default `
   {{> button label=btnLabel className=btnClass}}
   {{> link path=registrationLinkPath text=registrationLinkText className=registrationLinkClass }}
 </form>
-`
+`;

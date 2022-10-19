@@ -1,10 +1,12 @@
-import Handlebars from "handlebars"
-import template from "./index.tmlp"
-import "./components"
+import Handlebars from 'handlebars';
+import template from './index.tmlp';
+import './components';
 
-window.addEventListener("DOMContentLoaded", () => {
-  const compiled = Handlebars.compile(template)
-  const root = document.getElementById("root")
+// eslint-disable-next-line no-undef
+window.addEventListener('DOMContentLoaded', () => {
+  const compiled = Handlebars.compile(template);
+  // eslint-disable-next-line no-undef
+  const root = document.getElementById('root');
 
-  root.innerHTML = compiled()
-})
+  root.innerHTML = compiled();
+});

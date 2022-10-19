@@ -4,4 +4,4 @@ export default `
   <img src={{attachButtonImg}} alt="paperclip" class={{attachButtonClass}}>
   {{> button className=sendButtonClass label=sendButtonLabel }}
 </div>
-`
+`;

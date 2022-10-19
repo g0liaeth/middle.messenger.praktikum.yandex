@@ -36,4 +36,4 @@ export default `
     {{> new-message-form }}
   </div>
 </div>
-`
+`;

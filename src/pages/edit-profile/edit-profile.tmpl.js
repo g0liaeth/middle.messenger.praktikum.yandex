@@ -7,4 +7,4 @@ export default `
 
 {{> button label=btnSaveLabel className=btnSaveClass}}
 {{> button label=btnBackLabel className=btnBackClass}}
-`
+`;

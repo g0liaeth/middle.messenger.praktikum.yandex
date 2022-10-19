@@ -1,4 +1,4 @@
-import Handlebars from "handlebars"
-import template from "./label.tmpl"
+import Handlebars from 'handlebars';
+import template from './label.tmpl';
 
-Handlebars.registerPartial("label", template)
+Handlebars.registerPartial('label', template);

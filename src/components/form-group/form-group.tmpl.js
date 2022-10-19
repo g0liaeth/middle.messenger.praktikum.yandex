@@ -3,4 +3,4 @@ export default `
   {{> label labelFor=inputId text=labelText labelClassName=labelClassName}}
   {{> input }}
 </div>
-`
+`;

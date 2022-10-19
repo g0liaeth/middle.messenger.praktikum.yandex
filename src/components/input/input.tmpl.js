@@ -8,4 +8,4 @@ export default `
   class={{ inputClassName }}
   placeholder={{#if inputPlaceholder}}{{inputPlaceholder}}{{else}}""{{/if}}
 />
-`
+`;

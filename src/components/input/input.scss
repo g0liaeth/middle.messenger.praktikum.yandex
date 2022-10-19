@@ -1,8 +1,8 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
 .profile-input {
   border: 0;
-  font-family: "Comfortaa", cursive;
+  font-family: 'Comfortaa', cursive;
   font-size: 16px;
   color: $secondary-black;
   background-color: $primary-background;
@@ -16,7 +16,7 @@
 .login-input {
   padding: 10px;
   margin: 5px 0;
-  font-family: "Comfortaa", cursive;
+  font-family: 'Comfortaa', cursive;
   font-size: large;
   border: 0;
   border-bottom: 1px solid $primary-black;
@@ -25,7 +25,7 @@
 .profile-editable-input {
   border: 0;
   padding: 5px;
-  font-family: "Comfortaa", cursive;
+  font-family: 'Comfortaa', cursive;
   font-size: 16px;
   background-color: $primary-background;
   text-align: end;
@@ -37,7 +37,7 @@
   margin-left: 30px;
   margin-right: 30px;
   background-color: $secondary-background;
-  font-family: "Comfortaa", cursive;
+  font-family: 'Comfortaa', cursive;
   font-size: large;
   border: 0;
   border-bottom: 1px solid $primary-black;
@@ -52,7 +52,7 @@
   margin-left: 30px;
   margin-right: 30px;
   background-color: $primary-background;
-  font-family: "Comfortaa", cursive;
+  font-family: 'Comfortaa', cursive;
   font-size: large;
   border: 0;
   border-top: 1px solid $primary-black;

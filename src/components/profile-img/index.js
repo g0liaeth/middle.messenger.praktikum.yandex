@@ -1,4 +1,4 @@
-import Handlebars from "handlebars"
-import template from "./profile-img.tmpl"
+import Handlebars from 'handlebars';
+import template from './profile-img.tmpl';
 
-Handlebars.registerPartial("profile-img", template)
+Handlebars.registerPartial('profile-img', template);

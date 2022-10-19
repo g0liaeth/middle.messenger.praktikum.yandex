@@ -10,4 +10,4 @@ export default `
 {{> button label=btnChangePasswordLabel className=btnChangePasswordClass}}
 {{> button label=btnExitLabel className=btnExitClass}}
 {{> button label=btnBackLabel className=btnBackClass}}
-`
+`;

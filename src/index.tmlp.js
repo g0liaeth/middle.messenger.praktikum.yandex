@@ -7,4 +7,4 @@ export default `
 <a href="pages/login.html">Логин</a><br><br>
 <a href="pages/signin.html">Регистрация</a><br><br>
 <a href="pages/profile.html">Профиль</a><br><br>
-`
+`;

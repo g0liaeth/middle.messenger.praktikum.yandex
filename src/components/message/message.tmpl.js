@@ -17,4 +17,4 @@ export default `
     <time datetime="11:57">11:57</time>
   </div>
 </div>
-`
+`;

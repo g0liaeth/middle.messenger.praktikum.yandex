@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
 button {
   cursor: pointer;
@@ -7,13 +7,13 @@ button {
   margin-top: 40px;
   width: 200px;
   padding: 10px;
-  font-family: "Comfortaa", cursive;
+  font-family: 'Comfortaa', cursive;
   background-color: $accept-button-color;
 }
 
 .btn-black {
   padding: 10px;
-  font-family: "Comfortaa", cursive;
+  font-family: 'Comfortaa', cursive;
   font-size: large;
   color: $primary-background;
   background-color: $primary-black;
@@ -22,7 +22,7 @@ button {
 .btn-black-w100 {
   width: 100%;
   padding: 10px;
-  font-family: "Comfortaa", cursive;
+  font-family: 'Comfortaa', cursive;
   font-size: large;
   color: $primary-background;
   background-color: $primary-black;
@@ -32,7 +32,7 @@ button {
   margin-top: 15px;
   width: 200px;
   padding: 10px;
-  font-family: "Comfortaa", cursive;
+  font-family: 'Comfortaa', cursive;
   background-color: $accept-button-color;
 }
 
@@ -40,14 +40,14 @@ button {
   margin-top: 15px;
   width: 200px;
   padding: 10px;
-  font-family: "Comfortaa", cursive;
+  font-family: 'Comfortaa', cursive;
   color: $danger-color;
   background-color: $deny-button-color;
 }
 
 .btn-back {
   padding: 10px;
-  font-family: "Comfortaa", cursive;
+  font-family: 'Comfortaa', cursive;
   color: $primary-background;
   background-color: $primary-black;
   position: absolute;
