@@ -1,6 +1,5 @@
 {
   "extends": "airbnb",
-  "rules": {
-    "max-params": [2, 3]
-  }
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"]
 }

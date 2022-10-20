@@ -8,5 +8,5 @@ window.addEventListener('DOMContentLoaded', () => {
   // eslint-disable-next-line no-undef
   const root = document.getElementById('root');
 
-  root.innerHTML = compiled();
+  root!.innerHTML = compiled({});
 });

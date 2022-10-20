@@ -1,4 +1,4 @@
-//TODO redo list with ul->li
+// TODO redo list with ul->li
 export default `
 <div class="left-container">
     <div class="profile-link-container">

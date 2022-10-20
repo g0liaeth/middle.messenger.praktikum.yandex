@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
     searchInputType: 'text',
     searchInputPlaceholder: 'Поиск',
     searchInputClassName: 'search-textinput',
-    avatarImg: avatarImg,
+    avatarImg,
     mainMenuImg: ellipsis,
     mainMenuClass: 'menu-img',
     chatList: [
