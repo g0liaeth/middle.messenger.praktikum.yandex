@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "target": "es2017",
+    "target": "ESNext",
     "declaration": false,
-    "module": "commonjs",
-    "noImplicitAny": true,
+    "module": "ESNext",
+    "noImplicitAny": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "resolveJsonModule": true
+    "moduleResolution": "node",
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "dist", "server"],
   "include": ["src/**/*.ts"]
