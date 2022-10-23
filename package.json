@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "---",
   "scripts": {
-    "dev": "parcel src/*.html src/pages/*.html --no-cache",
+    "dev": "parcel src/*.html src/pages/*.html --no-cache --port 4321",
     "build": "rm -rf dist && parcel build src/*.html src/pages/*.html --no-source-maps --no-cache",
     "start": "npm run build && node ./server/index.ts",
     "lint": "tsc --noEmit && eslint ./src/**/*.ts && npx stylelint ./src/**/*.scss",

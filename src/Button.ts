@@ -1,4 +1,5 @@
-import Block from '../utils/Block';
+import Block from './utils/Block';
+import compileComponent from './utils/compileComponent';
 
 export type ButtonProps = {
   className?: string;
@@ -13,6 +14,6 @@ export default class Button extends Block<ButtonProps> {
   render() {
     const source = `<button class={{ className }}>{{ label }}</button>`;
 
-    return this.generateTemplate(source, this.props);
+    return compileComponent(source, this.props);
   }
 }

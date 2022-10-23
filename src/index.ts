@@ -1,8 +1,16 @@
 import './components';
-import Button, { ButtonProps } from './button/Button';
+import Button, { ButtonProps } from './Button';
 import renderDOM from './utils/renderDOM';
+import ErrorPage from './ErrorPage';
 
 const currentRoute: string = window.location.pathname;
+// const button = new Button({ className: 'btn-green', label: 'Click me please!' });
+const errorPage = new ErrorPage({
+  codeClassName: 'header-big',
+  codeValue: '404',
+  textClassName: 'main-text',
+  textValue: 'Не туда попали',
+});
 
 switch (currentRoute) {
   // case '/':
@@ -34,11 +42,25 @@ switch (currentRoute) {
   //   break;
 
   default:
-    renderDOM<ButtonProps>(
-      '#root',
-      new Button({ className: 'btn-green', label: 'Click me please!' }),
-    );
+    renderDOM('#root', errorPage);
     break;
 }
 
 // renderDOM<ButtonProps>('#root', new Button({ className: 'btn-green', label: 'Click me please!' }));
+// setTimeout(() => {
+//   // button.props.label = 'second';
+//   button.setProps({
+//     label: 'new label',
+//     className: 'new-class',
+//   });
+// }, 2000);
+
+setTimeout(() => {
+  // button.props.label = 'second';
+  errorPage.setProps({
+    codeClassName: 'header-big',
+    codeValue: '500',
+    textClassName: 'main-text',
+    textValue: 'Мы уже фиксим',
+  });
+}, 2000);
