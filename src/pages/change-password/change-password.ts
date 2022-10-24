@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import template from './change-password.tmpl';
-import '../../components';
+// import '../../components';
 import img from '../../static/mock-ava.png';
 
 window.addEventListener('DOMContentLoaded', () => {

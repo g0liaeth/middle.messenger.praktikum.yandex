@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import template from './edit-profile.tmpl';
-import '../../components';
+// import '../../components';
 import img from '../../static/mock-ava.png';
 
 // eslint-disable-next-line no-undef

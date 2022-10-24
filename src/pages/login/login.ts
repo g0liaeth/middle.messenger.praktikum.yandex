@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import template from './login.tmpl';
-import '../../components';
+// import '../../components';
 
 // eslint-disable-next-line no-undef
 window.addEventListener('DOMContentLoaded', () => {

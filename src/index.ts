@@ -1,4 +1,3 @@
-import './components';
 import renderDOM from './utils/renderDOM';
 import ErrorPage from './pages/ErrorPage';
 import Chat from './pages/Chat';

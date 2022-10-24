@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import template from './profile.tmpl';
 import popupTmpl from '../../components/popup/popup.tmpl';
-import '../../components';
+// import '../../components';
 import img from '../../static/mock-ava.png';
 
 window.addEventListener('DOMContentLoaded', () => {

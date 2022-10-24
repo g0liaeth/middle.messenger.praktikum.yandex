@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import template from './chat.tmpl';
-import '../../components';
+// import '../../components';
 import avatarImg from '../../static/mock-ava.png';
 import paperclipImg from '../../static/paperclip-solid.svg';
 import ellipsis from '../../static/ellipsis-vertical-solid.svg';
