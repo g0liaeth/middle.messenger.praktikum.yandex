@@ -55,12 +55,12 @@ switch (currentRoute) {
 //   });
 // }, 2000);
 
-setTimeout(() => {
-  // button.props.label = 'second';
-  errorPage.setProps({
-    codeClassName: 'header-big',
-    codeValue: '500',
-    textClassName: 'main-text',
-    textValue: 'Мы уже фиксим',
-  });
-}, 2000);
+// setTimeout(() => {
+//   // errorPage.props.codeValue = 'second';
+//   errorPage.setProps({
+//     codeClassName: 'header-big',
+//     codeValue: '500',
+//     textClassName: 'main-text',
+//     textValue: 'Мы уже фиксим',
+//   });
+// }, 2000);

@@ -56,24 +56,11 @@ export default class Block<TProps> {
 
   private _render() {
     const fragment = this.render();
-    // console.log(fragment.children);
-    
-    const newElement = document.createElement('div')
 
-    for (let item of fragment.children) {
-      newElement.append(item);
-      console.log(item);
-      
-  }
+    const element = fragment.firstChild as HTMLElement;
 
-    // const element = fragment.firstChild;
-
-    // if (!element) {
-    //   return;
-    // }
-
-    this._element.replaceWith(newElement);
-    this._element = newElement;
+    this._element.replaceWith(element);
+    this._element = element;
   }
 
   protected render() {

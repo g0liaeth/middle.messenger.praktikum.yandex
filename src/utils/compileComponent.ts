@@ -1,16 +1,10 @@
 import Handlebars from 'handlebars';
 import Block from './Block';
 
-// export default function compileComponent(source: string, props: any) {
-//   const parser = new DOMParser();
-
-//   return parser.parseFromString(Handlebars.compile(source)(props), 'text/html').body
-//     .firstChild as HTMLElement;
-// }
-
 export default function compileComponent(source: string, props: any) {
   const parser = new DOMParser();
   const fragment = document.createElement('template');
+
   const components: Record<string, Block<any>> = {};
 
   Object.entries(props).forEach(([key, value]) => {
@@ -19,24 +13,16 @@ export default function compileComponent(source: string, props: any) {
 
       try {
         props[key] = `<div id="id-${value.id}"></div>`;
-      } catch (err) {}
-    }
-    if (value instanceof Array) {
-      const multiValues: string[] = [];
-      Object.values(value).forEach((v) => {
-        if (v instanceof Block) {
-          components[v.id] = v;
-          multiValues.push(`<div id="id-${v.id}"></div>`);
-        }
-      });
-      if (multiValues.length) {
-        props[key] = multiValues.join('');
+      } catch (err) {
+        console.log(err);
       }
     }
   });
 
-  
-  fragment.innerHTML = parser.parseFromString(Handlebars.compile(source)(props), 'text/html').body.innerHTML;
+  fragment.innerHTML = parser.parseFromString(
+    Handlebars.compile(source)(props),
+    'text/html',
+  ).body.innerHTML;
 
   Object.entries(components).forEach(([id, component]) => {
     const stub = fragment.content.querySelector(`#id-${id}`);

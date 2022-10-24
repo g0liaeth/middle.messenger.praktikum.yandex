@@ -16,9 +16,11 @@ export default class ErrorPage extends Block<ErrorPagePropsType> {
 
   render() {
     const source = `
-    <span class={{ codeClassName }}>{{ codeValue }}</span>
-    <span class={{ textClassName }}>{{ textValue }}</span>
-    {{{ buttonBack }}}
+    <div>
+      <span class={{ codeClassName }}>{{ codeValue }}</span>
+      <span class={{ textClassName }}>{{ textValue }}</span>
+      {{{ buttonBack }}}
+    </div>
     `;
 
     const buttonBack = new Button({
