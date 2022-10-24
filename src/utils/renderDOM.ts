@@ -8,5 +8,6 @@ export default function renderDOM<TProps>(query: string, block: Block<TProps>): 
   }
 
   root.innerHTML = '';
+
   root.append(block.getContent());
 }

@@ -44,10 +44,6 @@ export default class Block<TProps> {
       return;
     }
     this._eventBus.emit(Block.EVENTS.FLOW_RENDER);
-    // if (Object.keys({ ...oldProps, ...newProps }).every((key) => oldProps[key] === newProps[key])) {
-    //   this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
-    // }
-    // return;
   }
 
   protected componentDidUpdate(oldProps: TProps, newProps: TProps) {

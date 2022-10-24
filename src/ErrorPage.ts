@@ -16,7 +16,7 @@ export default class ErrorPage extends Block<ErrorPagePropsType> {
 
   render() {
     const source = `
-    <div>
+    <div class="main-container">
       <span class={{ codeClassName }}>{{ codeValue }}</span>
       <span class={{ textClassName }}>{{ textValue }}</span>
       {{{ buttonBack }}}
@@ -28,6 +28,6 @@ export default class ErrorPage extends Block<ErrorPagePropsType> {
       className: 'btn-green',
     });
 
-    return compileComponent(source, {...this.props, buttonBack});
+    return compileComponent(source, { ...this.props, buttonBack });
   }
 }
