@@ -9,7 +9,13 @@ export default class Login extends Block<LoginPropsType> {
   }
 
   render() {
-    const source = `<div>Login stub</div>`;
+    const source = `
+    <div class="form-container">
+      {{{ form }}}
+    </div>
+    `;
+
+    const form = new Form({});
 
     return compileComponent(source, this.props);
   }
