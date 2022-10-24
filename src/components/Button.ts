@@ -1,9 +1,14 @@
-import Block from './utils/Block';
-import compileComponent from './utils/compileComponent';
+import Chat from '../Chat';
+import ErrorPage from '../ErrorPage';
+import Block from '../utils/Block';
+import compileComponent from '../utils/compileComponent';
 
 export type ButtonProps = {
   className?: string;
   label: string;
+  events?: {
+    click: (e: Event) => void;
+  };
 };
 
 export default class Button extends Block<ButtonProps> {

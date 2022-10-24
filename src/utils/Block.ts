@@ -55,8 +55,16 @@ export default class Block<TProps> {
 
     const element = fragment.firstChild as HTMLElement;
 
+    if (!element) {
+      return;
+    }
+
+    this._removeEventListeners();
+
     this._element.replaceWith(element);
     this._element = element;
+
+    this._addEventListeners();
   }
 
   protected render() {
@@ -133,6 +141,7 @@ export default class Block<TProps> {
 
   private _addEventListeners() {
     const { events = {} }: any = this.props;
+    // console.log(events);
 
     Object.keys(events).forEach((eventName) => {
       this._element.addEventListener(eventName, events[eventName]);

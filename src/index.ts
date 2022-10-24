@@ -1,59 +1,62 @@
 import './components';
-import Button, { ButtonProps } from './Button';
 import renderDOM from './utils/renderDOM';
-import ErrorPage from './ErrorPage';
+import ErrorPage from './pages/ErrorPage';
+import Chat from './pages/Chat';
+import Login from './pages/Login';
+import Signin from './pages/Signin';
+import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
+import ChangePassword from './pages/ChangePassword';
 
 const currentRoute: string = window.location.pathname;
-// const button = new Button({ className: 'btn-green', label: 'Click me please!' });
+
+const chat = new Chat({});
+const login = new Login({});
+const signin = new Signin({});
+const profile = new Profile({});
+const editProfile = new EditProfile({});
+const changePassword = new ChangePassword({});
 const errorPage = new ErrorPage({
   codeClassName: 'header-big',
   codeValue: '404',
   textClassName: 'main-text',
   textValue: 'Не туда попали',
+  bindedBlock: chat,
 });
 
 switch (currentRoute) {
-  // case '/':
-  //   renderDOM('#root', new Login());
-  //   break;
+  case '/':
+    renderDOM('#root', login);
+    break;
 
-  // case '/login':
-  //   renderDOM('#root', new Login());
-  //   break;
+  case '/login':
+    renderDOM('#root', login);
+    break;
 
-  // case '/signin':
-  //   renderDOM('#root', new Signin());
-  //   break;
+  case '/signin':
+    renderDOM('#root', signin);
+    break;
 
-  // case '/chat':
-  //   renderDOM('#root', new Chat());
-  //   break;
+  case '/chat':
+    renderDOM('#root', chat);
+    break;
 
-  // case '/profile':
-  //   renderDOM('#root', new Profile());
-  //   break;
+  case '/profile':
+    renderDOM('#root', profile);
+    break;
 
-  // case '/edit-profile':
-  //   renderDOM('#root', new EditProfile());
-  //   break;
+  case '/edit-profile':
+    renderDOM('#root', editProfile);
+    break;
 
-  // case '/change-password':
-  //   renderDOM('#root', new ChangePassword());
-  //   break;
+  case '/change-password':
+    renderDOM('#root', changePassword);
+    break;
 
   default:
     renderDOM('#root', errorPage);
     break;
 }
-
-// renderDOM<ButtonProps>('#root', new Button({ className: 'btn-green', label: 'Click me please!' }));
-// setTimeout(() => {
-//   // button.props.label = 'second';
-//   button.setProps({
-//     label: 'new label',
-//     className: 'new-class',
-//   });
-// }, 2000);
 
 setTimeout(() => {
   // errorPage.props.codeValue = 'second';

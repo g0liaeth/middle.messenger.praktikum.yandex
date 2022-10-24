@@ -1,12 +1,14 @@
-import Block from './utils/Block';
-import compileComponent from './utils/compileComponent';
-import Button from './Button';
+import Block from '../utils/Block';
+import compileComponent from '../utils/compileComponent';
+import Button from '../components/Button';
+import Chat from './Chat';
 
 type ErrorPagePropsType = {
   codeClassName: string;
   codeValue: string;
   textClassName: string;
   textValue: string;
+  bindedBlock?: Chat;
 };
 
 export default class ErrorPage extends Block<ErrorPagePropsType> {
@@ -26,6 +28,11 @@ export default class ErrorPage extends Block<ErrorPagePropsType> {
     const buttonBack = new Button({
       label: 'Назад к чатам',
       className: 'btn-green',
+      events: {
+        click: () => {
+          window.location.assign('chat');
+        },
+      },
     });
 
     return compileComponent(source, { ...this.props, buttonBack });
