@@ -1,0 +1,27 @@
+import Block from '../../utils/Block';
+import compileComponent from '../../utils/compileComponent';
+
+export type BadgePropsType = {
+  className?: string;
+  imgPath: string;
+  events?: {
+    click: (e: Event) => void;
+  };
+};
+
+export default class Badge extends Block<BadgePropsType> {
+  constructor(props: BadgePropsType) {
+    super(props);
+  }
+
+  render() {
+    const source = `
+    <div class="img-back">
+      <img src={{ imgPath }} alt="avatar" class="profile-img">
+      <span class="img-back-text">Поменять аватар</span>
+    </div>
+    `;
+
+    return compileComponent(source, this.props);
+  }
+}

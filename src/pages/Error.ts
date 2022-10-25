@@ -4,17 +4,22 @@ import Button from '../components/Button/Button';
 import Text from '../components/Text/Text';
 import Chat from './Chat';
 
-type ErrorPagePropsType = {
+type ErrorPropsType = {
   codeClassName: string;
   codeValue: string;
   textClassName: string;
   textValue: string;
   bindedBlock?: Chat;
+  backgroundColor?: string;
 };
 
-export default class ErrorPage extends Block<ErrorPagePropsType> {
-  constructor(props: ErrorPagePropsType) {
+export default class Error extends Block<ErrorPropsType> {
+  constructor(props: ErrorPropsType) {
     super(props);
+  }
+
+  componentDidMount(props: any): void {
+    if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
   }
 
   render() {

@@ -1,7 +1,7 @@
 import Block from '../../utils/Block';
 import compileComponent from '../../utils/compileComponent';
 
-export type ButtonProps = {
+export type ButtonPropsType = {
   className?: string;
   label: string;
   type?: string;
@@ -10,8 +10,8 @@ export type ButtonProps = {
   };
 };
 
-export default class Button extends Block<ButtonProps> {
-  constructor(props: ButtonProps) {
+export default class Button extends Block<ButtonPropsType> {
+  constructor(props: ButtonPropsType) {
     super(props);
   }
 

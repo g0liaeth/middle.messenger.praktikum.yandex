@@ -10,11 +10,16 @@ import Validator from '../utils/Validator';
 
 export type LoginPropsType = {
   className?: string;
+  backgroundColor?: string;
 };
 
 export default class Login extends Block<LoginPropsType> {
   constructor(props: LoginPropsType) {
     super(props);
+  }
+
+  componentDidMount(props: any): void {
+    if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
   }
 
   private _onFocusChange(event: Event) {
@@ -37,6 +42,7 @@ export default class Login extends Block<LoginPropsType> {
   }
 
   render() {
+    // if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
     const source = `
     <div class="login-form-container">
       <form class="login-form">

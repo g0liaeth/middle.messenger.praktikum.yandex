@@ -10,11 +10,16 @@ import Validator from '../utils/Validator';
 
 export type SigninPropsType = {
   className?: string;
+  backgroundColor?: string;
 };
 
 export default class Signin extends Block<SigninPropsType> {
   constructor(props: SigninPropsType) {
     super(props);
+  }
+
+  componentDidMount(props: any): void {
+    if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
   }
 
   private _onFocusChange(event: Event) {

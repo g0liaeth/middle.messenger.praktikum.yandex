@@ -29,6 +29,8 @@ export default class Input extends Block<InputPropsType> {
       {{ disabled }}
       class={{ className }}
       placeholder={{#if inputPlaceholder}}{{inputPlaceholder}}{{else}}""{{/if}}
+      autocomplete="off"
+      {{#if inputValue}}value="{{ inputValue }}"{{else}}{{/if}}
     />
     `;
 

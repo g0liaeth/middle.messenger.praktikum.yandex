@@ -38,6 +38,8 @@ button {
   padding: 10px;
   font-family: 'Comfortaa', cursive;
   background-color: $accept-button-color;
+  border-color: $primary-black;
+  border-width: 1px;
 }
 
 .btn-exit {
@@ -47,6 +49,8 @@ button {
   font-family: 'Comfortaa', cursive;
   color: $danger-color;
   background-color: $deny-button-color;
+  border-color: $primary-black;
+  border-width: 1px;
 }
 
 .btn-back {

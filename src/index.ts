@@ -1,5 +1,5 @@
 import renderDOM from './utils/renderDOM';
-import ErrorPage from './pages/ErrorPage';
+import Error from './pages/Error';
 import Chat from './pages/Chat';
 import Login from './pages/Login';
 import Signin from './pages/Signin';
@@ -9,60 +9,58 @@ import ChangePassword from './pages/ChangePassword';
 
 const currentRoute: string = window.location.pathname;
 
-const chat = new Chat({});
-const login = new Login({});
-const signin = new Signin({});
-const profile = new Profile({});
-const editProfile = new EditProfile({});
-const changePassword = new ChangePassword({});
-const errorPage = new ErrorPage({
-  codeClassName: 'header-big',
-  codeValue: '404',
-  textClassName: 'main-text',
-  textValue: 'Не туда попали',
-  bindedBlock: chat,
-});
-
 switch (currentRoute) {
   case '/':
-    renderDOM('#root', login);
+    renderDOM('#root', new Login({ backgroundColor: '#d4e3f7' }));
     break;
 
   case '/login':
-    renderDOM('#root', login);
+    renderDOM('#root', new Login({ backgroundColor: '#d4e3f7' }));
     break;
 
   case '/signin':
-    renderDOM('#root', signin);
+    renderDOM('#root', new Signin({ backgroundColor: '#d4e3f7' }));
     break;
 
   case '/chat':
-    renderDOM('#root', chat);
+    renderDOM('#root', new Chat({ backgroundColor: '#fff' }));
     break;
 
   case '/profile':
-    renderDOM('#root', profile);
+    renderDOM('#root', new Profile({ backgroundColor: '#fff' }));
     break;
 
   case '/edit-profile':
-    renderDOM('#root', editProfile);
+    renderDOM('#root', new EditProfile({ backgroundColor: '#fff' }));
     break;
 
   case '/change-password':
-    renderDOM('#root', changePassword);
+    renderDOM('#root', new ChangePassword({ backgroundColor: '#fff' }));
+    break;
+
+  case '/500':
+    renderDOM(
+      '#root',
+      new Error({
+        codeClassName: 'header-big',
+        codeValue: '500',
+        textClassName: 'main-text',
+        textValue: 'Мы уже фиксим',
+        backgroundColor: '#d4e3f7',
+      }),
+    );
     break;
 
   default:
-    renderDOM('#root', errorPage);
+    renderDOM(
+      '#root',
+      new Error({
+        codeClassName: 'header-big',
+        codeValue: '404',
+        textClassName: 'main-text',
+        textValue: 'Не туда попали',
+        backgroundColor: '#d4e3f7',
+      }),
+    );
     break;
 }
-
-setTimeout(() => {
-  // errorPage.props.codeValue = 'second';
-  errorPage.setProps({
-    codeClassName: 'header-big',
-    codeValue: '500',
-    textClassName: 'main-text',
-    textValue: 'Мы уже фиксим',
-  });
-}, 2000);
