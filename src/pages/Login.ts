@@ -6,6 +6,7 @@ import Link from '../components/Link/Link';
 import Text from '../components/Text/Text';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
+import Validator from '../utils/Validator';
 
 export type LoginPropsType = {
   className?: string;
@@ -14,6 +15,25 @@ export type LoginPropsType = {
 export default class Login extends Block<LoginPropsType> {
   constructor(props: LoginPropsType) {
     super(props);
+  }
+
+  private _onFocusChange(event: Event) {
+    const validator = new Validator();
+    const input = event.target as HTMLInputElement;
+    const errors = validator.validateInput(input);
+    const errorMessage = document.querySelector(`#${input.getAttribute('id')}-error`);
+
+    if (!errorMessage) {
+      throw new Error('Нет спана для ошибки');
+    }
+
+    if (errors.length !== 0) {
+      errorMessage.textContent = errors.join('/n');
+      input.classList.add('invalid');
+    } else {
+      errorMessage.textContent = '';
+      input.classList.remove('invalid');
+    }
   }
 
   render() {
@@ -48,6 +68,10 @@ export default class Login extends Block<LoginPropsType> {
         inputType: 'text',
         inputId: 'login',
         inputName: 'user_login',
+        events: {
+          blur: this._onFocusChange.bind(this),
+          focus: this._onFocusChange.bind(this),
+        },
       }),
     });
 
@@ -63,6 +87,10 @@ export default class Login extends Block<LoginPropsType> {
         inputType: 'password',
         inputId: 'password',
         inputName: 'user_password',
+        events: {
+          blur: this._onFocusChange.bind(this),
+          focus: this._onFocusChange.bind(this),
+        },
       }),
     });
 

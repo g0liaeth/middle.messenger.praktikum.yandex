@@ -9,6 +9,10 @@ export type InputPropsType = {
   disabled?: string;
   inputValue?: string;
   inputPlaceholder?: string;
+  events?: {
+    blur?: () => void;
+    focus?: () => void;
+  };
 };
 
 export default class Input extends Block<InputPropsType> {
@@ -23,7 +27,6 @@ export default class Input extends Block<InputPropsType> {
       id={{ inputId }}
       name={{ inputName }}
       {{ disabled }}
-      value={{#if inputValue}}{{inputValue}}{{else}}""{{/if}}
       class={{ className }}
       placeholder={{#if inputPlaceholder}}{{inputPlaceholder}}{{else}}""{{/if}}
     />

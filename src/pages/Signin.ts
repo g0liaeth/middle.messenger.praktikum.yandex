@@ -6,6 +6,7 @@ import Link from '../components/Link/Link';
 import Text from '../components/Text/Text';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
+import Validator from '../utils/Validator';
 
 export type SigninPropsType = {
   className?: string;
@@ -14,6 +15,42 @@ export type SigninPropsType = {
 export default class Signin extends Block<SigninPropsType> {
   constructor(props: SigninPropsType) {
     super(props);
+  }
+
+  private _onFocusChange(event: Event) {
+    const validator = new Validator();
+    const input = event.target as HTMLInputElement;
+    const errors = validator.validateInput(input);
+    const errorMessage = document.querySelector(`#${input.getAttribute('id')}-error`);
+    console.log(errorMessage);
+
+    if (!errorMessage) {
+      throw new Error('Нет спана для ошибки');
+    }
+
+    if (errors.length !== 0) {
+      errorMessage.textContent = errors.join('/n');
+      input.classList.add('invalid');
+    } else {
+      errorMessage.textContent = '';
+      input.classList.remove('invalid');
+    }
+  }
+
+  private _chekPasswordRepeat(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const passwordInput = document.querySelector('#password') as HTMLInputElement;
+    const errorMessage = document.querySelector(`#${input.getAttribute('id')}-error`);
+    if (!errorMessage) {
+      throw new Error('Нет спана для ошибки');
+    }
+    if (passwordInput.value !== input.value) {
+      errorMessage.textContent = 'Пароли не совпадают';
+      input.classList.add('invalid');
+    } else {
+      errorMessage.textContent = '';
+      input.classList.remove('invalid');
+    }
   }
 
   render() {
@@ -53,6 +90,10 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'email',
         inputId: 'email',
         inputName: 'user_email',
+        events: {
+          blur: this._onFocusChange.bind(this),
+          focus: this._onFocusChange.bind(this),
+        },
       }),
     });
 
@@ -68,6 +109,10 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'text',
         inputId: 'login',
         inputName: 'user_login',
+        events: {
+          blur: this._onFocusChange.bind(this),
+          focus: this._onFocusChange.bind(this),
+        },
       }),
     });
 
@@ -83,6 +128,10 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'text',
         inputId: 'first_name',
         inputName: 'user_first_name',
+        events: {
+          blur: this._onFocusChange.bind(this),
+          focus: this._onFocusChange.bind(this),
+        },
       }),
     });
 
@@ -98,6 +147,10 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'text',
         inputId: 'second_name',
         inputName: 'user_second_name',
+        events: {
+          blur: this._onFocusChange.bind(this),
+          focus: this._onFocusChange.bind(this),
+        },
       }),
     });
 
@@ -113,6 +166,10 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'tel',
         inputId: 'phone',
         inputName: 'user_phone',
+        events: {
+          blur: this._onFocusChange.bind(this),
+          focus: this._onFocusChange.bind(this),
+        },
       }),
     });
 
@@ -128,6 +185,10 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'password',
         inputId: 'password',
         inputName: 'user_password',
+        events: {
+          blur: this._onFocusChange.bind(this),
+          focus: this._onFocusChange.bind(this),
+        },
       }),
     });
 
@@ -143,6 +204,10 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'password',
         inputId: 'repeat_password',
         inputName: 'user_repeat_password',
+        events: {
+          blur: this._chekPasswordRepeat.bind(this),
+          focus: this._chekPasswordRepeat.bind(this),
+        },
       }),
     });
 
