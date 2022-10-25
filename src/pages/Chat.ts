@@ -72,7 +72,7 @@ export default class Chat extends Block<ChatPropsType> {
 
     const profileLink = new Link({
       className: 'profile-link',
-      path: 'http://localhost:4321/profile',
+      path: 'profile',
       text: 'Профиль >',
     });
 

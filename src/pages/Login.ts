@@ -133,7 +133,7 @@ export default class Login extends Block<LoginPropsType> {
 
     const registerLink = new Link({
       className: 'simple-link',
-      path: 'http://localhost:4321/signin',
+      path: 'signin',
       text: 'Нет аккаунта?',
     });
 

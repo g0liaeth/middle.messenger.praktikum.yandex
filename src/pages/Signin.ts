@@ -247,7 +247,7 @@ export default class Signin extends Block<SigninPropsType> {
 
     const loginLink = new Link({
       className: 'simple-link',
-      path: 'http://localhost:4321/login',
+      path: 'login',
       text: 'Войти',
     });
 
