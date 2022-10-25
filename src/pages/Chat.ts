@@ -94,7 +94,8 @@ export default class Chat extends Block<ChatPropsType> {
     });
 
     const chatMenu = new Button({
-      label: 'chat menu',
+      className: 'btn-menu',
+      label: '',
     });
 
     const newMessageForm = new NewMessageForm({ attachBtnImg });
