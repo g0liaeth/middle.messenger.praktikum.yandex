@@ -4,6 +4,7 @@ import compileComponent from '../../utils/compileComponent';
 export type ButtonProps = {
   className?: string;
   label: string;
+  type?: string;
   events?: {
     click: (e: Event) => void;
   };

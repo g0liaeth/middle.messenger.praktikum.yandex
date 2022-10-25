@@ -97,6 +97,32 @@ export default class Login extends Block<LoginPropsType> {
     const loginBtn = new Button({
       className: 'btn-black',
       label: 'Войти',
+      type: 'submit',
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          const target = event.target as HTMLElement;
+          const inputs = target.parentElement?.querySelectorAll('input');
+          let errors: string[] = [];
+          if (!inputs) {
+            return;
+          }
+          inputs.forEach((input) => {
+            const validator = new Validator();
+            const fieldErrors = validator.validateInput(input);
+            errors = [...errors, ...fieldErrors];
+          });
+          if (errors.length > 0) {
+            console.log(errors);
+            return;
+          }
+          const formData = {};
+          inputs.forEach((input) => {
+            formData[input.getAttribute('id')!] = input.value;
+          });
+          console.log(formData);
+        },
+      },
     });
 
     const registerLink = new Link({

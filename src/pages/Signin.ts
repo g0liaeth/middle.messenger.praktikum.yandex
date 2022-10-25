@@ -22,7 +22,6 @@ export default class Signin extends Block<SigninPropsType> {
     const input = event.target as HTMLInputElement;
     const errors = validator.validateInput(input);
     const errorMessage = document.querySelector(`#${input.getAttribute('id')}-error`);
-    console.log(errorMessage);
 
     if (!errorMessage) {
       throw new Error('Нет спана для ошибки');
@@ -214,6 +213,31 @@ export default class Signin extends Block<SigninPropsType> {
     const registerBtn = new Button({
       className: 'btn-black',
       label: 'Зарегистрироваться',
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          const target = event.target as HTMLElement;
+          const inputs = target.parentElement?.querySelectorAll('input');
+          let errors: string[] = [];
+          if (!inputs) {
+            return;
+          }
+          inputs.forEach((input) => {
+            const validator = new Validator();
+            const fieldErrors = validator.validateInput(input);
+            errors = [...errors, ...fieldErrors];
+          });
+          if (errors.length > 0) {
+            console.log(errors);
+            return;
+          }
+          const formData = {};
+          inputs.forEach((input) => {
+            formData[input.getAttribute('id')!] = input.value;
+          });
+          console.log(formData);
+        },
+      },
     });
 
     const loginLink = new Link({

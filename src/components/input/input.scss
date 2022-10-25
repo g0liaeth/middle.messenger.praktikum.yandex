@@ -22,6 +22,10 @@
   border-bottom: 1px solid $primary-black;
 }
 
+.login-input:focus {
+  outline: none;
+}
+
 .profile-editable-input {
   border: 0;
   padding: 5px;
