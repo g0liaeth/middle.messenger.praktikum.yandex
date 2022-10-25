@@ -21,7 +21,7 @@ export default class Form extends Block<FormPropsType> {
 
   render() {
     const source = `
-    <form>
+    <form class="login-form">
       {{{ formHeader }}}
       <div>
         {{{ loginFormGroup }}}

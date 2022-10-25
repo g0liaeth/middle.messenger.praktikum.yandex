@@ -1,5 +1,4 @@
 import Button from '../components/Button/Button';
-import Form from '../components/Form/Form';
 import FormGroup from '../components/FormGroup/FormGroup';
 import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
@@ -19,57 +18,72 @@ export default class Login extends Block<LoginPropsType> {
 
   render() {
     const source = `
-    <div class="form-container">
-      {{{ form }}}
+    <div class="login-form-container">
+      <form class="login-form">
+        {{{ formHeader }}}
+        <div>
+          {{{ loginFormGroup }}}
+          {{{ passwordFormGroup }}}
+        </div>
+        {{{ loginBtn }}}
+        {{{ registerLink }}}
+      </form>
     </div>
     `;
 
-    const headerText = new Text({
+    const formHeader = new Text({
       className: 'header-form',
       value: 'Вход',
     });
 
-    const form = new Form({
-      formHeader: headerText,
-      loginFormGroup: new FormGroup({
-        className: 'form-group',
-        label: new Label({
-          className: 'login-label',
-          labelFor: 'login',
-          text: 'Логин',
-        }),
-        input: new Input({
-          className: 'login-input',
-          inputType: 'text',
-          inputId: 'login',
-          inputName: 'user_login',
-        }),
+    const loginFormGroup = new FormGroup({
+      className: 'form-group',
+      label: new Label({
+        className: 'login-label',
+        labelFor: 'login',
+        text: 'Логин',
       }),
-      passwordFormGroup: new FormGroup({
-        className: 'form-group',
-        label: new Label({
-          className: 'login-label',
-          labelFor: 'password',
-          text: 'Пароль',
-        }),
-        input: new Input({
-          className: 'login-input',
-          inputType: 'password',
-          inputId: 'password',
-          inputName: 'user_password',
-        }),
-      }),
-      button: new Button({
-        className: 'btn-black',
-        label: 'Войти',
-      }),
-      link: new Link({
-        className: 'simple-link',
-        path: 'http://localhost:4321/signin',
-        text: 'Нет аккаунта?',
+      input: new Input({
+        className: 'login-input',
+        inputType: 'text',
+        inputId: 'login',
+        inputName: 'user_login',
       }),
     });
 
-    return compileComponent(source, { ...this.props, form });
+    const passwordFormGroup = new FormGroup({
+      className: 'form-group',
+      label: new Label({
+        className: 'login-label',
+        labelFor: 'password',
+        text: 'Пароль',
+      }),
+      input: new Input({
+        className: 'login-input',
+        inputType: 'password',
+        inputId: 'password',
+        inputName: 'user_password',
+      }),
+    });
+
+    const loginBtn = new Button({
+      className: 'btn-black',
+      label: 'Войти',
+    });
+
+    const registerLink = new Link({
+      className: 'simple-link',
+      path: 'http://localhost:4321/signin',
+      text: 'Нет аккаунта?',
+    });
+
+    return compileComponent(source, {
+      ...this.props,
+      formHeader,
+      loginFormGroup,
+      passwordFormGroup,
+      loginBtn,
+      registerLink,
+    });
   }
 }
