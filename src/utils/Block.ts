@@ -1,8 +1,6 @@
 import { v4 as makeUUID } from 'uuid';
 import EventBus from './EventBus';
 
-// type Nullable<T> = T | null;
-
 export default class Block<TProps> {
   static EVENTS = {
     INIT: 'init',
