@@ -7,7 +7,8 @@ enum METHODS {
 
 type Options = {
   method: METHODS;
-  data?: Record<string, any>;
+  data?: any;
+  headers?: Record<string, any>;
   timeout?: number;
 };
 
@@ -21,27 +22,38 @@ export default class CustomFetch {
       .join('&')}`;
   }
 
-  public get = (url: string, options: Options): Promise<XMLHttpRequest> => {
-    return this._request(
-      url + this._queryStringify(options.data),
-      { ...options, method: METHODS.GET },
-      options.timeout,
-    );
+  public get = (
+    url: string,
+    options: Options = { method: METHODS.GET },
+  ): Promise<XMLHttpRequest> => {
+    return this._request(url + this._queryStringify(options.data), options);
   };
 
-  public put = (url, options: Options): Promise<XMLHttpRequest> => {
-    return this._request(url, { ...options, method: METHODS.PUT }, options.timeout);
+  public put = (
+    url: string,
+    options: Options = { method: METHODS.PUT },
+  ): Promise<XMLHttpRequest> => {
+    return this._request(url, options);
   };
 
-  public post = (url, options: Options): Promise<XMLHttpRequest> => {
-    return this._request(url, { ...options, method: METHODS.POST }, options.timeout);
+  public post = (
+    url: string,
+    options: Options = { method: METHODS.POST },
+  ): Promise<XMLHttpRequest> => {
+    return this._request(url, options);
   };
 
-  public delete = (url, options: Options): Promise<XMLHttpRequest> => {
-    return this._request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+  public delete = (
+    url: string,
+    options: Options = { method: METHODS.GET },
+  ): Promise<XMLHttpRequest> => {
+    return this._request(url, options);
   };
 
-  private _request = (url, options, timeout = 5000): Promise<XMLHttpRequest> => {
+  private _request = (
+    url: string,
+    options: Options = { method: METHODS.GET, timeout: 5000 },
+  ): Promise<XMLHttpRequest> => {
     const { method, headers, data } = options;
 
     return new Promise((resolve, reject) => {
@@ -49,7 +61,7 @@ export default class CustomFetch {
       xhr.open(method, url);
 
       xhr.withCredentials = true;
-      xhr.timeout = timeout;
+      xhr.timeout = options.timeout;
 
       for (let key in headers) {
         xhr.setRequestHeader(key, headers[key]);
