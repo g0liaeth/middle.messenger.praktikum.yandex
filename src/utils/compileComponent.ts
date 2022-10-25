@@ -17,6 +17,18 @@ export default function compileComponent(source: string, props: any) {
         console.log(err);
       }
     }
+    if (value instanceof Array) {
+      const multiValues: string[] = [];
+      Object.values(value).forEach((v) => {
+        if (v instanceof Block) {
+          components[v.id] = v;
+          multiValues.push(`<div id="id-${v.id}"></div>`);
+        }
+      });
+      if (multiValues.length) {
+        props[key] = multiValues.join('');
+      }
+    }
   });
 
   fragment.innerHTML = parser.parseFromString(

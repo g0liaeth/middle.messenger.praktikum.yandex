@@ -7,7 +7,11 @@ import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 import avatarImg from '../static/mock-ava.png';
 import attachBtnImg from '../static/paperclip-solid.svg';
+import newMessageImg from '../static/check-solid.svg';
+import readedMessageImg from '../static/check-double-solid.svg';
 import NewMessageForm from '../components/NewMessageForm/NewMessageForm';
+import Dialog from '../components/Dialog/Dialog';
+import Message from '../components/Message/Message';
 
 export type ChatPropsType = {
   className?: string;
@@ -40,7 +44,7 @@ export default class Chat extends Block<ChatPropsType> {
         </div>
         <div class="chat-list-container">
           <ul class="chat-list">
-            list of chats
+            {{{ dialogsList }}}
           </ul>
         </div>
       </div>
@@ -56,7 +60,7 @@ export default class Chat extends Block<ChatPropsType> {
         </div>
         <div class="chat-body">
           <div class="message-list">
-            list of messages
+            {{{ messagesList }}}
           </div>
         </div>
         <div class="chat-footer">
@@ -95,6 +99,42 @@ export default class Chat extends Block<ChatPropsType> {
 
     const newMessageForm = new NewMessageForm({ attachBtnImg });
 
+    const dialogsList: Dialog[] = [];
+    for (let i = 0; i < 9; i++) {
+      dialogsList.push(
+        new Dialog({
+          hasNewMessages: true,
+          lastMessageSender: true,
+          senderUserName: 'Вадим',
+          lastMessageText: 'Lorem ipsum dolor sit amet consectetur adi...',
+          lastMessageTime: '12:45',
+          newMessagesCount: 4,
+        }),
+      );
+    }
+
+    const messagesList: Message[] = [];
+    for (let i = 0; i < 5; i++) {
+      messagesList.push(
+        new Message({
+          className: 'incoming-message',
+          readed: true,
+          sendTime: '15:47',
+          readMarkImg: readedMessageImg,
+          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque tenetur qui laudantium autem omnis. Quod ex omnis, totam impedit tempore cupiditate laboriosam fugit, minima commodi assumenda excepturi inventore eaque exercitationem! Possimus voluptates numquam dignissimos natus atque vero iure sed ut adipisci eligendi! Voluptas quas vel quos, amet nemo omnis sit, recusandae iusto laudantium minus iure porro assumenda praesentium saepe ipsa!',
+        }),
+      );
+    }
+    messagesList.push(
+      new Message({
+        className: 'outgoing-message',
+        readed: false,
+        sendTime: '12:00',
+        text: 'Круто!!!',
+        readMarkImg: newMessageImg,
+      }),
+    );
+
     return compileComponent(source, {
       ...this.props,
       profileLink,
@@ -103,6 +143,8 @@ export default class Chat extends Block<ChatPropsType> {
       currentUserName,
       chatMenu,
       newMessageForm,
+      dialogsList,
+      messagesList,
     });
   }
 }

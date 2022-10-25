@@ -50,6 +50,10 @@
   padding-left: 40px;
 }
 
+.search-textinput:focus {
+  outline: none;
+}
+
 .new-message-textinput {
   padding: 20px;
   width: calc(100% - 60px);
@@ -61,4 +65,8 @@
   border: 0;
   border-top: 1px solid $primary-black;
   box-sizing: border-box;
+}
+
+.new-message-textinput:focus {
+  outline: none;
 }

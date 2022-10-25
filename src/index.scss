@@ -132,7 +132,7 @@ input:focus.invalid {
 .message-list {
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 20px 30px 20px 30px;
 }
 
 .incoming-message {
@@ -142,6 +142,8 @@ input:focus.invalid {
   padding: 10px;
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .outgoing-message {
@@ -151,6 +153,8 @@ input:focus.invalid {
   padding: 10px;
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .message-meta {
@@ -216,4 +220,5 @@ input:focus.invalid {
 .chat-list {
   display: flex;
   flex-direction: column;
+  padding-left: 0;
 }
