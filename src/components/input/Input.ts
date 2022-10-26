@@ -1,19 +1,6 @@
+import { InputPropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block';
 import compileComponent from '../../utils/compileComponent';
-
-export type InputPropsType = {
-  className?: string;
-  inputType: string;
-  inputId: string;
-  inputName: string;
-  disabled?: string;
-  inputValue?: string;
-  inputPlaceholder?: string;
-  events?: {
-    blur?: () => void;
-    focus?: () => void;
-  };
-};
 
 export default class Input extends Block<InputPropsType> {
   constructor(props: InputPropsType) {

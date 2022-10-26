@@ -6,13 +6,9 @@ import Label from '../components/Label/Label';
 import Popup from '../components/Popup/Popup';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
+import { ProfilePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
-
-export type ProfilePropsType = {
-  className?: string;
-  backgroundColor?: string;
-};
 
 export default class Profile extends Block<ProfilePropsType> {
   constructor(props: ProfilePropsType) {

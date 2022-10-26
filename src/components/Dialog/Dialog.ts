@@ -1,17 +1,8 @@
+import userAvatarImg from '../../static/mock-ava.png';
+import { DialogPropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block';
 import compileComponent from '../../utils/compileComponent';
 import UserAvatar from '../UserAvatar/UserAvatar';
-import userAvatarImg from '../../static/mock-ava.png';
-
-export type DialogPropsType = {
-  className?: string;
-  lastMessageText?: string;
-  lastMessageSender?: boolean;
-  lastMessageTime?: string;
-  hasNewMessages: boolean;
-  newMessagesCount?: number;
-  senderUserName?: string;
-};
 
 export default class Dialog extends Block<DialogPropsType> {
   constructor(props: DialogPropsType) {

@@ -4,14 +4,10 @@ import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
 import Link from '../components/Link/Link';
 import Text from '../components/Text/Text';
+import { LoginPropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
-
-export type LoginPropsType = {
-  className?: string;
-  backgroundColor?: string;
-};
 
 export default class Login extends Block<LoginPropsType> {
   constructor(props: LoginPropsType) {

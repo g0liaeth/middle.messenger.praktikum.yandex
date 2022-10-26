@@ -1,11 +1,6 @@
+import { LabelPropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block';
 import compileComponent from '../../utils/compileComponent';
-
-export type LabelPropsType = {
-  className?: string;
-  text: string;
-  labelFor: string;
-};
 
 export default class Label extends Block<LabelPropsType> {
   constructor(props: LabelPropsType) {

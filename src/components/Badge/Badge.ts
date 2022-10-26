@@ -1,13 +1,6 @@
+import { BadgePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block';
 import compileComponent from '../../utils/compileComponent';
-
-export type BadgePropsType = {
-  className?: string;
-  imgPath: string;
-  events?: {
-    click: (e: Event) => void;
-  };
-};
 
 export default class Badge extends Block<BadgePropsType> {
   constructor(props: BadgePropsType) {

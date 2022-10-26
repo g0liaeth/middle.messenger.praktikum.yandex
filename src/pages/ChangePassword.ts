@@ -3,16 +3,11 @@ import Button from '../components/Button/Button';
 import FormGroup from '../components/FormGroup/FormGroup';
 import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
-import Popup from '../components/Popup/Popup';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
+import { ChangePasswordPropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
-
-export type ChangePasswordPropsType = {
-  className?: string;
-  backgroundColor?: string;
-};
 
 export default class ChangePassword extends Block<ChangePasswordPropsType> {
   constructor(props: ChangePasswordPropsType) {

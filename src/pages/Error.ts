@@ -1,17 +1,8 @@
-import Block from '../utils/Block';
-import compileComponent from '../utils/compileComponent';
 import Button from '../components/Button/Button';
 import Text from '../components/Text/Text';
-import Chat from './Chat';
-
-type ErrorPropsType = {
-  codeClassName: string;
-  codeValue: string;
-  textClassName: string;
-  textValue: string;
-  bindedBlock?: Chat;
-  backgroundColor?: string;
-};
+import { ErrorPropsType } from '../types/componentTypes';
+import Block from '../utils/Block';
+import compileComponent from '../utils/compileComponent';
 
 export default class Error extends Block<ErrorPropsType> {
   constructor(props: ErrorPropsType) {

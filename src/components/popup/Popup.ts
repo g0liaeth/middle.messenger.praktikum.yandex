@@ -1,3 +1,4 @@
+import { PopupPropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block';
 import compileComponent from '../../utils/compileComponent';
 import Button from '../Button/Button';
@@ -5,13 +6,6 @@ import FormGroup from '../FormGroup/FormGroup';
 import Input from '../Input/Input';
 import Label from '../Label/Label';
 import Text from '../Text/Text';
-
-export type PopupPropsType = {
-  className?: string;
-  events?: {
-    click: (e: Event) => void;
-  };
-};
 
 export default class Popup extends Block<PopupPropsType> {
   constructor(props: PopupPropsType) {

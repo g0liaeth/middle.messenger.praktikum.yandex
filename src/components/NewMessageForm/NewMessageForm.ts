@@ -1,12 +1,8 @@
+import { NewMessageFormPropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block';
 import compileComponent from '../../utils/compileComponent';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
-
-export type NewMessageFormPropsType = {
-  className?: string;
-  attachBtnImg: string;
-};
 
 export default class NewMessageForm extends Block<NewMessageFormPropsType> {
   constructor(props: NewMessageFormPropsType) {

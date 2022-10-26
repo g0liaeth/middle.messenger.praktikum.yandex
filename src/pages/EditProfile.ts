@@ -6,13 +6,9 @@ import Label from '../components/Label/Label';
 import Popup from '../components/Popup/Popup';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
+import { EditProfilePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
-
-export type EditProfilePropsType = {
-  className?: string;
-  backgroundColor?: string;
-};
 
 export default class EditProfile extends Block<EditProfilePropsType> {
   constructor(props: EditProfilePropsType) {

@@ -1,22 +1,18 @@
 import Button from '../components/Button/Button';
+import Dialog from '../components/Dialog/Dialog';
 import Input from '../components/Input/Input';
 import Link from '../components/Link/Link';
+import Message from '../components/Message/Message';
+import NewMessageForm from '../components/NewMessageForm/NewMessageForm';
 import Text from '../components/Text/Text';
 import UserAvatar from '../components/UserAvatar/UserAvatar';
-import Block from '../utils/Block';
-import compileComponent from '../utils/compileComponent';
+import readedMessageImg from '../static/check-double-solid.svg';
+import newMessageImg from '../static/check-solid.svg';
 import avatarImg from '../static/mock-ava.png';
 import attachBtnImg from '../static/paperclip-solid.svg';
-import newMessageImg from '../static/check-solid.svg';
-import readedMessageImg from '../static/check-double-solid.svg';
-import NewMessageForm from '../components/NewMessageForm/NewMessageForm';
-import Dialog from '../components/Dialog/Dialog';
-import Message from '../components/Message/Message';
-
-export type ChatPropsType = {
-  className?: string;
-  backgroundColor?: string;
-};
+import { ChatPropsType } from '../types/componentTypes';
+import Block from '../utils/Block';
+import compileComponent from '../utils/compileComponent';
 
 export default class Chat extends Block<ChatPropsType> {
   constructor(props: ChatPropsType) {

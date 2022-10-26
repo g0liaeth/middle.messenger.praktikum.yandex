@@ -1,13 +1,6 @@
+import { MessagePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block';
 import compileComponent from '../../utils/compileComponent';
-
-export type MessagePropsType = {
-  className: string;
-  text: string;
-  readed: boolean;
-  sendTime: string;
-  readMarkImg: string;
-};
 
 export default class Message extends Block<MessagePropsType> {
   constructor(props: MessagePropsType) {
