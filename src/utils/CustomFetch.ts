@@ -12,6 +12,8 @@ type Options = {
   timeout?: number;
 };
 
+type FetchParams = (url: string, options: Options) => Promise<XMLHttpRequest>;
+
 export default class CustomFetch {
   private _queryStringify(data?: Record<string, any>) {
     if (data == null) {
@@ -22,38 +24,23 @@ export default class CustomFetch {
       .join('&')}`;
   }
 
-  public get = (
-    url: string,
-    options: Options = { method: METHODS.GET },
-  ): Promise<XMLHttpRequest> => {
+  public get: FetchParams = (url, options = { method: METHODS.GET }) => {
     return this._request(url + this._queryStringify(options.data), options);
   };
 
-  public put = (
-    url: string,
-    options: Options = { method: METHODS.PUT },
-  ): Promise<XMLHttpRequest> => {
+  public put: FetchParams = (url, options = { method: METHODS.PUT }) => {
     return this._request(url, options);
   };
 
-  public post = (
-    url: string,
-    options: Options = { method: METHODS.POST },
-  ): Promise<XMLHttpRequest> => {
+  public post: FetchParams = (url, options = { method: METHODS.POST }) => {
     return this._request(url, options);
   };
 
-  public delete = (
-    url: string,
-    options: Options = { method: METHODS.GET },
-  ): Promise<XMLHttpRequest> => {
+  public delete: FetchParams = (url, options = { method: METHODS.GET }) => {
     return this._request(url, options);
   };
 
-  private _request = (
-    url: string,
-    options: Options = { method: METHODS.GET, timeout: 5000 },
-  ): Promise<XMLHttpRequest> => {
+  private _request: FetchParams = (url, options = { method: METHODS.GET, timeout: 5000 }) => {
     const { method, headers, data } = options;
 
     return new Promise((resolve, reject) => {
