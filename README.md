@@ -21,11 +21,11 @@
 
 ## Страницы
 
-Login page: https://yandex-middle-frontend-chat.netlify.app/login
-Register page: https://yandex-middle-frontend-chat.netlify.app/signin
-Chat page: https://yandex-middle-frontend-chat.netlify.app/chat
-Profile page: https://yandex-middle-frontend-chat.netlify.app/profile
-Edit profile page: https://yandex-middle-frontend-chat.netlify.app/edit-profile
-Change password page: https://yandex-middle-frontend-chat.netlify.app/change-password
-404 page: https://yandex-middle-frontend-chat.netlify.app/abcd
+Login page: https://yandex-middle-frontend-chat.netlify.app/login  
+Register page: https://yandex-middle-frontend-chat.netlify.app/signin  
+Chat page: https://yandex-middle-frontend-chat.netlify.app/chat  
+Profile page: https://yandex-middle-frontend-chat.netlify.app/profile  
+Edit profile page: https://yandex-middle-frontend-chat.netlify.app/edit-profile  
+Change password page: https://yandex-middle-frontend-chat.netlify.app/change-password  
+404 page: https://yandex-middle-frontend-chat.netlify.app/abcd  
 500 page: https://yandex-middle-frontend-chat.netlify.app/500
