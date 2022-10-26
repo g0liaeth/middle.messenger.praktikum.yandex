@@ -8,7 +8,7 @@
 
 ### Netlify
 
-Ссылка на deploy Netlify - https://marvelous-zuccutto-e38b40.netlify.app/
+Ссылка на deploy Netlify - https://yandex-middle-frontend-chat.netlify.app/
 
 ## Команды используемые в проекте
 
