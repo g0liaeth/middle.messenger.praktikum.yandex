@@ -1,6 +1,8 @@
 const validationRules: Record<string, RegExp> = {
   login: /^[0-9a-zA-Z\-_]{3,}/,
   password: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,40}$/,
+  newPassword: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,40}$/,
+  oldPassword: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,40}$/,
   phone: /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s./0-9]*$/,
   email: /^[^\s@]+@[^\s@]+\.[\S]{2,}$/,
   first_name: /^[A-ZА-ЯЁ][а-яА-ЯёЁa-zA-Z-]+$/,
@@ -28,6 +30,14 @@ export default class Validator {
           break;
 
         case 'password':
+          errors.push('от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра');
+          break;
+
+        case 'newPassword':
+          errors.push('от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра');
+          break;
+
+        case 'oldPassword':
           errors.push('от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра');
           break;
 

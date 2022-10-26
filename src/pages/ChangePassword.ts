@@ -8,6 +8,7 @@ import img from '../static/mock-ava.png';
 import { ChangePasswordPropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
+import Validator from '../utils/Validator';
 
 export default class ChangePassword extends Block<ChangePasswordPropsType> {
   constructor(props: ChangePasswordPropsType) {
@@ -18,16 +19,53 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
   }
 
+  private _onFocusChange(event: Event) {
+    const validator = new Validator();
+    const input = event.target as HTMLInputElement;
+    const errors = validator.validateInput(input);
+    const errorMessage = document.querySelector(`#${input.getAttribute('id')}-error`);
+
+    if (!errorMessage) {
+      throw new Error('Нет спана для ошибки');
+    }
+
+    if (errors.length !== 0) {
+      errorMessage.textContent = errors.join('/n');
+      input.classList.add('invalid');
+    } else {
+      errorMessage.textContent = '';
+      input.classList.remove('invalid');
+    }
+  }
+
+  private _chekPasswordRepeat(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const passwordInput = document.querySelector('#newPassword') as HTMLInputElement;
+    const errorMessage = document.querySelector(`#${input.getAttribute('id')}-error`);
+    if (!errorMessage) {
+      throw new Error('Нет спана для ошибки');
+    }
+    if (passwordInput.value !== input.value) {
+      errorMessage.textContent = 'Пароли не совпадают';
+      input.classList.add('invalid');
+    } else {
+      errorMessage.textContent = '';
+      input.classList.remove('invalid');
+    }
+  }
+
   render() {
     const source = `
     <div class="main-container">
       {{{ profileImg }}}
       {{{ userName }}}
-
-      {{{ oldPasswordFormGroup }}}
-      {{{ newPasswordFormGroup }}}
-      {{{ repeatNewPasswordFormGroup }}}
-
+      
+      <form>
+        {{{ oldPasswordFormGroup }}}
+        {{{ newPasswordFormGroup }}}
+        {{{ repeatNewPasswordFormGroup }}}
+      </form>
+      
       {{{ btnSave }}}
     </div>
     `;
@@ -52,6 +90,10 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
         inputType: 'password',
         inputId: 'oldPassword',
         inputName: 'user_old_password',
+        events: {
+          blur: this._onFocusChange.bind(this),
+          focus: this._onFocusChange.bind(this),
+        },
       }),
     });
 
@@ -66,6 +108,10 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
         inputType: 'password',
         inputId: 'newPassword',
         inputName: 'user_new_password',
+        events: {
+          blur: this._onFocusChange.bind(this),
+          focus: this._onFocusChange.bind(this),
+        },
       }),
     });
 
@@ -80,6 +126,10 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
         inputType: 'password',
         inputId: 'repeatNewPassword',
         inputName: 'user_repeat_new_password',
+        events: {
+          blur: this._chekPasswordRepeat.bind(this),
+          focus: this._chekPasswordRepeat.bind(this),
+        },
       }),
     });
 
@@ -87,8 +137,28 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
       label: 'Сохранить',
       className: 'btn-change',
       events: {
-        click: () => {
-          window.location.assign('profile');
+        click: (event) => {
+          event.preventDefault();
+          const target = event.target as HTMLElement;
+          const inputs = target.parentElement?.querySelectorAll('input');
+          let errors: string[] = [];
+          if (!inputs) {
+            return;
+          }
+          inputs.forEach((input) => {
+            const validator = new Validator();
+            const fieldErrors = validator.validateInput(input);
+            errors = [...errors, ...fieldErrors];
+          });
+          if (errors.length > 0) {
+            console.log(errors);
+            return;
+          }
+          const formData = {};
+          inputs.forEach((input) => {
+            formData[input.getAttribute('id')!] = input.value;
+          });
+          console.log(formData);
         },
       },
     });

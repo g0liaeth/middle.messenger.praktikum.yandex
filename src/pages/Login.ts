@@ -38,7 +38,6 @@ export default class Login extends Block<LoginPropsType> {
   }
 
   render() {
-    // if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
     const source = `
     <div class="login-form-container">
       <form class="login-form">
