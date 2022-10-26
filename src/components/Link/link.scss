@@ -1,0 +1,13 @@
+@import '../variables.scss';
+
+.simple-link {
+  width: max-content;
+  align-self: center;
+  padding-bottom: 15px;
+  color: $primary-black;
+}
+
+.profile-link {
+  text-decoration: none;
+  color: $secondary-black;
+}
