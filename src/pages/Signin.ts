@@ -51,7 +51,7 @@ export default class Signin extends Block<SigninPropsType> {
 
   render() {
     const source = `
-    <div class="register-form-container">
+    <main class="register-form-container">
       <form class="register-form">
         {{{ formHeader }}}
         <div>
@@ -66,7 +66,7 @@ export default class Signin extends Block<SigninPropsType> {
         {{{ registerBtn }}}
         {{{ loginLink }}}
       </form>
-    </div>
+    </main>
     `;
 
     const formHeader = new Text({

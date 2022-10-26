@@ -26,7 +26,7 @@ export default class Chat extends Block<ChatPropsType> {
 
   render() {
     const source = `
-    <div class="chat-wrapper">
+    <main class="chat-wrapper">
       <div class="left-container">
         <div class="profile-link-container">
           {{{ profileLink }}}
@@ -59,7 +59,7 @@ export default class Chat extends Block<ChatPropsType> {
           {{{ newMessageForm }}}
         </div>
       </div>
-    </div>
+    </main>
     `;
 
     const profileLink = new Link({

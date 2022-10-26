@@ -52,7 +52,7 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
 
   render() {
     const source = `
-    <div class="main-container">
+    <main class="main-container">
       {{{ profileImg }}}
       {{{ userName }}}
       
@@ -63,7 +63,7 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
       </form>
       
       {{{ btnSave }}}
-    </div>
+    </main>
     `;
 
     const profileImg = new Badge({

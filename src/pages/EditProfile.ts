@@ -37,7 +37,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
 
   render() {
     const source = `
-    <div class="main-container">
+    <main class="main-container">
       {{{ profileImg }}}
       {{{ userName }}}
 
@@ -52,7 +52,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
       {{{ btnSave }}}
 
       {{{ popup }}}
-    </div>
+    </main>
     `;
 
     const profileImg = new Badge({

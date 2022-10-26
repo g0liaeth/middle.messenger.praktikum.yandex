@@ -17,7 +17,7 @@ export default class Profile extends Block<ProfilePropsType> {
 
   render() {
     const source = `
-    <div class="main-container">
+    <main class="main-container">
       {{{ profileImg }}}
       {{{ userName }}}
 
@@ -33,7 +33,7 @@ export default class Profile extends Block<ProfilePropsType> {
       {{{ btnBack }}}
 
       {{{ popup }}}
-    </div>
+    </main>
     `;
 
     const profileImg = new Badge({

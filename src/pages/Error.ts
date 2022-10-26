@@ -11,11 +11,11 @@ export default class Error extends Block<ErrorPropsType> {
 
   render() {
     const source = `
-    <div class="main-container">
+    <main class="main-container">
       {{{ errorStatus }}}
       {{{ errorText }}}
       {{{ buttonBack }}}
-    </div>
+    </main>
     `;
 
     const buttonBack = new Button({
