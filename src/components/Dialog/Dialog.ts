@@ -5,10 +5,6 @@ import compileComponent from '../../utils/compileComponent';
 import UserAvatar from '../UserAvatar/UserAvatar';
 
 export default class Dialog extends Block<DialogPropsType> {
-  constructor(props: DialogPropsType) {
-    super(props);
-  }
-
   render() {
     const source = `
     <li class="chat-item">

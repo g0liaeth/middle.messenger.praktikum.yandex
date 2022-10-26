@@ -5,10 +5,6 @@ import Button from '../Button/Button';
 import Input from '../Input/Input';
 
 export default class NewMessageForm extends Block<NewMessageFormPropsType> {
-  constructor(props: NewMessageFormPropsType) {
-    super(props);
-  }
-
   render() {
     const source = `
     <div>

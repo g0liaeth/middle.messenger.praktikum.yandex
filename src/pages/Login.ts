@@ -10,11 +10,7 @@ import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
 export default class Login extends Block<LoginPropsType> {
-  constructor(props: LoginPropsType) {
-    super(props);
-  }
-
-  componentDidMount(props: any): void {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
   }
 
@@ -117,7 +113,7 @@ export default class Login extends Block<LoginPropsType> {
             console.log(errors);
             return;
           }
-          const formData = {};
+          const formData: Record<string, unknown> = {};
           inputs.forEach((input) => {
             formData[input.getAttribute('id')!] = input.value;
           });

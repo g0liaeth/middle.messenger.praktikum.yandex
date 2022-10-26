@@ -3,10 +3,6 @@ import Block from '../../utils/Block';
 import compileComponent from '../../utils/compileComponent';
 
 export default class Input extends Block<InputPropsType> {
-  constructor(props: InputPropsType) {
-    super(props);
-  }
-
   render() {
     const source = `
     <input

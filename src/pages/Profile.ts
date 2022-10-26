@@ -11,11 +11,7 @@ import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 
 export default class Profile extends Block<ProfilePropsType> {
-  constructor(props: ProfilePropsType) {
-    super(props);
-  }
-
-  componentDidMount(props: any): void {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
   }
 
@@ -43,7 +39,7 @@ export default class Profile extends Block<ProfilePropsType> {
     const profileImg = new Badge({
       imgPath: img,
       events: {
-        click: (event) => {
+        click: () => {
           popup.show();
         },
       },
@@ -176,7 +172,7 @@ export default class Profile extends Block<ProfilePropsType> {
 
     const popup = new Popup({
       events: {
-        click: (event) => {
+        click: () => {
           popup.hide();
         },
       },

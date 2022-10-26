@@ -3,10 +3,6 @@ import Block from '../../utils/Block';
 import compileComponent from '../../utils/compileComponent';
 
 export default class Message extends Block<MessagePropsType> {
-  constructor(props: MessagePropsType) {
-    super(props);
-  }
-
   render() {
     const source = `
     <div class="{{ className }}">

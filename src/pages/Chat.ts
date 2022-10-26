@@ -15,11 +15,7 @@ import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 
 export default class Chat extends Block<ChatPropsType> {
-  constructor(props: ChatPropsType) {
-    super(props);
-  }
-
-  componentDidMount(props: any): void {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
     document.addEventListener('DOMContentLoaded', () => {
       const mainContainer = document.querySelector('.main-container') as HTMLElement;

@@ -10,11 +10,7 @@ import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
 export default class Signin extends Block<SigninPropsType> {
-  constructor(props: SigninPropsType) {
-    super(props);
-  }
-
-  componentDidMount(props: any): void {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
   }
 
@@ -232,7 +228,7 @@ export default class Signin extends Block<SigninPropsType> {
             console.log(errors);
             return;
           }
-          const formData = {};
+          const formData: Record<string, unknown> = {};
           inputs.forEach((input) => {
             formData[input.getAttribute('id')!] = input.value;
           });

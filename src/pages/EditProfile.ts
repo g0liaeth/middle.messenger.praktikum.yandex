@@ -12,11 +12,7 @@ import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
 export default class EditProfile extends Block<EditProfilePropsType> {
-  constructor(props: EditProfilePropsType) {
-    super(props);
-  }
-
-  componentDidMount(props: any): void {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
   }
 
@@ -62,7 +58,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
     const profileImg = new Badge({
       imgPath: img,
       events: {
-        click: (event) => {
+        click: () => {
           popup.show();
         },
       },
@@ -189,7 +185,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
             console.log(errors);
             return;
           }
-          const formData = {};
+          const formData: Record<string, unknown> = {};
           inputs.forEach((input) => {
             formData[input.getAttribute('id')!] = input.value;
           });
@@ -200,7 +196,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
 
     const popup = new Popup({
       events: {
-        click: (event) => {
+        click: () => {
           popup.hide();
         },
       },

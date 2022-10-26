@@ -8,10 +8,6 @@ import Label from '../Label/Label';
 import Text from '../Text/Text';
 
 export default class Popup extends Block<PopupPropsType> {
-  constructor(props: PopupPropsType) {
-    super(props);
-  }
-
   render() {
     const source = `
     <div class="popup">

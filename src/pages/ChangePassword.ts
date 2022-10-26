@@ -11,11 +11,7 @@ import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
 export default class ChangePassword extends Block<ChangePasswordPropsType> {
-  constructor(props: ChangePasswordPropsType) {
-    super(props);
-  }
-
-  componentDidMount(props: any): void {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
   }
 
@@ -154,7 +150,7 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
             console.log(errors);
             return;
           }
-          const formData = {};
+          const formData: Record<string, unknown> = {};
           inputs.forEach((input) => {
             formData[input.getAttribute('id')!] = input.value;
           });
