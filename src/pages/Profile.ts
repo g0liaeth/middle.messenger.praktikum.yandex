@@ -64,6 +64,7 @@ export default class Profile extends Block<BasePropsType> {
     const btnProfileEdit = new Button({
       label: 'Изменить данные',
       className: 'btn-change',
+      type: 'button',
       events: {
         click: () => {
           window.location.assign('edit-profile');
@@ -74,6 +75,7 @@ export default class Profile extends Block<BasePropsType> {
     const btnChangePassword = new Button({
       label: 'Изменить пароль',
       className: 'btn-change',
+      type: 'button',
       events: {
         click: () => {
           window.location.assign('change-password');
@@ -84,6 +86,7 @@ export default class Profile extends Block<BasePropsType> {
     const btnExit = new Button({
       label: 'Выйти',
       className: 'btn-exit',
+      type: 'button',
       events: {
         click: () => {
           window.location.assign('/');
@@ -94,6 +97,7 @@ export default class Profile extends Block<BasePropsType> {
     const btnBack = new Button({
       label: '< назад к чатам',
       className: 'btn-back',
+      type: 'button',
       events: {
         click: () => {
           window.location.assign('/chat');

@@ -21,6 +21,7 @@ export default class Error extends Block<ErrorPropsType> {
     const buttonBack = new Button({
       label: 'Назад к чатам',
       className: 'btn-green',
+      type: 'button',
       events: {
         click: () => {
           window.location.assign('chat');

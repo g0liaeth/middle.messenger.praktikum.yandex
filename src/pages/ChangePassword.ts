@@ -1,4 +1,3 @@
-import Badge from '../components/Badge/Badge';
 import Button from '../components/Button/Button';
 import FormGroup from '../components/FormGroup/FormGroup';
 import Input from '../components/Input/Input';
@@ -59,7 +58,7 @@ export default class ChangePassword extends Block<BasePropsType> {
   render() {
     const source = `
     <main class="main-container">
-      {{{ profileImg }}}
+      <img src={{ imgPath }} alt="avatar" class="profile-photo">
       {{{ userName }}}
       
       <form>
@@ -71,10 +70,6 @@ export default class ChangePassword extends Block<BasePropsType> {
       {{{ btnSave }}}
     </main>
     `;
-
-    const profileImg = new Badge({
-      imgPath: img,
-    });
 
     const userName = new Text({
       className: 'profile-name',
@@ -132,6 +127,7 @@ export default class ChangePassword extends Block<BasePropsType> {
     const btnSave = new Button({
       label: 'Сохранить',
       className: 'btn-change',
+      type: 'submit',
       events: {
         click: (event) => {
           event.preventDefault();
@@ -161,12 +157,12 @@ export default class ChangePassword extends Block<BasePropsType> {
 
     return compileComponent(source, {
       ...this.props,
-      profileImg,
       userName,
       oldPasswordFormGroup,
       newPasswordFormGroup,
       repeatNewPasswordFormGroup,
       btnSave,
+      imgPath: img,
     });
   }
 }

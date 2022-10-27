@@ -27,6 +27,7 @@ export default class NewMessageForm extends Block<NewMessageFormPropsType> {
     const sendMessageButton = new Button({
       className: 'btn-black',
       label: 'Отправить',
+      type: 'button',
     });
 
     return compileComponent(source, { ...this.props, newMessageInput, sendMessageButton });

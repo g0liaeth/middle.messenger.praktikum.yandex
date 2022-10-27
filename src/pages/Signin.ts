@@ -202,6 +202,7 @@ export default class Signin extends Block<BasePropsType> {
     const registerBtn = new Button({
       className: 'btn-black',
       label: 'Зарегистрироваться',
+      type: 'submit',
       events: {
         click: (event) => {
           event.preventDefault();

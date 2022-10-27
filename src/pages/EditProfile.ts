@@ -158,6 +158,7 @@ export default class EditProfile extends Block<BasePropsType> {
     const btnSave = new Button({
       label: 'Сохранить',
       className: 'btn-change',
+      type: 'submit',
       events: {
         click: (event) => {
           event.preventDefault();

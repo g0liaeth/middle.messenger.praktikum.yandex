@@ -4,7 +4,7 @@ import compileComponent from '../../utils/compileComponent';
 
 export default class Button extends Block<ButtonPropsType> {
   render() {
-    const source = `<button class={{ className }}>{{ label }}</button>`;
+    const source = `<button class={{ className }} type={{ type }}>{{ label }}</button>`;
 
     return compileComponent(source, this.props);
   }
