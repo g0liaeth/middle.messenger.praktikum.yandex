@@ -49,6 +49,9 @@ export default class ChangePassword extends Block<BasePropsType> {
     if (passwordInput.value !== input.value) {
       errorMessage.textContent = 'Пароли не совпадают';
       input.classList.add('invalid');
+    } else if (!passwordInput.value) {
+      errorMessage.textContent = 'Пароль не заполнен';
+      input.classList.add('invalid');
     } else {
       errorMessage.textContent = '';
       input.classList.remove('invalid');
