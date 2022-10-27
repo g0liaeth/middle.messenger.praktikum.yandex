@@ -10,8 +10,14 @@ import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
 export default class Signin extends Block<SigninPropsType> {
+  private _events = {};
+
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
+    this._events = {
+      blur: this._onFocusChange.bind(this),
+      focus: this._onFocusChange.bind(this),
+    };
   }
 
   private _onFocusChange(event: Event) {
@@ -40,8 +46,12 @@ export default class Signin extends Block<SigninPropsType> {
     if (!errorMessage) {
       throw new Error('Нет спана для ошибки');
     }
+
     if (passwordInput.value !== input.value) {
       errorMessage.textContent = 'Пароли не совпадают';
+      input.classList.add('invalid');
+    } else if (!passwordInput.value) {
+      errorMessage.textContent = 'Пароль не заполнен';
       input.classList.add('invalid');
     } else {
       errorMessage.textContent = '';
@@ -86,10 +96,7 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'email',
         inputId: 'email',
         inputName: 'user_email',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -105,10 +112,7 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'text',
         inputId: 'login',
         inputName: 'user_login',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -124,10 +128,7 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'text',
         inputId: 'first_name',
         inputName: 'user_first_name',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -143,10 +144,7 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'text',
         inputId: 'second_name',
         inputName: 'user_second_name',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -162,10 +160,7 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'tel',
         inputId: 'phone',
         inputName: 'user_phone',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -181,10 +176,7 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'password',
         inputId: 'password',
         inputName: 'user_password',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 

@@ -11,8 +11,14 @@ import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
 export default class ChangePassword extends Block<ChangePasswordPropsType> {
+  private _events = {};
+
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
+    this._events = {
+      blur: this._onFocusChange.bind(this),
+      focus: this._onFocusChange.bind(this),
+    };
   }
 
   private _onFocusChange(event: Event) {
@@ -86,10 +92,7 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
         inputType: 'password',
         inputId: 'oldPassword',
         inputName: 'user_old_password',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -104,10 +107,7 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
         inputType: 'password',
         inputId: 'newPassword',
         inputName: 'user_new_password',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 

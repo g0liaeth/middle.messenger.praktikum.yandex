@@ -10,8 +10,14 @@ import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
 export default class Login extends Block<LoginPropsType> {
+  private _events = {};
+
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
+    this._events = {
+      blur: this._onFocusChange.bind(this),
+      focus: this._onFocusChange.bind(this),
+    };
   }
 
   private _onFocusChange(event: Event) {
@@ -65,10 +71,7 @@ export default class Login extends Block<LoginPropsType> {
         inputType: 'text',
         inputId: 'login',
         inputName: 'user_login',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -84,10 +87,7 @@ export default class Login extends Block<LoginPropsType> {
         inputType: 'password',
         inputId: 'password',
         inputName: 'user_password',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 

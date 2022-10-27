@@ -12,8 +12,14 @@ import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
 export default class EditProfile extends Block<EditProfilePropsType> {
+  private _events = {};
+
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
+    this._events = {
+      blur: this._onFocusChange.bind(this),
+      focus: this._onFocusChange.bind(this),
+    };
   }
 
   private _onFocusChange(event: Event) {
@@ -76,10 +82,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
         inputId: 'email',
         inputName: 'user_email',
         inputValue: 'abcd@yandex.ru',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -95,10 +98,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
         inputId: 'login',
         inputName: 'user_login',
         inputValue: 'ivan665566966',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -114,10 +114,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
         inputId: 'first_name',
         inputName: 'user_first_name',
         inputValue: 'Иван',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -133,10 +130,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
         inputId: 'second_name',
         inputName: 'user_second_name',
         inputValue: 'Иванов',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -152,10 +146,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
         inputId: 'phone',
         inputName: 'user_phone',
         inputValue: '8-999-999-99-99',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
