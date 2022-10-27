@@ -86,7 +86,7 @@ export default class ChangePassword extends Block<BasePropsType> {
         className: 'profile-editable-input',
         inputType: 'password',
         inputId: 'oldPassword',
-        inputName: 'user_old_password',
+        inputName: 'oldPassword',
         events: this._events,
       }),
     });
@@ -101,7 +101,7 @@ export default class ChangePassword extends Block<BasePropsType> {
         className: 'profile-editable-input',
         inputType: 'password',
         inputId: 'newPassword',
-        inputName: 'user_new_password',
+        inputName: 'newPassword',
         events: this._events,
       }),
     });
@@ -116,7 +116,7 @@ export default class ChangePassword extends Block<BasePropsType> {
         className: 'profile-editable-input',
         inputType: 'password',
         inputId: 'repeatNewPassword',
-        inputName: 'user_repeat_new_password',
+        inputName: 'repeatNewPassword',
         events: {
           blur: this._chekPasswordRepeat.bind(this),
           focus: this._chekPasswordRepeat.bind(this),

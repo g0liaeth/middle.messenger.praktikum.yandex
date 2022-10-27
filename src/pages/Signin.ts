@@ -111,7 +111,7 @@ export default class Signin extends Block<BasePropsType> {
         className: 'login-input',
         inputType: 'text',
         inputId: 'login',
-        inputName: 'user_login',
+        inputName: 'login',
         events: this._events,
       }),
     });
@@ -127,7 +127,7 @@ export default class Signin extends Block<BasePropsType> {
         className: 'login-input',
         inputType: 'text',
         inputId: 'first_name',
-        inputName: 'user_first_name',
+        inputName: 'first_name',
         events: this._events,
       }),
     });
@@ -143,7 +143,7 @@ export default class Signin extends Block<BasePropsType> {
         className: 'login-input',
         inputType: 'text',
         inputId: 'second_name',
-        inputName: 'user_second_name',
+        inputName: 'second_name',
         events: this._events,
       }),
     });
@@ -159,7 +159,7 @@ export default class Signin extends Block<BasePropsType> {
         className: 'login-input',
         inputType: 'tel',
         inputId: 'phone',
-        inputName: 'user_phone',
+        inputName: 'phone',
         events: this._events,
       }),
     });
@@ -175,7 +175,7 @@ export default class Signin extends Block<BasePropsType> {
         className: 'login-input',
         inputType: 'password',
         inputId: 'password',
-        inputName: 'user_password',
+        inputName: 'password',
         events: this._events,
       }),
     });
@@ -191,7 +191,7 @@ export default class Signin extends Block<BasePropsType> {
         className: 'login-input',
         inputType: 'password',
         inputId: 'repeat_password',
-        inputName: 'user_repeat_password',
+        inputName: 'repeat_password',
         events: {
           blur: this._chekPasswordRepeat.bind(this),
           focus: this._chekPasswordRepeat.bind(this),

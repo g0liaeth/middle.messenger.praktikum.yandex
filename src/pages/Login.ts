@@ -70,7 +70,7 @@ export default class Login extends Block<BasePropsType> {
         className: 'login-input',
         inputType: 'text',
         inputId: 'login',
-        inputName: 'user_login',
+        inputName: 'login',
         events: this._events,
       }),
     });
@@ -86,7 +86,7 @@ export default class Login extends Block<BasePropsType> {
         className: 'login-input',
         inputType: 'password',
         inputId: 'password',
-        inputName: 'user_password',
+        inputName: 'password',
         events: this._events,
       }),
     });

@@ -20,7 +20,7 @@ export default class NewMessageForm extends Block<NewMessageFormPropsType> {
       className: 'new-message-textinput',
       inputType: 'text',
       inputId: 'message',
-      inputName: 'messageInput',
+      inputName: 'message',
       inputPlaceholder: 'Сообщение...',
     });
 
