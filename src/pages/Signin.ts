@@ -4,12 +4,12 @@ import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
 import Link from '../components/Link/Link';
 import Text from '../components/Text/Text';
-import { SigninPropsType } from '../types/componentTypes';
+import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
-export default class Signin extends Block<SigninPropsType> {
+export default class Signin extends Block<BasePropsType> {
   private _events = {};
 
   componentDidMount(): void {

@@ -5,12 +5,12 @@ import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
-import { ChangePasswordPropsType } from '../types/componentTypes';
+import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
-export default class ChangePassword extends Block<ChangePasswordPropsType> {
+export default class ChangePassword extends Block<BasePropsType> {
   private _events = {};
 
   componentDidMount(): void {

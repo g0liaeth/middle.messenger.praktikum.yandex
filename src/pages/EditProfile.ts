@@ -6,12 +6,12 @@ import Label from '../components/Label/Label';
 import Popup from '../components/Popup/Popup';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
-import { EditProfilePropsType } from '../types/componentTypes';
+import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
-export default class EditProfile extends Block<EditProfilePropsType> {
+export default class EditProfile extends Block<BasePropsType> {
   private _events = {};
 
   componentDidMount(): void {

@@ -10,11 +10,11 @@ import readedMessageImg from '../static/check-double-solid.svg';
 import newMessageImg from '../static/check-solid.svg';
 import avatarImg from '../static/mock-ava.png';
 import attachBtnImg from '../static/paperclip-solid.svg';
-import { ChatPropsType } from '../types/componentTypes';
+import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 
-export default class Chat extends Block<ChatPropsType> {
+export default class Chat extends Block<BasePropsType> {
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
     document.addEventListener('DOMContentLoaded', () => {

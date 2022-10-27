@@ -6,11 +6,11 @@ import Label from '../components/Label/Label';
 import Popup from '../components/Popup/Popup';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
-import { ProfilePropsType } from '../types/componentTypes';
+import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 
-export default class Profile extends Block<ProfilePropsType> {
+export default class Profile extends Block<BasePropsType> {
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
   }
