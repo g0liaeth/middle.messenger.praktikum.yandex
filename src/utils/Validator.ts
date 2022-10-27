@@ -21,7 +21,7 @@ export default class Validator {
 
     const rule = validationRules[_id];
 
-    if (input.value && input.value.search(rule) === -1) {
+    if (input.value.search(rule) === -1) {
       switch (_id) {
         case 'login':
           errors.push(
