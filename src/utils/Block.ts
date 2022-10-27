@@ -27,13 +27,13 @@ export default class Block<TProps> {
     this._eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidMount(props: any) {
+  private _componentDidMount(props: TProps) {
     this.componentDidMount(props);
     this._eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  protected componentDidMount(props: any) {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+  protected componentDidMount(_props: TProps) {}
 
   private _componentDidUpdate(oldProps: TProps, newProps: TProps) {
     const response = this.componentDidUpdate(oldProps, newProps);
@@ -44,7 +44,8 @@ export default class Block<TProps> {
     this._eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  protected componentDidUpdate(oldProps: TProps, newProps: TProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected componentDidUpdate(_oldProps: TProps, _newProps: TProps) {
     return true;
   }
 
@@ -76,17 +77,18 @@ export default class Block<TProps> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  private _makePropsProxy(props: any) {
+  private _makePropsProxy(props: TProps & Record<string, unknown>) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     return new Proxy(props, {
-      get(target, prop: string) {
-        const value = target[prop];
+      get(target, prop) {
+        const value = target[prop as keyof typeof props];
         return typeof value === 'function' ? value.bind(target) : value;
       },
 
-      set(target, prop: string, value: any) {
-        if (target[prop] !== value) {
-          target[prop] = value;
+      set(target, prop, value) {
+        if (target[prop as keyof typeof props] !== value) {
+          target[prop as keyof typeof props] = value;
           self._eventBus.emit(Block.EVENTS.FLOW_CDU);
           return true;
         }
@@ -117,15 +119,16 @@ export default class Block<TProps> {
     }
   }
 
-  public setProps = (nextProps: any) => {
+  public setProps = (nextProps: TProps) => {
     if (!nextProps) {
       return;
     }
 
-    Object.assign(this.props, nextProps);
+    this.props = Object.assign(this.props, nextProps);
   };
 
   private _removeEventListeners() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { events = {} }: any = this.props;
 
     if (!events || !this._element) {
@@ -138,8 +141,8 @@ export default class Block<TProps> {
   }
 
   private _addEventListeners() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { events = {} }: any = this.props;
-    // console.log(events);
 
     Object.keys(events).forEach((eventName) => {
       this._element.addEventListener(eventName, events[eventName]);
