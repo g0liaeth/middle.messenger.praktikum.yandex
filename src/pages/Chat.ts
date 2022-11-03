@@ -10,16 +10,12 @@ import readedMessageImg from '../static/check-double-solid.svg';
 import newMessageImg from '../static/check-solid.svg';
 import avatarImg from '../static/mock-ava.png';
 import attachBtnImg from '../static/paperclip-solid.svg';
-import { ChatPropsType } from '../types/componentTypes';
+import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 
-export default class Chat extends Block<ChatPropsType> {
-  constructor(props: ChatPropsType) {
-    super(props);
-  }
-
-  componentDidMount(props: any): void {
+export default class Chat extends Block<BasePropsType> {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
     document.addEventListener('DOMContentLoaded', () => {
       const mainContainer = document.querySelector('.main-container') as HTMLElement;
@@ -30,7 +26,7 @@ export default class Chat extends Block<ChatPropsType> {
 
   render() {
     const source = `
-    <div class="chat-wrapper">
+    <main class="chat-wrapper">
       <div class="left-container">
         <div class="profile-link-container">
           {{{ profileLink }}}
@@ -63,7 +59,7 @@ export default class Chat extends Block<ChatPropsType> {
           {{{ newMessageForm }}}
         </div>
       </div>
-    </div>
+    </main>
     `;
 
     const profileLink = new Link({
@@ -92,6 +88,7 @@ export default class Chat extends Block<ChatPropsType> {
     const chatMenu = new Button({
       className: 'btn-menu',
       label: '',
+      type: 'button',
     });
 
     const newMessageForm = new NewMessageForm({ attachBtnImg });

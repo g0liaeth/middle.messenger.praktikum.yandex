@@ -3,10 +3,6 @@ import Block from '../../utils/Block';
 import compileComponent from '../../utils/compileComponent';
 
 export default class Badge extends Block<BadgePropsType> {
-  constructor(props: BadgePropsType) {
-    super(props);
-  }
-
   render() {
     const source = `
     <div class="img-back">

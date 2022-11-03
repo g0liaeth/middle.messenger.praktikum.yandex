@@ -1,35 +1,51 @@
-import Badge from '../components/Badge/Badge';
 import Button from '../components/Button/Button';
-import FormGroup from '../components/FormGroup/FormGroup';
-import Input from '../components/Input/Input';
-import Label from '../components/Label/Label';
-import Popup from '../components/Popup/Popup';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
-import { ProfilePropsType } from '../types/componentTypes';
+import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 
-export default class Profile extends Block<ProfilePropsType> {
-  constructor(props: ProfilePropsType) {
-    super(props);
-  }
+export default class Profile extends Block<BasePropsType> {
+  private _userInfo: Record<string, string> = {};
 
-  componentDidMount(props: any): void {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
+    this._userInfo = {
+      email: 'abcd@yandex.ru',
+      login: 'ivan665566966',
+      first_name: 'Иван',
+      second_name: 'Иванов',
+      phone: '8-999-999-99-99',
+      imgPath: img,
+    };
   }
 
   render() {
     const source = `
-    <div class="main-container">
-      {{{ profileImg }}}
+    <main class="main-container">
+      <img src={{ imgPath }} alt="avatar" class="profile-photo">
       {{{ userName }}}
 
-      {{{ emailFormGroup }}}
-      {{{ loginFormGroup }}}
-      {{{ firstNameFormGroup }}}
-      {{{ secondNameFormGroup }}}
-      {{{ phoneFormGroup }}}
+      <div class="form-group-profile">
+        <div>Почта</div>
+        <div class="disabled-text">{{email}}</div>
+      </div>
+      <div class="form-group-profile">
+        <div>Логин</div>
+        <div class="disabled-text">{{login}}</div>
+      </div>
+      <div class="form-group-profile">
+        <div>Имя</div>
+        <div class="disabled-text">{{first_name}}</div>
+      </div>
+      <div class="form-group-profile">
+        <div>Фамилия</div>
+        <div class="disabled-text">{{second_name}}</div>
+      </div>
+      <div class="form-group-profile">
+        <div>Телефон</div>
+        <div class="disabled-text">{{phone}}</div>
+      </div>
 
       {{{ btnProfileEdit }}}
       {{{ btnChangePassword }}}
@@ -37,106 +53,18 @@ export default class Profile extends Block<ProfilePropsType> {
       {{{ btnBack }}}
 
       {{{ popup }}}
-    </div>
+    </main>
     `;
-
-    const profileImg = new Badge({
-      imgPath: img,
-      events: {
-        click: (event) => {
-          popup.show();
-        },
-      },
-    });
-
-    const emailFormGroup = new FormGroup({
-      className: 'form-group-profile',
-      label: new Label({
-        labelFor: 'email',
-        text: 'Почта',
-      }),
-      input: new Input({
-        className: 'profile-input',
-        inputType: 'email',
-        inputId: 'email',
-        inputName: 'user_email',
-        disabled: 'disabled',
-        inputValue: 'abcd@yandex.ru',
-      }),
-    });
-
-    const loginFormGroup = new FormGroup({
-      className: 'form-group-profile',
-      label: new Label({
-        labelFor: 'login',
-        text: 'Логин',
-      }),
-      input: new Input({
-        className: 'profile-input',
-        inputType: 'text',
-        inputId: 'login',
-        inputName: 'user_login',
-        disabled: 'disabled',
-        inputValue: 'ivan665566966',
-      }),
-    });
-
-    const firstNameFormGroup = new FormGroup({
-      className: 'form-group-profile',
-      label: new Label({
-        labelFor: 'first_name',
-        text: 'Имя',
-      }),
-      input: new Input({
-        className: 'profile-input',
-        inputType: 'text',
-        inputId: 'first_name',
-        inputName: 'user_first_name',
-        disabled: 'disabled',
-        inputValue: 'Иван',
-      }),
-    });
-
-    const secondNameFormGroup = new FormGroup({
-      className: 'form-group-profile',
-      label: new Label({
-        labelFor: 'second_name',
-        text: 'Фамилия',
-      }),
-      input: new Input({
-        className: 'profile-input',
-        inputType: 'text',
-        inputId: 'second_name',
-        inputName: 'user_second_name',
-        disabled: 'disabled',
-        inputValue: 'Иванов',
-      }),
-    });
-
-    const phoneFormGroup = new FormGroup({
-      className: 'form-group-profile',
-      label: new Label({
-        labelFor: 'phone',
-        text: 'Телефон',
-      }),
-      input: new Input({
-        className: 'profile-input',
-        inputType: 'tel',
-        inputId: 'phone',
-        inputName: 'user_phone',
-        disabled: 'disabled',
-        inputValue: '8-999-999-99-99',
-      }),
-    });
 
     const userName = new Text({
       className: 'profile-name',
-      value: 'Иван',
+      value: this._userInfo.login,
     });
 
     const btnProfileEdit = new Button({
       label: 'Изменить данные',
       className: 'btn-change',
+      type: 'button',
       events: {
         click: () => {
           window.location.assign('edit-profile');
@@ -147,6 +75,7 @@ export default class Profile extends Block<ProfilePropsType> {
     const btnChangePassword = new Button({
       label: 'Изменить пароль',
       className: 'btn-change',
+      type: 'button',
       events: {
         click: () => {
           window.location.assign('change-password');
@@ -157,6 +86,7 @@ export default class Profile extends Block<ProfilePropsType> {
     const btnExit = new Button({
       label: 'Выйти',
       className: 'btn-exit',
+      type: 'button',
       events: {
         click: () => {
           window.location.assign('/');
@@ -167,6 +97,7 @@ export default class Profile extends Block<ProfilePropsType> {
     const btnBack = new Button({
       label: '< назад к чатам',
       className: 'btn-back',
+      type: 'button',
       events: {
         click: () => {
           window.location.assign('/chat');
@@ -174,30 +105,14 @@ export default class Profile extends Block<ProfilePropsType> {
       },
     });
 
-    const popup = new Popup({
-      events: {
-        click: (event) => {
-          popup.hide();
-        },
-      },
-    });
-
-    popup.hide();
-
     return compileComponent(source, {
       ...this.props,
-      profileImg,
       userName,
       btnProfileEdit,
       btnChangePassword,
       btnExit,
       btnBack,
-      emailFormGroup,
-      loginFormGroup,
-      firstNameFormGroup,
-      secondNameFormGroup,
-      phoneFormGroup,
-      popup,
+      ...this._userInfo,
     });
   }
 }

@@ -1,22 +1,23 @@
-import Badge from '../components/Badge/Badge';
 import Button from '../components/Button/Button';
 import FormGroup from '../components/FormGroup/FormGroup';
 import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
-import { ChangePasswordPropsType } from '../types/componentTypes';
+import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
-export default class ChangePassword extends Block<ChangePasswordPropsType> {
-  constructor(props: ChangePasswordPropsType) {
-    super(props);
-  }
+export default class ChangePassword extends Block<BasePropsType> {
+  private _events = {};
 
-  componentDidMount(props: any): void {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
+    this._events = {
+      blur: this._onFocusChange.bind(this),
+      focus: this._onFocusChange.bind(this),
+    };
   }
 
   private _onFocusChange(event: Event) {
@@ -48,6 +49,9 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
     if (passwordInput.value !== input.value) {
       errorMessage.textContent = 'Пароли не совпадают';
       input.classList.add('invalid');
+    } else if (!passwordInput.value) {
+      errorMessage.textContent = 'Пароль не заполнен';
+      input.classList.add('invalid');
     } else {
       errorMessage.textContent = '';
       input.classList.remove('invalid');
@@ -56,8 +60,8 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
 
   render() {
     const source = `
-    <div class="main-container">
-      {{{ profileImg }}}
+    <main class="main-container">
+      <img src={{ imgPath }} alt="avatar" class="profile-photo">
       {{{ userName }}}
       
       <form>
@@ -67,12 +71,8 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
       </form>
       
       {{{ btnSave }}}
-    </div>
+    </main>
     `;
-
-    const profileImg = new Badge({
-      imgPath: img,
-    });
 
     const userName = new Text({
       className: 'profile-name',
@@ -89,11 +89,8 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
         className: 'profile-editable-input',
         inputType: 'password',
         inputId: 'oldPassword',
-        inputName: 'user_old_password',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        inputName: 'oldPassword',
+        events: this._events,
       }),
     });
 
@@ -107,11 +104,8 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
         className: 'profile-editable-input',
         inputType: 'password',
         inputId: 'newPassword',
-        inputName: 'user_new_password',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        inputName: 'newPassword',
+        events: this._events,
       }),
     });
 
@@ -125,7 +119,7 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
         className: 'profile-editable-input',
         inputType: 'password',
         inputId: 'repeatNewPassword',
-        inputName: 'user_repeat_new_password',
+        inputName: 'repeatNewPassword',
         events: {
           blur: this._chekPasswordRepeat.bind(this),
           focus: this._chekPasswordRepeat.bind(this),
@@ -133,9 +127,11 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
       }),
     });
 
+    //TODO Перевесить событие клика на сабмит формы
     const btnSave = new Button({
       label: 'Сохранить',
       className: 'btn-change',
+      type: 'submit',
       events: {
         click: (event) => {
           event.preventDefault();
@@ -154,7 +150,7 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
             console.log(errors);
             return;
           }
-          const formData = {};
+          const formData: Record<string, unknown> = {};
           inputs.forEach((input) => {
             formData[input.getAttribute('id')!] = input.value;
           });
@@ -165,12 +161,12 @@ export default class ChangePassword extends Block<ChangePasswordPropsType> {
 
     return compileComponent(source, {
       ...this.props,
-      profileImg,
       userName,
       oldPasswordFormGroup,
       newPasswordFormGroup,
       repeatNewPasswordFormGroup,
       btnSave,
+      imgPath: img,
     });
   }
 }

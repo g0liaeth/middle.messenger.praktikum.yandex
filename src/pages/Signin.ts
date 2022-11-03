@@ -4,18 +4,20 @@ import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
 import Link from '../components/Link/Link';
 import Text from '../components/Text/Text';
-import { SigninPropsType } from '../types/componentTypes';
+import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
-export default class Signin extends Block<SigninPropsType> {
-  constructor(props: SigninPropsType) {
-    super(props);
-  }
+export default class Signin extends Block<BasePropsType> {
+  private _events = {};
 
-  componentDidMount(props: any): void {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
+    this._events = {
+      blur: this._onFocusChange.bind(this),
+      focus: this._onFocusChange.bind(this),
+    };
   }
 
   private _onFocusChange(event: Event) {
@@ -44,8 +46,12 @@ export default class Signin extends Block<SigninPropsType> {
     if (!errorMessage) {
       throw new Error('Нет спана для ошибки');
     }
+
     if (passwordInput.value !== input.value) {
       errorMessage.textContent = 'Пароли не совпадают';
+      input.classList.add('invalid');
+    } else if (!passwordInput.value) {
+      errorMessage.textContent = 'Пароль не заполнен';
       input.classList.add('invalid');
     } else {
       errorMessage.textContent = '';
@@ -55,7 +61,7 @@ export default class Signin extends Block<SigninPropsType> {
 
   render() {
     const source = `
-    <div class="register-form-container">
+    <main class="register-form-container">
       <form class="register-form">
         {{{ formHeader }}}
         <div>
@@ -70,7 +76,7 @@ export default class Signin extends Block<SigninPropsType> {
         {{{ registerBtn }}}
         {{{ loginLink }}}
       </form>
-    </div>
+    </main>
     `;
 
     const formHeader = new Text({
@@ -90,10 +96,7 @@ export default class Signin extends Block<SigninPropsType> {
         inputType: 'email',
         inputId: 'email',
         inputName: 'user_email',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -108,11 +111,8 @@ export default class Signin extends Block<SigninPropsType> {
         className: 'login-input',
         inputType: 'text',
         inputId: 'login',
-        inputName: 'user_login',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        inputName: 'login',
+        events: this._events,
       }),
     });
 
@@ -127,11 +127,8 @@ export default class Signin extends Block<SigninPropsType> {
         className: 'login-input',
         inputType: 'text',
         inputId: 'first_name',
-        inputName: 'user_first_name',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        inputName: 'first_name',
+        events: this._events,
       }),
     });
 
@@ -146,11 +143,8 @@ export default class Signin extends Block<SigninPropsType> {
         className: 'login-input',
         inputType: 'text',
         inputId: 'second_name',
-        inputName: 'user_second_name',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        inputName: 'second_name',
+        events: this._events,
       }),
     });
 
@@ -165,11 +159,8 @@ export default class Signin extends Block<SigninPropsType> {
         className: 'login-input',
         inputType: 'tel',
         inputId: 'phone',
-        inputName: 'user_phone',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        inputName: 'phone',
+        events: this._events,
       }),
     });
 
@@ -184,11 +175,8 @@ export default class Signin extends Block<SigninPropsType> {
         className: 'login-input',
         inputType: 'password',
         inputId: 'password',
-        inputName: 'user_password',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        inputName: 'password',
+        events: this._events,
       }),
     });
 
@@ -203,7 +191,7 @@ export default class Signin extends Block<SigninPropsType> {
         className: 'login-input',
         inputType: 'password',
         inputId: 'repeat_password',
-        inputName: 'user_repeat_password',
+        inputName: 'repeat_password',
         events: {
           blur: this._chekPasswordRepeat.bind(this),
           focus: this._chekPasswordRepeat.bind(this),
@@ -211,9 +199,11 @@ export default class Signin extends Block<SigninPropsType> {
       }),
     });
 
+    //TODO Перевесить событие клика на сабмит формы
     const registerBtn = new Button({
       className: 'btn-black',
       label: 'Зарегистрироваться',
+      type: 'submit',
       events: {
         click: (event) => {
           event.preventDefault();
@@ -232,7 +222,7 @@ export default class Signin extends Block<SigninPropsType> {
             console.log(errors);
             return;
           }
-          const formData = {};
+          const formData: Record<string, unknown> = {};
           inputs.forEach((input) => {
             formData[input.getAttribute('id')!] = input.value;
           });

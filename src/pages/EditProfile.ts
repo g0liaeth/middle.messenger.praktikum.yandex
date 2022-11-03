@@ -6,18 +6,20 @@ import Label from '../components/Label/Label';
 import Popup from '../components/Popup/Popup';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
-import { EditProfilePropsType } from '../types/componentTypes';
+import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
-export default class EditProfile extends Block<EditProfilePropsType> {
-  constructor(props: EditProfilePropsType) {
-    super(props);
-  }
+export default class EditProfile extends Block<BasePropsType> {
+  private _events = {};
 
-  componentDidMount(props: any): void {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
+    this._events = {
+      blur: this._onFocusChange.bind(this),
+      focus: this._onFocusChange.bind(this),
+    };
   }
 
   private _onFocusChange(event: Event) {
@@ -41,7 +43,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
 
   render() {
     const source = `
-    <div class="main-container">
+    <main class="main-container">
       {{{ profileImg }}}
       {{{ userName }}}
 
@@ -56,13 +58,13 @@ export default class EditProfile extends Block<EditProfilePropsType> {
       {{{ btnSave }}}
 
       {{{ popup }}}
-    </div>
+    </main>
     `;
 
     const profileImg = new Badge({
       imgPath: img,
       events: {
-        click: (event) => {
+        click: () => {
           popup.show();
         },
       },
@@ -78,12 +80,9 @@ export default class EditProfile extends Block<EditProfilePropsType> {
         className: 'profile-editable-input',
         inputType: 'email',
         inputId: 'email',
-        inputName: 'user_email',
+        inputName: 'email',
         inputValue: 'abcd@yandex.ru',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -97,12 +96,9 @@ export default class EditProfile extends Block<EditProfilePropsType> {
         className: 'profile-editable-input',
         inputType: 'text',
         inputId: 'login',
-        inputName: 'user_login',
+        inputName: 'login',
         inputValue: 'ivan665566966',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -116,12 +112,9 @@ export default class EditProfile extends Block<EditProfilePropsType> {
         className: 'profile-editable-input',
         inputType: 'text',
         inputId: 'first_name',
-        inputName: 'user_first_name',
+        inputName: 'first_name',
         inputValue: 'Иван',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -135,12 +128,9 @@ export default class EditProfile extends Block<EditProfilePropsType> {
         className: 'profile-editable-input',
         inputType: 'text',
         inputId: 'second_name',
-        inputName: 'user_second_name',
+        inputName: 'second_name',
         inputValue: 'Иванов',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -154,12 +144,9 @@ export default class EditProfile extends Block<EditProfilePropsType> {
         className: 'profile-editable-input',
         inputType: 'tel',
         inputId: 'phone',
-        inputName: 'user_phone',
+        inputName: 'phone',
         inputValue: '8-999-999-99-99',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        events: this._events,
       }),
     });
 
@@ -168,9 +155,11 @@ export default class EditProfile extends Block<EditProfilePropsType> {
       value: 'Иван',
     });
 
+    //TODO Перевесить событие клика на сабмит формы
     const btnSave = new Button({
       label: 'Сохранить',
       className: 'btn-change',
+      type: 'submit',
       events: {
         click: (event) => {
           event.preventDefault();
@@ -189,7 +178,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
             console.log(errors);
             return;
           }
-          const formData = {};
+          const formData: Record<string, unknown> = {};
           inputs.forEach((input) => {
             formData[input.getAttribute('id')!] = input.value;
           });
@@ -200,7 +189,7 @@ export default class EditProfile extends Block<EditProfilePropsType> {
 
     const popup = new Popup({
       events: {
-        click: (event) => {
+        click: () => {
           popup.hide();
         },
       },

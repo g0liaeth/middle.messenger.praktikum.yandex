@@ -4,18 +4,20 @@ import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
 import Link from '../components/Link/Link';
 import Text from '../components/Text/Text';
-import { LoginPropsType } from '../types/componentTypes';
+import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
-export default class Login extends Block<LoginPropsType> {
-  constructor(props: LoginPropsType) {
-    super(props);
-  }
+export default class Login extends Block<BasePropsType> {
+  private _events = {};
 
-  componentDidMount(props: any): void {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
+    this._events = {
+      blur: this._onFocusChange.bind(this),
+      focus: this._onFocusChange.bind(this),
+    };
   }
 
   private _onFocusChange(event: Event) {
@@ -39,7 +41,7 @@ export default class Login extends Block<LoginPropsType> {
 
   render() {
     const source = `
-    <div class="login-form-container">
+    <main class="login-form-container">
       <form class="login-form">
         {{{ formHeader }}}
         <div>
@@ -49,7 +51,7 @@ export default class Login extends Block<LoginPropsType> {
         {{{ loginBtn }}}
         {{{ registerLink }}}
       </form>
-    </div>
+    </main>
     `;
 
     const formHeader = new Text({
@@ -68,11 +70,8 @@ export default class Login extends Block<LoginPropsType> {
         className: 'login-input',
         inputType: 'text',
         inputId: 'login',
-        inputName: 'user_login',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        inputName: 'login',
+        events: this._events,
       }),
     });
 
@@ -87,14 +86,12 @@ export default class Login extends Block<LoginPropsType> {
         className: 'login-input',
         inputType: 'password',
         inputId: 'password',
-        inputName: 'user_password',
-        events: {
-          blur: this._onFocusChange.bind(this),
-          focus: this._onFocusChange.bind(this),
-        },
+        inputName: 'password',
+        events: this._events,
       }),
     });
 
+    //TODO Перевесить событие клика на сабмит формы
     const loginBtn = new Button({
       className: 'btn-black',
       label: 'Войти',
@@ -117,7 +114,7 @@ export default class Login extends Block<LoginPropsType> {
             console.log(errors);
             return;
           }
-          const formData = {};
+          const formData: Record<string, unknown> = {};
           inputs.forEach((input) => {
             formData[input.getAttribute('id')!] = input.value;
           });

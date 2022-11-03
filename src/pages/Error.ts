@@ -5,26 +5,23 @@ import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 
 export default class Error extends Block<ErrorPropsType> {
-  constructor(props: ErrorPropsType) {
-    super(props);
-  }
-
-  componentDidMount(props: any): void {
+  componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
   }
 
   render() {
     const source = `
-    <div class="main-container">
+    <main class="main-container">
       {{{ errorStatus }}}
       {{{ errorText }}}
       {{{ buttonBack }}}
-    </div>
+    </main>
     `;
 
     const buttonBack = new Button({
       label: 'Назад к чатам',
       className: 'btn-green',
+      type: 'button',
       events: {
         click: () => {
           window.location.assign('chat');

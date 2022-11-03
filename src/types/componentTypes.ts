@@ -1,79 +1,48 @@
 import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
 
-export type ChangePasswordPropsType = {
+export interface BasePropsType {
   className?: string;
   backgroundColor?: string;
-};
+}
 
-export type ChatPropsType = {
-  className?: string;
-  backgroundColor?: string;
-};
-
-export type EditProfilePropsType = {
-  className?: string;
-  backgroundColor?: string;
-};
-
-export type ErrorPropsType = {
+export interface ErrorPropsType extends BasePropsType {
   codeClassName: string;
   codeValue: string;
   textClassName: string;
   textValue: string;
-  backgroundColor?: string;
-};
+}
 
-export type LoginPropsType = {
-  className?: string;
-  backgroundColor?: string;
-};
-
-export type ProfilePropsType = {
-  className?: string;
-  backgroundColor?: string;
-};
-
-export type SigninPropsType = {
-  className?: string;
-  backgroundColor?: string;
-};
-
-export type BadgePropsType = {
-  className?: string;
+export interface BadgePropsType extends BasePropsType {
   imgPath: string;
   events?: {
     click: (e: Event) => void;
   };
-};
+}
 
-export type ButtonPropsType = {
-  className?: string;
+export interface ButtonPropsType extends BasePropsType {
   label: string;
   type?: string;
   events?: {
     click: (e: Event) => void;
   };
-};
+}
 
-export type DialogPropsType = {
-  className?: string;
+export interface DialogPropsType extends BasePropsType {
   lastMessageText?: string;
   lastMessageSender?: boolean;
   lastMessageTime?: string;
   hasNewMessages: boolean;
   newMessagesCount?: number;
   senderUserName?: string;
-};
+}
 
-export type FormGroupPropsType = {
-  className?: string;
+export interface FormGroupPropsType extends BasePropsType {
   label: Label;
   input: Input;
-};
+}
 
-export type InputPropsType = {
-  className?: string;
+export interface InputPropsType extends BasePropsType {
   inputType: string;
   inputId: string;
   inputName: string;
@@ -84,46 +53,39 @@ export type InputPropsType = {
     blur?: () => void;
     focus?: () => void;
   };
-};
+}
 
-export type LabelPropsType = {
-  className?: string;
+export interface LabelPropsType extends BasePropsType {
   text: string;
   labelFor: string;
-};
+}
 
-export type LinkPropsType = {
-  className?: string;
+export interface LinkPropsType extends BasePropsType {
   text: string;
   path: string;
-};
+}
 
-export type MessagePropsType = {
-  className: string;
+export interface MessagePropsType extends BasePropsType {
   text: string;
   readed: boolean;
   sendTime: string;
   readMarkImg: string;
-};
+}
 
-export type NewMessageFormPropsType = {
-  className?: string;
+export interface NewMessageFormPropsType extends BasePropsType {
   attachBtnImg: string;
-};
+}
 
-export type PopupPropsType = {
-  className?: string;
+export interface PopupPropsType extends BasePropsType {
   events?: {
     click: (e: Event) => void;
   };
-};
+}
 
-export type TextPropsType = {
-  className?: string;
+export interface TextPropsType extends BasePropsType {
   value: string;
-};
+}
 
-export type UserAvatarPropsType = {
-  className?: string;
+export interface UserAvatarPropsType extends BasePropsType {
   imgPath: string;
-};
+}

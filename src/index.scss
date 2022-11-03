@@ -222,3 +222,14 @@ input:focus.invalid {
   flex-direction: column;
   padding-left: 0;
 }
+
+.disabled-text {
+  color: $secondary-black;
+}
+
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  margin-bottom: 20px;
+}
