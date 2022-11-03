@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
+@import './components/variables.scss';
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Comfortaa', cursive;
+}
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: $accent-background;
+}
+
+.main-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.new-main-container {
+  height: 100%;
+  display: flex;
+  width: 100%;
+}
+
+.chat-wrapper {
+  height: 100%;
+  display: flex;
+  width: 100%;
+}
+
+.login-form-container {
+  background-color: $primary-background;
+  width: 500px;
+  height: 600px;
+  border: 1px solid $primary-black;
+}
+
+.login-form {
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 50px 30px 0 30px;
+}
+
+.register-form-container {
+  background-color: $primary-background;
+  width: 500px;
+  height: 700px;
+  border: 1px solid $primary-black;
+}
+
+.register-form {
+  height: 650px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 30px 0 30px;
+}
+
+.error {
+  width: 100%;
+  padding: 0;
+
+  font-size: 80%;
+
+  color: red;
+
+  flex-basis: 100%;
+}
+
+input.invalid {
+  border-bottom: 1px solid red;
+}
+
+input:focus.invalid {
+  outline: none;
+}
+
+//////////////
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.left-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: $secondary-background;
+}
+
+.right-container {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  background-color: $secondary-background;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.chat-header-left {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.chat-body {
+  background-color: $primary-background;
+  flex: 11;
+  overflow-y: auto;
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px 20px 30px;
+}
+
+.incoming-message {
+  background-color: $incoming-color;
+  max-width: 40%;
+  align-self: flex-start;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.outgoing-message {
+  background-color: $outgoing-color;
+  max-width: 40%;
+  align-self: flex-end;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.message-meta {
+  margin-top: 10px;
+  font-size: x-small;
+  align-self: flex-end;
+  color: $secondary-black;
+  display: flex;
+  flex-direction: row;
+}
+
+.message-meta-img {
+  width: 12px;
+  height: 12px;
+  padding-right: 2px;
+}
+
+.day-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.day-divider {
+  align-self: center;
+  font-size: small;
+  color: $secondary-black;
+  margin-bottom: 20px;
+}
+
+.chat-footer {
+  background-color: $primary-background;
+  flex: 2;
+}
+
+.send-message-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 30px;
+}
+
+.profile-link-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding-right: 20px;
+}
+
+.search-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.chat-list-container {
+  flex: 12;
+  overflow-y: auto;
+}
+
+.chat-list {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+}
+
+.disabled-text {
+  color: $secondary-black;
+}
+
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  margin-bottom: 20px;
+}

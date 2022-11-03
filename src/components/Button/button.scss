@@ -1,0 +1,87 @@
+@import '../variables.scss';
+
+button {
+  cursor: pointer;
+}
+.btn-green {
+  margin-top: 40px;
+  width: 200px;
+  padding: 10px;
+  font-family: 'Comfortaa', cursive;
+  background-color: $accept-button-color;
+  border-color: $primary-black;
+  border-width: 1px;
+}
+
+.btn-black {
+  padding: 10px;
+  font-family: 'Comfortaa', cursive;
+  font-size: large;
+  color: $primary-background;
+  background-color: $primary-black;
+  border: none;
+}
+
+.btn-black-w100 {
+  width: 100%;
+  padding: 10px;
+  font-family: 'Comfortaa', cursive;
+  font-size: large;
+  color: $primary-background;
+  background-color: $primary-black;
+  border: none;
+}
+
+.btn-change {
+  margin-top: 15px;
+  width: 200px;
+  padding: 10px;
+  font-family: 'Comfortaa', cursive;
+  background-color: $accept-button-color;
+  border-color: $primary-black;
+  border-width: 1px;
+}
+
+.btn-exit {
+  margin-top: 15px;
+  width: 200px;
+  padding: 10px;
+  font-family: 'Comfortaa', cursive;
+  color: $danger-color;
+  background-color: $deny-button-color;
+  border-color: $primary-black;
+  border-width: 1px;
+}
+
+.btn-back {
+  padding: 10px;
+  font-family: 'Comfortaa', cursive;
+  color: $primary-background;
+  background-color: $primary-black;
+  position: absolute;
+  left: 40px;
+  top: 40px;
+}
+
+.btn-menu {
+  display: flex;
+  border-radius: 50%;
+  width: 0.7vw;
+  height: 0.7vw;
+  padding: 0.7vw;
+  outline: none;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  background-color: $secondary-background;
+  background-image: url('./../static/ellipsis-vertical-solid.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.5vw 1.5vw;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
+.btn-menu:hover {
+  background-color: #c9c9c970;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}

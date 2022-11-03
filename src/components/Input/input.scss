@@ -1,0 +1,72 @@
+@import '../variables.scss';
+
+.profile-input {
+  border: 0;
+  font-family: 'Comfortaa', cursive;
+  font-size: 16px;
+  color: $secondary-black;
+  background-color: $primary-background;
+  text-align: end;
+}
+
+.profile-input:focus {
+  outline: none;
+}
+
+.login-input {
+  padding: 10px;
+  margin: 5px 0;
+  font-family: 'Comfortaa', cursive;
+  font-size: large;
+  border: 0;
+  border-bottom: 1px solid $primary-black;
+}
+
+.login-input:focus {
+  outline: none;
+}
+
+.profile-editable-input {
+  border: 0;
+  padding: 5px;
+  font-family: 'Comfortaa', cursive;
+  font-size: 16px;
+  background-color: $primary-background;
+  text-align: end;
+}
+
+.search-textinput {
+  padding: 10px;
+  width: 100%;
+  margin-left: 30px;
+  margin-right: 30px;
+  background-color: $secondary-background;
+  font-family: 'Comfortaa', cursive;
+  font-size: large;
+  border: 0;
+  border-bottom: 1px solid $primary-black;
+  background: url(../static/magnifying-glass-solid.svg) no-repeat 9px 9px;
+  background-size: 20px;
+  padding-left: 40px;
+}
+
+.search-textinput:focus {
+  outline: none;
+}
+
+.new-message-textinput {
+  padding: 20px;
+  width: calc(100% - 60px);
+  margin-left: 30px;
+  margin-right: 30px;
+  background-color: $primary-background;
+  font-family: 'Comfortaa', cursive;
+  font-size: large;
+  border: 0;
+  border-top: 1px solid $primary-black;
+  box-sizing: border-box;
+}
+
+.new-message-textinput:focus {
+  outline: none;
+}

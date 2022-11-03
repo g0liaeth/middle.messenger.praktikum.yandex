@@ -1,0 +1,31 @@
+@import '../variables.scss';
+
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: $locking-bacground;
+  top: 0;
+  left: 0;
+}
+
+.popup-body {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 10px;
+}
+
+.popup-content {
+  background-color: $primary-background;
+  border: 2px solid $primary-black;
+  color: $primary-black;
+  width: 400px;
+  height: 300px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
