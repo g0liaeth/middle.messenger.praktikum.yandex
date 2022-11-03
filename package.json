@@ -4,7 +4,7 @@
   "description": "---",
   "scripts": {
     "dev": "parcel src/index.html --no-cache --port 4321",
-    "build": "parcel build src/index.html --no-source-maps --no-cache",
+    "build": "parcel build src/index.html --no-cache",
     "start": "npm run build && node ./server/server.ts",
     "lint": "tsc --noEmit && eslint ./src/**/*.ts && npx stylelint ./src/**/*.scss",
     "lint:fix": "tsc --noEmit && eslint --fix ./src/**/*.ts && npx stylelint ./src/**/*.scss --fix"

@@ -48,7 +48,7 @@ export default class CustomFetch {
       xhr.open(method, url);
 
       xhr.withCredentials = true;
-      xhr.timeout = options.timeout;
+      xhr.timeout = options.timeout as number;
 
       for (let key in headers) {
         xhr.setRequestHeader(key, headers[key]);
