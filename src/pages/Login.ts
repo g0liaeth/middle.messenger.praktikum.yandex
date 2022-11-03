@@ -91,6 +91,7 @@ export default class Login extends Block<BasePropsType> {
       }),
     });
 
+    //TODO Перевесить событие клика на сабмит формы
     const loginBtn = new Button({
       className: 'btn-black',
       label: 'Войти',

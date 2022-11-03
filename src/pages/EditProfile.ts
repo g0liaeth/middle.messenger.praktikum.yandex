@@ -155,6 +155,7 @@ export default class EditProfile extends Block<BasePropsType> {
       value: 'Иван',
     });
 
+    //TODO Перевесить событие клика на сабмит формы
     const btnSave = new Button({
       label: 'Сохранить',
       className: 'btn-change',

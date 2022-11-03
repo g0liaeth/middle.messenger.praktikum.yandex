@@ -199,6 +199,7 @@ export default class Signin extends Block<BasePropsType> {
       }),
     });
 
+    //TODO Перевесить событие клика на сабмит формы
     const registerBtn = new Button({
       className: 'btn-black',
       label: 'Зарегистрироваться',

@@ -127,6 +127,7 @@ export default class ChangePassword extends Block<BasePropsType> {
       }),
     });
 
+    //TODO Перевесить событие клика на сабмит формы
     const btnSave = new Button({
       label: 'Сохранить',
       className: 'btn-change',

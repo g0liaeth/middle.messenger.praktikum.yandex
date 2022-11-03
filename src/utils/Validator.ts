@@ -61,6 +61,10 @@ export default class Validator {
           );
           break;
 
+        case 'message':
+          errors.push('Сообщение не должно быть пустым');
+          break;
+
         default:
           break;
       }
