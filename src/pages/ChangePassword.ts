@@ -4,12 +4,11 @@ import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
-import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
-export default class ChangePassword extends Block<BasePropsType> {
+export default class ChangePassword extends Block {
   private _events = {};
 
   componentDidMount(): void {
@@ -152,6 +151,7 @@ export default class ChangePassword extends Block<BasePropsType> {
           }
           const formData: Record<string, unknown> = {};
           inputs.forEach((input) => {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             formData[input.getAttribute('id')!] = input.value;
           });
           console.log(formData);

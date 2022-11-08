@@ -6,12 +6,11 @@ import Label from '../components/Label/Label';
 import Popup from '../components/Popup/Popup';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
-import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block';
 import compileComponent from '../utils/compileComponent';
 import Validator from '../utils/Validator';
 
-export default class EditProfile extends Block<BasePropsType> {
+export default class EditProfile extends Block {
   private _events = {};
 
   componentDidMount(): void {
@@ -180,6 +179,7 @@ export default class EditProfile extends Block<BasePropsType> {
           }
           const formData: Record<string, unknown> = {};
           inputs.forEach((input) => {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             formData[input.getAttribute('id')!] = input.value;
           });
           console.log(formData);

@@ -7,7 +7,9 @@ enum METHODS {
 
 type Options = {
   method: METHODS;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   headers?: Record<string, any>;
   timeout?: number;
 };
@@ -15,6 +17,7 @@ type Options = {
 type FetchParams = (url: string, options: Options) => Promise<XMLHttpRequest>;
 
 export default class CustomFetch {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _queryStringify(data?: Record<string, any>) {
     if (data == null) {
       return '';
@@ -50,6 +53,7 @@ export default class CustomFetch {
       xhr.withCredentials = true;
       xhr.timeout = options.timeout as number;
 
+      // eslint-disable-next-line prefer-const
       for (let key in headers) {
         xhr.setRequestHeader(key, headers[key]);
       }

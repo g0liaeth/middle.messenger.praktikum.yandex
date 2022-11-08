@@ -1,7 +1,8 @@
 import { v4 as makeUUID } from 'uuid';
+import { BasePropsType } from '../types/componentTypes';
 import EventBus from './EventBus';
 
-export default class Block<TProps> {
+export default abstract class Block<TProps = BasePropsType> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -12,7 +13,7 @@ export default class Block<TProps> {
   private _element: HTMLElement;
   public id: string;
   private _eventBus: EventBus;
-  public props: TProps;
+  public props: Partial<TProps>;
 
   constructor(props: TProps) {
     this._element = document.createElement('div');
@@ -77,7 +78,7 @@ export default class Block<TProps> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  private _makePropsProxy(props: TProps & Record<string, unknown>) {
+  private _makePropsProxy(props: Partial<TProps>) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     return new Proxy(props, {

@@ -1,11 +1,11 @@
 import Handlebars from 'handlebars';
 import Block from './Block';
 
-export default function compileComponent(source: string, props: any) {
+export default function compileComponent(source: string, props: Record<string, unknown>) {
   const parser = new DOMParser();
   const fragment = document.createElement('template');
 
-  const components: Record<string, Block<any>> = {};
+  const components: Record<string, Block> = {};
 
   Object.entries(props).forEach(([key, value]) => {
     if (value instanceof Block) {

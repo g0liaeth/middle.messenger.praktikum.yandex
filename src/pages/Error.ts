@@ -31,12 +31,12 @@ export default class Error extends Block<ErrorPropsType> {
 
     const errorStatus = new Text({
       className: this.props.codeClassName,
-      value: this.props.codeValue,
+      value: this.props.codeValue ? this.props.codeValue : '',
     });
 
     const errorText = new Text({
       className: this.props.textClassName,
-      value: this.props.textValue,
+      value: this.props.textValue ? this.props.textValue : '',
     });
 
     return compileComponent(source, { ...this.props, buttonBack, errorStatus, errorText });
