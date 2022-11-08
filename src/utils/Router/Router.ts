@@ -1,4 +1,4 @@
-import Block from '../Block';
+// import Block from '../Block/Block';
 import Route, { BlockInheritor } from './Route';
 
 export default class Router {

@@ -4,8 +4,8 @@ import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
 import Link from '../components/Link/Link';
 import Text from '../components/Text/Text';
-import Block from '../utils/Block';
-import compileComponent from '../utils/compileComponent';
+import Block from '../utils/Block/Block';
+import compileComponent from '../utils/Block/compileComponent';
 import Validator from '../utils/Validator';
 
 export default class Signin extends Block {

@@ -6,8 +6,8 @@ import Label from '../components/Label/Label';
 import Popup from '../components/Popup/Popup';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
-import Block from '../utils/Block';
-import compileComponent from '../utils/compileComponent';
+import Block from '../utils/Block/Block';
+import compileComponent from '../utils/Block/compileComponent';
 import Validator from '../utils/Validator';
 
 export default class EditProfile extends Block {

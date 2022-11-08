@@ -10,8 +10,8 @@ import readedMessageImg from '../static/check-double-solid.svg';
 import newMessageImg from '../static/check-solid.svg';
 import avatarImg from '../static/mock-ava.png';
 import attachBtnImg from '../static/paperclip-solid.svg';
-import Block from '../utils/Block';
-import compileComponent from '../utils/compileComponent';
+import Block from '../utils/Block/Block';
+import compileComponent from '../utils/Block/compileComponent';
 
 export default class Chat extends Block {
   componentDidMount(): void {

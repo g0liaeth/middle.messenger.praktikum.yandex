@@ -1,5 +1,5 @@
-import renderDOM from '../renderDOM';
-import Block from '../Block';
+import renderDOM from '../Block/renderDOM';
+import Block from '../Block/Block';
 
 interface IProps {
   rootQuery: string;

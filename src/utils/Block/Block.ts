@@ -1,6 +1,6 @@
 import { v4 as makeUUID } from 'uuid';
-import { BasePropsType } from '../types/componentTypes';
-import EventBus from './EventBus';
+import { BasePropsType } from '../../types/componentTypes';
+import EventBus from '../EventBus/EventBus';
 
 export default abstract class Block<TProps = BasePropsType> {
   static EVENTS = {

@@ -1,6 +1,6 @@
 import { NewMessageFormPropsType } from '../../types/componentTypes';
-import Block from '../../utils/Block';
-import compileComponent from '../../utils/compileComponent';
+import Block from '../../utils/Block/Block';
+import compileComponent from '../../utils/Block/compileComponent';
 import Validator from '../../utils/Validator';
 import Button from '../Button/Button';
 import Input from '../Input/Input';

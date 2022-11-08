@@ -1,7 +1,7 @@
 import userAvatarImg from '../../static/mock-ava.png';
 import { DialogPropsType } from '../../types/componentTypes';
-import Block from '../../utils/Block';
-import compileComponent from '../../utils/compileComponent';
+import Block from '../../utils/Block/Block';
+import compileComponent from '../../utils/Block/compileComponent';
 import UserAvatar from '../UserAvatar/UserAvatar';
 
 export default class Dialog extends Block<DialogPropsType> {
