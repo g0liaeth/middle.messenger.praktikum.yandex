@@ -13,9 +13,9 @@ type ElementEvent = {
 
 export type Events = Record<string, ElementEvent[]>;
 
-export type Props = Indexed;
+export type Props = PlainObject;
 
-export type Indexed<T = unknown> = {
+export type PlainObject<T = unknown> = {
   [key in string]: T;
 };
 export type BlockInheritor = new (

@@ -1,3 +1,5 @@
+import { PlainObject } from '../Router/Route';
+
 enum METHODS {
   GET = 'GET',
   POST = 'POST',
@@ -7,28 +9,63 @@ enum METHODS {
 
 type Options = {
   method: METHODS;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data?: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  headers?: Record<string, any>;
+
+  data?: PlainObject | FormData;
+
+  headers?: Record<string, string>;
   timeout?: number;
 };
 
 type FetchParams = (url: string, options: Options) => Promise<XMLHttpRequest>;
 
-export default class CustomFetch {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _queryStringify(data?: Record<string, any>) {
-    if (data == null) {
-      return '';
+function isPlainObject(value: unknown): value is PlainObject {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    value.constructor === Object &&
+    Object.prototype.toString.call(value) === '[object Object]'
+  );
+}
+
+function isArray(value: unknown): value is [] {
+  return Array.isArray(value);
+}
+
+function isArrayOrObject(value: unknown): value is [] | PlainObject {
+  return isPlainObject(value) || isArray(value);
+}
+
+function getKey(key: string, parentKey?: string) {
+  return parentKey ? `${parentKey}[${key}]` : key;
+}
+
+function getParams(data: PlainObject | [], parentKey?: string) {
+  const result: [string, string][] = [];
+
+  for (const [key, value] of Object.entries(data)) {
+    if (isArrayOrObject(value)) {
+      result.push(...getParams(value, getKey(key, parentKey)));
+    } else {
+      result.push([getKey(key, parentKey), encodeURIComponent(String(value))]);
     }
-    return `?${Object.keys(data)
-      .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-      .join('&')}`;
+  }
+
+  return result;
+}
+
+export default class CustomFetch {
+  private _queryStringify(data: PlainObject) {
+    if (!isPlainObject(data)) {
+      throw new Error('input must be an object');
+    }
+
+    return getParams(data)
+      .map((arr) => arr.join('='))
+      .join('&');
   }
 
   public get: FetchParams = (url, options = { method: METHODS.GET }) => {
-    return this._request(url + this._queryStringify(options.data), options);
+    return this._request(url + this._queryStringify(options.data as PlainObject), options);
   };
 
   public put: FetchParams = (url, options = { method: METHODS.PUT }) => {
@@ -53,8 +90,7 @@ export default class CustomFetch {
       xhr.withCredentials = true;
       xhr.timeout = options.timeout as number;
 
-      // eslint-disable-next-line prefer-const
-      for (let key in headers) {
+      for (const key in headers) {
         xhr.setRequestHeader(key, headers[key]);
       }
 
@@ -68,8 +104,10 @@ export default class CustomFetch {
 
       if (method === METHODS.GET || !data) {
         xhr.send();
-      } else {
+      } else if (data instanceof FormData) {
         xhr.send(data);
+      } else {
+        xhr.send(JSON.stringify(data));
       }
     });
   };
