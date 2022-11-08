@@ -15,7 +15,7 @@ export default abstract class Block<TProps = BasePropsType> {
   private _eventBus: EventBus;
   public props: Partial<TProps>;
 
-  constructor(props: TProps) {
+  constructor(props: Partial<TProps>) {
     this._element = document.createElement('div');
     this.id = makeUUID();
     this._eventBus = new EventBus();
