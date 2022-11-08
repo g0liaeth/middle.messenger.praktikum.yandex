@@ -53,7 +53,7 @@ function getParams(data: PlainObject | [], parentKey?: string) {
   return result;
 }
 
-export default class CustomFetch {
+export default class HTTPClient {
   private _queryStringify(data: PlainObject) {
     if (!isPlainObject(data)) {
       throw new Error('input must be an object');
