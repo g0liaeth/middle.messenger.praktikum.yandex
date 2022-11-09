@@ -30,7 +30,7 @@ export default class Router {
   }
 
   start() {
-    window.onpopstate = (event) => {
+    window.onpopstate = (event: PopStateEvent) => {
       this._onRoute((event.currentTarget as typeof window).location.pathname);
     };
 

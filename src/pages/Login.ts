@@ -4,7 +4,7 @@ import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
 import Link from '../components/Link/Link';
 import Text from '../components/Text/Text';
-import { Indexed, LoginData } from '../types/commonTypes';
+import { LoginData } from '../types/commonTypes';
 import Block from '../utils/Block/Block';
 import compileComponent from '../utils/Block/compileComponent';
 import Validator from '../utils/Validator';
