@@ -1,27 +1,6 @@
 import renderDOM from '../Block/renderDOM';
 import Block from '../Block/Block';
-
-interface IProps {
-  rootQuery: string;
-  props: Props;
-}
-
-type ElementEvent = {
-  id: string;
-  fn: (event: Event) => void;
-};
-
-export type Events = Record<string, ElementEvent[]>;
-
-export type Props = PlainObject;
-
-export type PlainObject<T = unknown> = {
-  [key in string]: T;
-};
-export type BlockInheritor = new (
-  propsObj: Props | undefined,
-  events: Events | undefined,
-) => InstanceType<typeof Block>;
+import { BlockInheritor, IProps } from '../../types/commonTypes';
 
 export default class Route {
   private _pathname: string;

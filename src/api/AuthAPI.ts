@@ -1,33 +1,5 @@
+import { LoginData, RegistrationData } from '../types/commonTypes';
 import BaseAPI from './BaseAPI';
-
-export type LoginData = {
-  login: string;
-  password: string;
-};
-
-type RegistrationData = {
-  email: string;
-  login: string;
-  first_name: string;
-  second_name: string;
-  phone: string;
-  password: string;
-};
-
-// type RegistrationResponseData = {
-//   id: number;
-// };
-
-// type UserData = {
-//   id: number;
-//   first_name: string;
-//   second_name: string;
-//   display_name: string;
-//   login: string;
-//   email: string;
-//   phone: string;
-//   avatar: string;
-// };
 
 const headers = {
   accept: 'application/json',
@@ -55,7 +27,7 @@ export default class AuthAPI extends BaseAPI {
 
   async getUserInfo() {
     const result = await this.httpClient.get('/user');
-    // console.log(result);
+    // console.log(result.data);
 
     return result;
   }

@@ -1,5 +1,5 @@
-// import Block from '../Block/Block';
-import Route, { BlockInheritor } from './Route';
+import { BlockInheritor } from '../../types/commonTypes';
+import Route from './Route';
 
 export default class Router {
   routes: Route[];
@@ -8,7 +8,7 @@ export default class Router {
   private _rootQuery: string;
   static __instance: Router | null;
 
-  constructor(rootQuery: string) {
+  constructor(rootQuery?: string) {
     if (Router.__instance) {
       return Router.__instance;
     }
@@ -16,7 +16,7 @@ export default class Router {
     this.routes = [];
     this.history = window.history;
     this._currentRoute = null;
-    this._rootQuery = rootQuery;
+    this._rootQuery = rootQuery ? rootQuery : '';
 
     Router.__instance = this;
   }

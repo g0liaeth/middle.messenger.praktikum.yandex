@@ -1,5 +1,5 @@
-import { PlainObject } from '../Router/Route';
 import { BASE_URL } from '../../constants/apiConstants';
+import { PlainObject } from '../../types/commonTypes';
 
 enum METHODS {
   GET = 'GET',
@@ -9,14 +9,14 @@ enum METHODS {
 }
 
 type Options = {
-  method?: METHODS;
-  data?: PlainObject | FormData;
-  headers?: Record<string, string>;
-  timeout?: number;
+  method: METHODS;
+  data: PlainObject | FormData;
+  headers: Record<string, string>;
+  timeout: number;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type FetchParams = (url: string, options?: Options) => Promise<any>;
+type FetchParams = (url: string, options?: Partial<Options>) => Promise<any>;
 
 type TResponse<T = unknown> = {
   status: number;
@@ -111,6 +111,7 @@ export default class HTTPClient {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method as METHODS, url);
+      xhr.responseType = 'json';
 
       xhr.withCredentials = true;
       xhr.timeout = timeout as number;

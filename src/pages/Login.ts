@@ -1,20 +1,22 @@
-import { LoginData } from '../api/AuthAPI';
 import Button from '../components/Button/Button';
 import FormGroup from '../components/FormGroup/FormGroup';
 import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
 import Link from '../components/Link/Link';
 import Text from '../components/Text/Text';
+import { Indexed, LoginData } from '../types/commonTypes';
 import Block from '../utils/Block/Block';
 import compileComponent from '../utils/Block/compileComponent';
 import Validator from '../utils/Validator';
 import LoginController from './LoginController';
+import connect from '../utils/Store/connect';
+import { BasePropsType } from '../types/componentTypes';
 
-export default class Login extends Block {
+class Login extends Block {
   private _events = {};
   private _loginController: LoginController;
 
-  constructor(props: any) {
+  constructor(props: Partial<BasePropsType>) {
     super(props);
     this._loginController = new LoginController();
   }
@@ -126,9 +128,7 @@ export default class Login extends Block {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             formData[input.getAttribute('id')!] = input.value;
           });
-          // console.log(formData);
           this._loginController.login(formData as LoginData);
-          this._loginController.getUserInfo().then((res) => console.log(res.data));
         },
       },
     });
@@ -149,3 +149,11 @@ export default class Login extends Block {
     });
   }
 }
+
+function mapStateToProps(state: any) {
+  return {
+    userId: state.user.id,
+  };
+}
+
+export default connect(mapStateToProps)(Login);

@@ -1,4 +1,4 @@
-type Handler = (...args: unknown[]) => void;
+import { Handler } from '../../types/commonTypes';
 
 export default class EventBus {
   private _listeners: Record<string, Handler[]>;
