@@ -1,3 +1,4 @@
+import { LoginData } from '../api/AuthAPI';
 import Button from '../components/Button/Button';
 import FormGroup from '../components/FormGroup/FormGroup';
 import Input from '../components/Input/Input';
@@ -7,9 +8,16 @@ import Text from '../components/Text/Text';
 import Block from '../utils/Block/Block';
 import compileComponent from '../utils/Block/compileComponent';
 import Validator from '../utils/Validator';
+import LoginController from './LoginController';
 
 export default class Login extends Block {
   private _events = {};
+  private _loginController: LoginController;
+
+  constructor(props: any) {
+    super(props);
+    this._loginController = new LoginController();
+  }
 
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
@@ -118,7 +126,9 @@ export default class Login extends Block {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             formData[input.getAttribute('id')!] = input.value;
           });
-          console.log(formData);
+          // console.log(formData);
+          this._loginController.login(formData as LoginData);
+          this._loginController.getUserInfo().then((res) => console.log(res.data));
         },
       },
     });

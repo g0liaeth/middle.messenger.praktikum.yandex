@@ -1,0 +1,9 @@
+{
+  "first_name": "Ivan",
+  "second_name": "Ivanov",
+  "login": "Ivan1234567890",
+  "email": "ivan@yandex.ru",
+  "password": "Zxcvbnm123",
+  "phone": "+79999999999"
+}
+id: 113179

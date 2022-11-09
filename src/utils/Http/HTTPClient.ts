@@ -1,4 +1,5 @@
 import { PlainObject } from '../Router/Route';
+import { BASE_URL } from '../../constants/apiConstants';
 
 enum METHODS {
   GET = 'GET',
@@ -8,15 +9,20 @@ enum METHODS {
 }
 
 type Options = {
-  method: METHODS;
-
+  method?: METHODS;
   data?: PlainObject | FormData;
-
   headers?: Record<string, string>;
   timeout?: number;
 };
 
-type FetchParams = (url: string, options: Options) => Promise<XMLHttpRequest>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type FetchParams = (url: string, options?: Options) => Promise<any>;
+
+type TResponse<T = unknown> = {
+  status: number;
+  statusText: string;
+  data: T;
+};
 
 function isPlainObject(value: unknown): value is PlainObject {
   return (
@@ -53,10 +59,25 @@ function getParams(data: PlainObject | [], parentKey?: string) {
   return result;
 }
 
+function createResponse(xhr: XMLHttpRequest): TResponse {
+  return {
+    status: xhr.status,
+    statusText: xhr.statusText,
+    data: xhr.response,
+  };
+}
+
 export default class HTTPClient {
+  private _apiURL: string;
+
+  constructor(path: string) {
+    this._apiURL = BASE_URL + path;
+  }
+
   private _queryStringify(data: PlainObject) {
     if (!isPlainObject(data)) {
-      throw new Error('input must be an object');
+      // throw new Error('input must be an object');
+      return '';
     }
 
     return getParams(data)
@@ -64,38 +85,42 @@ export default class HTTPClient {
       .join('&');
   }
 
-  public get: FetchParams = (url, options = { method: METHODS.GET }) => {
-    return this._request(url + this._queryStringify(options.data as PlainObject), options);
+  public get: FetchParams = (url, options) => {
+    return this._request(url + this._queryStringify(options?.data as PlainObject), {
+      ...options,
+      method: METHODS.GET,
+    });
   };
 
-  public put: FetchParams = (url, options = { method: METHODS.PUT }) => {
-    return this._request(url, options);
+  public put: FetchParams = (url, options) => {
+    return this._request(url, { ...options, method: METHODS.PUT });
   };
 
-  public post: FetchParams = (url, options = { method: METHODS.POST }) => {
-    return this._request(url, options);
+  public post: FetchParams = (url, options) => {
+    return this._request(url, { ...options, method: METHODS.POST });
   };
 
-  public delete: FetchParams = (url, options = { method: METHODS.GET }) => {
-    return this._request(url, options);
+  public delete: FetchParams = (url, options) => {
+    return this._request(url, { ...options, method: METHODS.DELETE });
   };
 
   private _request: FetchParams = (url, options = { method: METHODS.GET, timeout: 5000 }) => {
-    const { method, headers, data } = options;
+    const { method, headers, data, timeout } = options;
+    url = `${this._apiURL}${url}`;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
+      xhr.open(method as METHODS, url);
 
       xhr.withCredentials = true;
-      xhr.timeout = options.timeout as number;
+      xhr.timeout = timeout as number;
 
       for (const key in headers) {
         xhr.setRequestHeader(key, headers[key]);
       }
 
       xhr.onload = function () {
-        resolve(xhr);
+        resolve(createResponse(xhr));
       };
 
       xhr.onabort = reject;
