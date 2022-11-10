@@ -4,20 +4,30 @@ import img from '../static/mock-ava.png';
 import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block/Block';
 import compileComponent from '../utils/Block/compileComponent';
+import connect from '../utils/Store/connect';
+import ProfileController from './ProfileController';
 
-export default class Profile<T extends BasePropsType> extends Block<T> {
-  private _userInfo: Record<string, string> = {};
+class Profile<T extends BasePropsType> extends Block<T> {
+  // private _userInfo: Record<string, string> = {};
+  private _profileController: ProfileController;
+
+  constructor(props: T) {
+    super(props);
+    this._profileController = new ProfileController();
+    this._profileController.fetchUser();
+  }
 
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
-    this._userInfo = {
-      email: 'abcd@yandex.ru',
-      login: 'ivan665566966',
-      first_name: 'Иван',
-      second_name: 'Иванов',
-      phone: '8-999-999-99-99',
-      imgPath: img,
-    };
+    // this._userInfo = {
+    //   email: 'abcd@yandex.ru',
+    //   login: 'ivan665566966',
+    //   first_name: 'Иван',
+    //   second_name: 'Иванов',
+    //   phone: '8-999-999-99-99',
+    //   imgPath: img,
+    // };
+    // console.log(this.props.userInfo);
   }
 
   render() {
@@ -58,7 +68,7 @@ export default class Profile<T extends BasePropsType> extends Block<T> {
 
     const userName = new Text({
       className: 'profile-name',
-      value: this._userInfo.login,
+      value: this.props.userInfo.login,
     });
 
     const btnProfileEdit = new Button({
@@ -112,7 +122,15 @@ export default class Profile<T extends BasePropsType> extends Block<T> {
       btnChangePassword,
       btnExit,
       btnBack,
-      ...this._userInfo,
+      // ...this._userInfo,
     });
   }
 }
+
+function mapStateToProps(state: any) {
+  return {
+    userInfo: state.user,
+  };
+}
+
+export default connect<BasePropsType>(mapStateToProps)(Profile);
