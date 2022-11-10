@@ -135,7 +135,7 @@ class Login<T extends BasePropsType> extends Block<T> {
 
     const registerLink = new Link({
       className: 'simple-link',
-      path: 'signin',
+      path: 'signup',
       text: 'Нет аккаунта?',
     });
 

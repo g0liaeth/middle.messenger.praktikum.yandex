@@ -55,6 +55,14 @@ export default class Router {
     this._onRoute(pathname);
   }
 
+  back() {
+    this.history.back();
+  }
+
+  forward() {
+    this.history.forward();
+  }
+
   getRoute(pathname: string) {
     return this.routes.find((route) => route.match(pathname));
   }

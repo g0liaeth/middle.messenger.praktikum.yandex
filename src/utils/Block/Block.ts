@@ -108,8 +108,9 @@ export default abstract class Block<T extends object> {
   public show() {
     const element = this.getContent();
     if (element) {
-      element.style.display = 'block';
+      element.style.display = 'flex';
     }
+    console.log(this);
   }
 
   public hide() {
@@ -117,6 +118,7 @@ export default abstract class Block<T extends object> {
     if (element) {
       element.style.display = 'none';
     }
+    console.log(this);
   }
 
   public setProps = (nextProps: T) => {

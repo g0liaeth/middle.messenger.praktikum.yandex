@@ -4,13 +4,22 @@ import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
 import Link from '../components/Link/Link';
 import Text from '../components/Text/Text';
+import { RegistrationData } from '../types/commonTypes';
 import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block/Block';
 import compileComponent from '../utils/Block/compileComponent';
+import connect from '../utils/Store/connect';
 import Validator from '../utils/Validator';
+import RegistrationController from './RegistrationController';
 
-export default class Signin<T extends BasePropsType> extends Block<T> {
+class Registration<T extends BasePropsType> extends Block<T> {
   private _events = {};
+  private _registrationController: RegistrationController;
+
+  constructor(props: T) {
+    super(props);
+    this._registrationController = new RegistrationController();
+  }
 
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
@@ -227,7 +236,7 @@ export default class Signin<T extends BasePropsType> extends Block<T> {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             formData[input.getAttribute('id')!] = input.value;
           });
-          console.log(formData);
+          this._registrationController.registration(formData as RegistrationData);
         },
       },
     });
@@ -253,3 +262,11 @@ export default class Signin<T extends BasePropsType> extends Block<T> {
     });
   }
 }
+
+function mapStateToProps(state: any) {
+  return {
+    userId: state.user.id,
+  };
+}
+
+export default connect<BasePropsType>(mapStateToProps)(Registration);
