@@ -7,7 +7,7 @@ export default class Route {
 
   private _blockClass: BlockInheritor;
 
-  private _block: Block | null;
+  private _block: Block<any> | null;
 
   private _props: IProps;
 
@@ -37,8 +37,8 @@ export default class Route {
 
   public render() {
     if (!this._block) {
-      this._block = new this._blockClass(this._props.props, undefined);
-      renderDOM(this._props.rootQuery, this._block as Block);
+      this._block = new this._blockClass(this._props.props);
+      renderDOM(this._props.rootQuery, this._block as Block<any>);
       return;
     }
 

@@ -1,8 +1,7 @@
 import { v4 as makeUUID } from 'uuid';
-import { BasePropsType } from '../../types/componentTypes';
 import EventBus from '../EventBus/EventBus';
 
-export default abstract class Block<TProps = BasePropsType> {
+export default abstract class Block<T extends object> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -13,9 +12,9 @@ export default abstract class Block<TProps = BasePropsType> {
   private _element: HTMLElement;
   public id: string;
   private _eventBus: EventBus;
-  public props: Partial<TProps>;
+  public props: T;
 
-  constructor(props: Partial<TProps>) {
+  constructor(props: T) {
     this._element = document.createElement('div');
     this.id = makeUUID();
     this._eventBus = new EventBus();
@@ -28,15 +27,15 @@ export default abstract class Block<TProps = BasePropsType> {
     this._eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidMount(props: TProps) {
+  private _componentDidMount(props: T) {
     this.componentDidMount(props);
     this._eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-  protected componentDidMount(_props: TProps) {}
+  protected componentDidMount(_props: T) {}
 
-  private _componentDidUpdate(oldProps: TProps, newProps: TProps) {
+  private _componentDidUpdate(oldProps: T, newProps: T) {
     const response = this.componentDidUpdate(oldProps, newProps);
 
     if (!response) {
@@ -46,7 +45,7 @@ export default abstract class Block<TProps = BasePropsType> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected componentDidUpdate(_oldProps: TProps, _newProps: TProps) {
+  protected componentDidUpdate(_oldProps: T, _newProps: T) {
     return true;
   }
 
@@ -78,7 +77,7 @@ export default abstract class Block<TProps = BasePropsType> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  private _makePropsProxy(props: Partial<TProps>) {
+  private _makePropsProxy(props: T) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     return new Proxy(props, {
@@ -120,7 +119,7 @@ export default abstract class Block<TProps = BasePropsType> {
     }
   }
 
-  public setProps = (nextProps: TProps) => {
+  public setProps = (nextProps: T) => {
     if (!nextProps) {
       return;
     }

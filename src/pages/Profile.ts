@@ -1,10 +1,11 @@
 import Button from '../components/Button/Button';
 import Text from '../components/Text/Text';
 import img from '../static/mock-ava.png';
+import { BasePropsType } from '../types/componentTypes';
 import Block from '../utils/Block/Block';
 import compileComponent from '../utils/Block/compileComponent';
 
-export default class Profile extends Block {
+export default class Profile<T extends BasePropsType> extends Block<T> {
   private _userInfo: Record<string, string> = {};
 
   componentDidMount(): void {

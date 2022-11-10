@@ -1,6 +1,6 @@
 import Block from './Block';
 
-export default function renderDOM<TProps>(query: string, block: Block<TProps>): void {
+export default function renderDOM(query: string, block: Block<any>): void {
   const root = document.querySelector(query);
 
   if (!root) {

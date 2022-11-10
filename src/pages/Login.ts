@@ -12,11 +12,11 @@ import LoginController from './LoginController';
 import connect from '../utils/Store/connect';
 import { BasePropsType } from '../types/componentTypes';
 
-class Login extends Block {
+class Login<T extends BasePropsType> extends Block<T> {
   private _events = {};
   private _loginController: LoginController;
 
-  constructor(props: Partial<BasePropsType>) {
+  constructor(props: T) {
     super(props);
     this._loginController = new LoginController();
   }
@@ -156,4 +156,4 @@ function mapStateToProps(state: any) {
   };
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect<BasePropsType>(mapStateToProps)(Login);

@@ -1,13 +1,11 @@
 import Block from '../Block/Block';
 import store, { StoreEvents } from './Store';
-import { BasePropsType } from '../../types/componentTypes';
-import { Indexed } from '../../types/commonTypes';
 import isEqual from '../isEqual';
 
-export default function connect(mapStateToProps: (state: Indexed) => Indexed) {
+export default function connect<T extends object>(mapStateToProps: (state: any) => any) {
   return function (Component: typeof Block) {
-    return class extends Component {
-      constructor(props: Partial<BasePropsType>) {
+    return class extends Component<T> {
+      constructor(props: T) {
         let state = mapStateToProps(store.getState());
         super({ ...props, ...state });
 

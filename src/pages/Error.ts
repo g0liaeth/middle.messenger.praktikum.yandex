@@ -4,7 +4,7 @@ import { ErrorPropsType } from '../types/componentTypes';
 import Block from '../utils/Block/Block';
 import compileComponent from '../utils/Block/compileComponent';
 
-export default class Error extends Block<ErrorPropsType> {
+export default class Error<T extends ErrorPropsType> extends Block<T> {
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
   }
