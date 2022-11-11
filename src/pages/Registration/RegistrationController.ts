@@ -1,5 +1,5 @@
-import { RegistrationData } from '../types/commonTypes';
-import BaseController from './BaseController';
+import { RegistrationData } from '../../types/commonTypes';
+import BaseController from '../../utils/BaseController';
 
 export default class RegistrationController extends BaseController {
   async registration(data: RegistrationData) {

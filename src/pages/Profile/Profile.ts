@@ -1,10 +1,10 @@
-import Button from '../components/Button/Button';
-import Text from '../components/Text/Text';
+import Button from '../../components/Button/Button';
+import Text from '../../components/Text/Text';
 import img from '../static/mock-ava.png';
-import { BasePropsType } from '../types/componentTypes';
-import Block from '../utils/Block/Block';
-import compileComponent from '../utils/Block/compileComponent';
-import connect from '../utils/Store/connect';
+import { BasePropsType } from '../../types/componentTypes';
+import Block from '../../utils/Block/Block';
+import compileComponent from '../../utils/Block/compileComponent';
+import connect from '../../utils/Store/connect';
 import ProfileController from './ProfileController';
 
 class Profile<T extends BasePropsType> extends Block<T> {

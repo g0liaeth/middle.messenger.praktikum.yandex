@@ -1,15 +1,15 @@
-import Button from '../components/Button/Button';
-import FormGroup from '../components/FormGroup/FormGroup';
-import Input from '../components/Input/Input';
-import Label from '../components/Label/Label';
-import Link from '../components/Link/Link';
-import Text from '../components/Text/Text';
-import { RegistrationData } from '../types/commonTypes';
-import { BasePropsType } from '../types/componentTypes';
-import Block from '../utils/Block/Block';
-import compileComponent from '../utils/Block/compileComponent';
-import connect from '../utils/Store/connect';
-import Validator from '../utils/Validator';
+import Button from '../../components/Button/Button';
+import FormGroup from '../../components/FormGroup/FormGroup';
+import Input from '../../components/Input/Input';
+import Label from '../../components/Label/Label';
+import Link from '../../components/Link/Link';
+import Text from '../../components/Text/Text';
+import { RegistrationData } from '../../types/commonTypes';
+import { BasePropsType } from '../../types/componentTypes';
+import Block from '../../utils/Block/Block';
+import compileComponent from '../../utils/Block/compileComponent';
+import connect from '../../utils/Store/connect';
+import Validator from '../../utils/Validator';
 import RegistrationController from './RegistrationController';
 
 class Registration<T extends BasePropsType> extends Block<T> {

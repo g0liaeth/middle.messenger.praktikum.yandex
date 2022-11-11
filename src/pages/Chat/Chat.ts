@@ -1,18 +1,18 @@
-import Button from '../components/Button/Button';
-import Dialog from '../components/Dialog/Dialog';
-import Input from '../components/Input/Input';
-import Link from '../components/Link/Link';
-import Message from '../components/Message/Message';
-import NewMessageForm from '../components/NewMessageForm/NewMessageForm';
-import Text from '../components/Text/Text';
-import UserAvatar from '../components/UserAvatar/UserAvatar';
-import readedMessageImg from '../static/check-double-solid.svg';
-import newMessageImg from '../static/check-solid.svg';
-import avatarImg from '../static/mock-ava.png';
-import attachBtnImg from '../static/paperclip-solid.svg';
-import { BasePropsType } from '../types/componentTypes';
-import Block from '../utils/Block/Block';
-import compileComponent from '../utils/Block/compileComponent';
+import Button from '../../components/Button/Button';
+import Dialog from '../../components/Dialog/Dialog';
+import Input from '../../components/Input/Input';
+import Link from '../../components/Link/Link';
+import Message from '../../components/Message/Message';
+import NewMessageForm from '../../components/NewMessageForm/NewMessageForm';
+import Text from '../../components/Text/Text';
+import UserAvatar from '../../components/UserAvatar/UserAvatar';
+import readedMessageImg from '../../static/check-double-solid.svg';
+import newMessageImg from '../../static/check-solid.svg';
+import avatarImg from '../../static/mock-ava.png';
+import attachBtnImg from '../../static/paperclip-solid.svg';
+import { BasePropsType } from '../../types/componentTypes';
+import Block from '../../utils/Block/Block';
+import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Chat<T extends BasePropsType> extends Block<T> {
   componentDidMount(): void {

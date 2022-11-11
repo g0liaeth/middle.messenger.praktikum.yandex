@@ -1,8 +1,8 @@
-import Button from '../components/Button/Button';
-import Text from '../components/Text/Text';
-import { ErrorPropsType } from '../types/componentTypes';
-import Block from '../utils/Block/Block';
-import compileComponent from '../utils/Block/compileComponent';
+import Button from '../../components/Button/Button';
+import Text from '../../components/Text/Text';
+import { ErrorPropsType } from '../../types/componentTypes';
+import Block from '../../utils/Block/Block';
+import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Error<T extends ErrorPropsType> extends Block<T> {
   componentDidMount(): void {

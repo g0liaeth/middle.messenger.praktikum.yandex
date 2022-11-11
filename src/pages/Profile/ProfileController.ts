@@ -1,4 +1,4 @@
-import BaseController from './BaseController';
+import BaseController from '../../utils/BaseController';
 
 export default class ProfileController extends BaseController {
   async fetchUser() {

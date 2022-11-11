@@ -1,16 +1,16 @@
-import Button from '../components/Button/Button';
-import FormGroup from '../components/FormGroup/FormGroup';
-import Input from '../components/Input/Input';
-import Label from '../components/Label/Label';
-import Link from '../components/Link/Link';
-import Text from '../components/Text/Text';
-import { LoginData } from '../types/commonTypes';
-import Block from '../utils/Block/Block';
-import compileComponent from '../utils/Block/compileComponent';
-import Validator from '../utils/Validator';
+import Button from '../../components/Button/Button';
+import FormGroup from '../../components/FormGroup/FormGroup';
+import Input from '../../components/Input/Input';
+import Label from '../../components/Label/Label';
+import Link from '../../components/Link/Link';
+import Text from '../../components/Text/Text';
+import { LoginData } from '../../types/commonTypes';
+import Block from '../../utils/Block/Block';
+import compileComponent from '../../utils/Block/compileComponent';
+import Validator from '../../utils/Validator';
 import LoginController from './LoginController';
-import connect from '../utils/Store/connect';
-import { BasePropsType } from '../types/componentTypes';
+import connect from '../../utils/Store/connect';
+import { BasePropsType } from '../../types/componentTypes';
 
 class Login<T extends BasePropsType> extends Block<T> {
   private _events = {};
@@ -19,6 +19,7 @@ class Login<T extends BasePropsType> extends Block<T> {
   constructor(props: T) {
     super(props);
     this._loginController = new LoginController();
+    this._loginController.checkAuth();
   }
 
   componentDidMount(): void {

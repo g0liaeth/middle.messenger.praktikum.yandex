@@ -1,10 +1,10 @@
-import Error from './pages/Error';
-import Chat from './pages/Chat';
-import Login from './pages/Login';
-import Registration from './pages/Registration';
-import Profile from './pages/Profile';
-import EditProfile from './pages/EditProfile';
-import ChangePassword from './pages/ChangePassword';
+import Error from './pages/Error/Error';
+import Chat from './pages/Chat/Chat';
+import Login from './pages/Login/Login';
+import Registration from './pages/Registration/Registration';
+import Profile from './pages/Profile/Profile';
+import EditProfile from './pages/EditProfile/EditProfile';
+import ChangePassword from './pages/ChangePassword/ChangePassword';
 import Router from './utils/Router/Router';
 
 const router = new Router('#root');
