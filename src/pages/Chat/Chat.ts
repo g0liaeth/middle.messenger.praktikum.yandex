@@ -13,8 +13,9 @@ import attachBtnImg from '../../static/paperclip-solid.svg';
 import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
+import connect from '../../utils/Store/connect';
 
-export default class Chat<T extends BasePropsType> extends Block<T> {
+class Chat<T extends BasePropsType> extends Block<T> {
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
     document.addEventListener('DOMContentLoaded', () => {
@@ -22,6 +23,7 @@ export default class Chat<T extends BasePropsType> extends Block<T> {
       mainContainer.classList.remove('main-container');
       mainContainer.classList.add('new-main-container');
     });
+    console.log(this.props);
   }
 
   render() {
@@ -142,3 +144,11 @@ export default class Chat<T extends BasePropsType> extends Block<T> {
     });
   }
 }
+
+function mapStateToProps(state: any) {
+  return {
+    userId: state.user.id,
+  };
+}
+
+export default connect<BasePropsType>(mapStateToProps)(Chat);

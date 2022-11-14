@@ -1,11 +1,12 @@
 import Button from '../../components/Button/Button';
 import Text from '../../components/Text/Text';
-import img from '../static/mock-ava.png';
+// import img from '../static/mock-ava.png';
 import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 import connect from '../../utils/Store/connect';
 import ProfileController from './ProfileController';
+// import { UserData } from '../../types/commonTypes';
 
 class Profile<T extends BasePropsType> extends Block<T> {
   // private _userInfo: Record<string, string> = {};
@@ -14,7 +15,8 @@ class Profile<T extends BasePropsType> extends Block<T> {
   constructor(props: T) {
     super(props);
     this._profileController = new ProfileController();
-    this._profileController.fetchUser();
+    // console.log(this._profileController.getState());
+    // this._profileController.fetchUser();
   }
 
   componentDidMount(): void {
@@ -27,7 +29,8 @@ class Profile<T extends BasePropsType> extends Block<T> {
     //   phone: '8-999-999-99-99',
     //   imgPath: img,
     // };
-    // console.log(this.props.userInfo);
+
+    // console.log(this.props);
   }
 
   render() {
@@ -122,7 +125,6 @@ class Profile<T extends BasePropsType> extends Block<T> {
       btnChangePassword,
       btnExit,
       btnBack,
-      // ...this._userInfo,
     });
   }
 }
