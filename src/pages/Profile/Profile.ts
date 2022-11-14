@@ -6,37 +6,26 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 import connect from '../../utils/Store/connect';
 import ProfileController from './ProfileController';
-// import { UserData } from '../../types/commonTypes';
 
 class Profile<T extends BasePropsType> extends Block<T> {
-  // private _userInfo: Record<string, string> = {};
-  private _profileController: ProfileController;
+  protected _profileController: ProfileController;
 
   constructor(props: T) {
     super(props);
     this._profileController = new ProfileController();
-    // console.log(this._profileController.getState());
-    // this._profileController.fetchUser();
+    this._profileController.fetchUser();
   }
 
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
-    // this._userInfo = {
-    //   email: 'abcd@yandex.ru',
-    //   login: 'ivan665566966',
-    //   first_name: 'Иван',
-    //   second_name: 'Иванов',
-    //   phone: '8-999-999-99-99',
-    //   imgPath: img,
-    // };
-
-    // console.log(this.props);
   }
 
   render() {
+    console.log('render Profile');
+
     const source = `
     <main class="main-container">
-      <img src={{ imgPath }} alt="avatar" class="profile-photo">
+      <img src={{ avatar }} alt="avatar" class="profile-photo">
       {{{ userName }}}
 
       <div class="form-group-profile">
@@ -119,7 +108,7 @@ class Profile<T extends BasePropsType> extends Block<T> {
     });
 
     return compileComponent(source, {
-      ...this.props,
+      ...this.props.userInfo,
       userName,
       btnProfileEdit,
       btnChangePassword,

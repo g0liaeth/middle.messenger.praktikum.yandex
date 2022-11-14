@@ -14,7 +14,4 @@ export default class ProfileController extends BaseController {
       console.log(error);
     }
   }
-  getState() {
-    return this._store.getState();
-  }
 }
