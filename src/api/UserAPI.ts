@@ -15,4 +15,20 @@ export default class UserAPI extends BaseAPI {
     const result = await this.httpClient.put('/password', { data, headers });
     return result;
   }
+
+  async changeProfile() {
+    throw new Error('Not implemented');
+  }
+
+  async changeAvatar() {
+    throw new Error('Not implemented');
+  }
+
+  async getUserById() {
+    throw new Error('Not implemented');
+  }
+
+  async searchUserByLogin() {
+    throw new Error('Not implemented');
+  }
 }

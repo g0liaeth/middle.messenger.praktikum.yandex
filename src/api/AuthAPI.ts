@@ -28,8 +28,6 @@ export default class AuthAPI extends BaseAPI {
 
   async getUserInfo() {
     const result = await this.httpClient.get('/user');
-    // console.log(result.data);
-
     return result;
   }
 }
