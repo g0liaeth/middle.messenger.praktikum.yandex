@@ -11,7 +11,7 @@ export default class AuthAPI extends BaseAPI {
     super('/auth');
   }
 
-  async login(data: LoginData): Promise<void> {
+  async login(data: LoginData) {
     const result = await this.httpClient.post('/signin', { data, headers });
     return result;
   }
@@ -21,8 +21,9 @@ export default class AuthAPI extends BaseAPI {
     return response.data;
   }
 
-  async logout(): Promise<void> {
-    await this.httpClient.post('/logout');
+  async logout() {
+    const result = await this.httpClient.post('/logout');
+    return result;
   }
 
   async getUserInfo() {

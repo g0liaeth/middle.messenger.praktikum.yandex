@@ -11,7 +11,7 @@ export default abstract class Block<T extends object> {
 
   private _element: HTMLElement;
   public id: string;
-  private _eventBus: EventBus;
+  protected _eventBus: EventBus;
   public props: T;
 
   constructor(props: T) {

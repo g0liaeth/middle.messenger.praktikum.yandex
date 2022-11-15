@@ -1,5 +1,7 @@
 // import Block from '../utils/Block/Block';
 
+import { type } from 'os';
+
 export type LoginData = {
   login: string;
   password: string;
@@ -12,6 +14,11 @@ export type RegistrationData = {
   second_name: string;
   phone: string;
   password: string;
+};
+
+export type ChangePasswordData = {
+  oldPassword: string;
+  newPassword: string;
 };
 
 export type RegistrationResponseData = {

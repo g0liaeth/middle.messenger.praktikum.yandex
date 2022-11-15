@@ -4,13 +4,21 @@ import Input from '../../components/Input/Input';
 import Label from '../../components/Label/Label';
 import Text from '../../components/Text/Text';
 import img from '../../static/mock-ava.png';
+import { ChangePasswordData } from '../../types/commonTypes';
 import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 import Validator from '../../utils/Validator';
+import ChangePasswordController from './ChangePasswordController';
 
 export default class ChangePassword<T extends BasePropsType> extends Block<T> {
   private _events = {};
+  protected _changePasswordController: ChangePasswordController;
+
+  constructor(props: T) {
+    super(props);
+    this._changePasswordController = new ChangePasswordController();
+  }
 
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
@@ -61,9 +69,7 @@ export default class ChangePassword<T extends BasePropsType> extends Block<T> {
   render() {
     const source = `
     <main class="main-container">
-      <img src={{ imgPath }} alt="avatar" class="profile-photo">
-      {{{ userName }}}
-      
+      <h1>Смена пароля</h1>
       <form>
         {{{ oldPasswordFormGroup }}}
         {{{ newPasswordFormGroup }}}
@@ -71,13 +77,9 @@ export default class ChangePassword<T extends BasePropsType> extends Block<T> {
       </form>
       
       {{{ btnSave }}}
+      {{{ btnCancel }}}
     </main>
     `;
-
-    const userName = new Text({
-      className: 'profile-name',
-      value: 'Иван',
-    });
 
     const oldPasswordFormGroup = new FormGroup({
       className: 'form-group-profile',
@@ -156,18 +158,30 @@ export default class ChangePassword<T extends BasePropsType> extends Block<T> {
             formData[input.getAttribute('id')!] = input.value;
           });
           console.log(formData);
+          this._changePasswordController.changePassword(formData as ChangePasswordData);
+        },
+      },
+    });
+
+    const btnCancel = new Button({
+      label: 'Отмена',
+      className: 'btn-exit',
+      type: 'button',
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          this._changePasswordController.cancel();
         },
       },
     });
 
     return compileComponent(source, {
       ...this.props,
-      userName,
       oldPasswordFormGroup,
       newPasswordFormGroup,
       repeatNewPasswordFormGroup,
       btnSave,
-      imgPath: img,
+      btnCancel,
     });
   }
 }

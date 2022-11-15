@@ -4,17 +4,28 @@ import isEqual from '../isEqual';
 
 export default function connect<T extends object>(mapStateToProps: (state: any) => any) {
   return function (Component: typeof Block) {
-    let state = mapStateToProps(store.getState());
+    const state = mapStateToProps(store.getState());
+    // console.log(state);
+
+    // let state = store.getState();
 
     return class extends Component<T> {
       constructor(props: T) {
+        // console.log(props);
         super({ ...props, ...state });
-
-        store.on(StoreEvents.Updated, (newState: any) => {
-          if (!isEqual(state, newState)) {
-            this.setProps({ ...newState });
-            state = newState;
-          }
+        // console.log(this.props);
+        store.on(StoreEvents.Updated, () => {
+          // const mappedNewState = mapStateToProps(newState);
+          // console.log(state);
+          // console.log(newState);
+          // console.log(mappedNewState);
+          // this.setProps({ ...newState });
+          this._eventBus.emit(Block.EVENTS.FLOW_RENDER);
+          // state = newState;
+          // if (!isEqual(state, newState)) {
+          //   this.setProps({ ...newState });
+          //   state = newState;
+          // }
         });
       }
     };

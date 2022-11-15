@@ -1,5 +1,6 @@
 import Button from '../../components/Button/Button';
 import Text from '../../components/Text/Text';
+import { UPLOAD_URL } from '../../constants/apiConstants';
 // import img from '../static/mock-ava.png';
 import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
@@ -18,6 +19,7 @@ class Profile<T extends BasePropsType> extends Block<T> {
 
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
+    console.log(this.props);
   }
 
   render() {
@@ -25,28 +27,28 @@ class Profile<T extends BasePropsType> extends Block<T> {
 
     const source = `
     <main class="main-container">
-      <img src={{ avatar }} alt="avatar" class="profile-photo">
+      <img src={{ avatarUrl }} alt="avatar-img" class="profile-photo">
       {{{ userName }}}
 
       <div class="form-group-profile">
         <div>Почта</div>
-        <div class="disabled-text">{{email}}</div>
+        <div class="disabled-text">{{userInfo.email}}</div>
       </div>
       <div class="form-group-profile">
         <div>Логин</div>
-        <div class="disabled-text">{{login}}</div>
+        <div class="disabled-text">{{userInfo.login}}</div>
       </div>
       <div class="form-group-profile">
         <div>Имя</div>
-        <div class="disabled-text">{{first_name}}</div>
+        <div class="disabled-text">{{userInfo.first_name}}</div>
       </div>
       <div class="form-group-profile">
         <div>Фамилия</div>
-        <div class="disabled-text">{{second_name}}</div>
+        <div class="disabled-text">{{userInfo.second_name}}</div>
       </div>
       <div class="form-group-profile">
         <div>Телефон</div>
-        <div class="disabled-text">{{phone}}</div>
+        <div class="disabled-text">{{userInfo.phone}}</div>
       </div>
 
       {{{ btnProfileEdit }}}
@@ -91,7 +93,7 @@ class Profile<T extends BasePropsType> extends Block<T> {
       type: 'button',
       events: {
         click: () => {
-          window.location.assign('/');
+          this._profileController.logout();
         },
       },
     });
@@ -108,19 +110,22 @@ class Profile<T extends BasePropsType> extends Block<T> {
     });
 
     return compileComponent(source, {
-      ...this.props.userInfo,
+      ...this.props,
       userName,
       btnProfileEdit,
       btnChangePassword,
       btnExit,
       btnBack,
+      avatarUrl: this.props.userInfo.hasOwnProperty('avatar')
+        ? UPLOAD_URL + this.props.userInfo.avatar
+        : null,
     });
   }
 }
 
 function mapStateToProps(state: any) {
   return {
-    userInfo: state.user,
+    userInfo: state.profileState.user,
   };
 }
 

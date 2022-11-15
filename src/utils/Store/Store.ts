@@ -1,6 +1,9 @@
 import { Indexed } from '../../types/commonTypes';
+import cloneDeep from '../cloneDeep';
 import EventBus from '../EventBus/EventBus';
+import isEqual from '../isEqual';
 import setProp from '../setProp';
+import { INITIAL_STATE } from './initialState/initialState';
 
 export enum StoreEvents {
   Updated = 'updated',
@@ -11,11 +14,7 @@ class Store extends EventBus {
 
   constructor() {
     super();
-    this._state = {
-      user: {
-        id: null,
-      },
-    };
+    this._state = INITIAL_STATE;
   }
 
   public getState() {
@@ -23,9 +22,11 @@ class Store extends EventBus {
   }
 
   public setState(path: string, value: unknown) {
+    const oldState = cloneDeep(this._state);
     setProp(this._state, path, value);
-
-    this.emit(StoreEvents.Updated, this._state);
+    if (!isEqual(oldState, this._state)) {
+      this.emit(StoreEvents.Updated);
+    }
   }
 }
 

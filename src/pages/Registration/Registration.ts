@@ -265,7 +265,7 @@ class Registration<T extends BasePropsType> extends Block<T> {
 
 function mapStateToProps(state: any) {
   return {
-    userId: state.user.id,
+    userId: state.profileState.user.id,
   };
 }
 
