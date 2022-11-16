@@ -1,4 +1,5 @@
-import { ChangePasswordData } from '../types/commonTypes';
+import { ChangePasswordData, ChangeProfileData, UserData } from '../types/commonTypes';
+import { TResponse } from '../utils/Http/HTTPClient';
 import BaseAPI from './BaseAPI';
 
 const headers = {
@@ -6,22 +7,35 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
+const headers2 = {
+  'Content-Type': 'multipart/form-data',
+};
+
 export default class UserAPI extends BaseAPI {
   constructor() {
     super('/user');
   }
 
-  async changePassword(data: ChangePasswordData) {
+  async changePassword(data: ChangePasswordData): Promise<TResponse<string>> {
     const result = await this.httpClient.put('/password', { data, headers });
     return result;
   }
 
-  async changeProfile() {
-    throw new Error('Not implemented');
+  async changeProfile(data: ChangeProfileData): Promise<TResponse<UserData>> {
+    const result = await this.httpClient.put('/profile', { data, headers });
+    return result;
   }
 
-  async changeAvatar() {
-    throw new Error('Not implemented');
+  async changeAvatar(data: File): Promise<TResponse<UserData>> {
+    const formData = new FormData();
+    formData.append('avatar', data);
+    const result = await this.httpClient.put('/profile/avatar', {
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return result;
   }
 
   async getUserById() {

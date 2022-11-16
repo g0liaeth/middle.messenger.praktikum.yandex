@@ -18,7 +18,7 @@ type Options = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FetchParams = (url: string, options?: Partial<Options>) => Promise<any>;
 
-type TResponse<T = unknown> = {
+export type TResponse<T = unknown> = {
   status: number;
   statusText: string;
   data: T;

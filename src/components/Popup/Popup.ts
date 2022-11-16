@@ -12,11 +12,11 @@ export default class Popup extends Block<PopupPropsType> {
     const source = `
     <div class="popup">
       <div class="popup-body">
-        <div class="popup-content">
+        <form class="popup-content">
           {{{ popupHeader }}}
           {{{ popupContent }}}
           {{{ btnUpload }}}
-        </div>
+        </form>
       </div>
     </div>
     `;
@@ -42,8 +42,13 @@ export default class Popup extends Block<PopupPropsType> {
     const btnUpload = new Button({
       label: 'Поменять',
       className: 'btn-black-w100',
+      type: 'submit',
       events: {
-        click: () => {
+        click: (event) => {
+          event.preventDefault();
+          const target = event.target as HTMLElement;
+          const inputs = target.parentElement?.querySelectorAll('input');
+          this.props.aaa(inputs[0].files[0]);
           window.location.assign('profile');
         },
       },

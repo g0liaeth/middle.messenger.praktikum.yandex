@@ -118,7 +118,7 @@ export default abstract class Block<T extends object> {
     if (element) {
       element.style.display = 'none';
     }
-    console.log(this);
+    // console.log(this);
   }
 
   public setProps = (nextProps: T) => {

@@ -5,14 +5,25 @@ import Input from '../../components/Input/Input';
 import Label from '../../components/Label/Label';
 import Popup from '../../components/Popup/Popup';
 import Text from '../../components/Text/Text';
-import img from '../../static/mock-ava.png';
+import { UPLOAD_URL } from '../../constants/apiConstants';
+import { ChangeProfileData } from '../../types/commonTypes';
+// import img from '../../static/mock-ava.png';
 import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
+import connect from '../../utils/Store/connect';
 import Validator from '../../utils/Validator';
+import EditProfileController from './EditProfileController';
 
-export default class EditProfile<T extends BasePropsType> extends Block<T> {
+class EditProfile<T extends BasePropsType> extends Block<T> {
   private _events = {};
+  protected _editProfileController: EditProfileController;
+
+  constructor(props: T) {
+    super(props);
+    this._editProfileController = new EditProfileController();
+    this._editProfileController.fetchUser();
+  }
 
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
@@ -20,6 +31,7 @@ export default class EditProfile<T extends BasePropsType> extends Block<T> {
       blur: this._onFocusChange.bind(this),
       focus: this._onFocusChange.bind(this),
     };
+    // console.log(this.props);
   }
 
   private _onFocusChange(event: Event) {
@@ -50,19 +62,23 @@ export default class EditProfile<T extends BasePropsType> extends Block<T> {
       <form>
         {{{ emailFormGroup }}}
         {{{ loginFormGroup }}}
+        {{{ displayNameFormGroup }}}
         {{{ firstNameFormGroup }}}
         {{{ secondNameFormGroup }}}
         {{{ phoneFormGroup }}}
       </form>
 
       {{{ btnSave }}}
+      {{{ btnCancel }}}
 
       {{{ popup }}}
     </main>
     `;
 
     const profileImg = new Badge({
-      imgPath: img,
+      imgPath: this.props.userInfo.hasOwnProperty('avatar')
+        ? UPLOAD_URL + this.props.userInfo.avatar
+        : null,
       events: {
         click: () => {
           popup.show();
@@ -81,7 +97,7 @@ export default class EditProfile<T extends BasePropsType> extends Block<T> {
         inputType: 'email',
         inputId: 'email',
         inputName: 'email',
-        inputValue: 'abcd@yandex.ru',
+        inputValue: this.props.userInfo.email,
         events: this._events,
       }),
     });
@@ -97,7 +113,23 @@ export default class EditProfile<T extends BasePropsType> extends Block<T> {
         inputType: 'text',
         inputId: 'login',
         inputName: 'login',
-        inputValue: 'ivan665566966',
+        inputValue: this.props.userInfo.login,
+        events: this._events,
+      }),
+    });
+
+    const displayNameFormGroup = new FormGroup({
+      className: 'form-group-profile',
+      label: new Label({
+        labelFor: 'display_name',
+        text: 'Отображаемое имя',
+      }),
+      input: new Input({
+        className: 'profile-editable-input',
+        inputType: 'text',
+        inputId: 'display_name',
+        inputName: 'display_name',
+        inputValue: this.props.userInfo.display_name,
         events: this._events,
       }),
     });
@@ -113,7 +145,7 @@ export default class EditProfile<T extends BasePropsType> extends Block<T> {
         inputType: 'text',
         inputId: 'first_name',
         inputName: 'first_name',
-        inputValue: 'Иван',
+        inputValue: this.props.userInfo.first_name,
         events: this._events,
       }),
     });
@@ -129,7 +161,7 @@ export default class EditProfile<T extends BasePropsType> extends Block<T> {
         inputType: 'text',
         inputId: 'second_name',
         inputName: 'second_name',
-        inputValue: 'Иванов',
+        inputValue: this.props.userInfo.second_name,
         events: this._events,
       }),
     });
@@ -145,14 +177,14 @@ export default class EditProfile<T extends BasePropsType> extends Block<T> {
         inputType: 'tel',
         inputId: 'phone',
         inputName: 'phone',
-        inputValue: '8-999-999-99-99',
+        inputValue: this.props.userInfo.phone,
         events: this._events,
       }),
     });
 
     const userName = new Text({
       className: 'profile-name',
-      value: 'Иван',
+      value: this.props.userInfo.login,
     });
 
     //TODO Перевесить событие клика на сабмит формы
@@ -184,6 +216,7 @@ export default class EditProfile<T extends BasePropsType> extends Block<T> {
             formData[input.getAttribute('id')!] = input.value;
           });
           console.log(formData);
+          this._editProfileController.changeProfile(formData as ChangeProfileData);
         },
       },
     });
@@ -191,7 +224,20 @@ export default class EditProfile<T extends BasePropsType> extends Block<T> {
     const popup = new Popup({
       events: {
         click: () => {
-          popup.hide();
+          // popup.hide();
+        },
+      },
+      aaa: async (data) => await this._editProfileController.changeAvatar(data),
+    });
+
+    const btnCancel = new Button({
+      label: 'Отмена',
+      className: 'btn-exit',
+      type: 'button',
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          this._editProfileController.cancel();
         },
       },
     });
@@ -204,11 +250,21 @@ export default class EditProfile<T extends BasePropsType> extends Block<T> {
       userName,
       emailFormGroup,
       loginFormGroup,
+      displayNameFormGroup,
       firstNameFormGroup,
       secondNameFormGroup,
       phoneFormGroup,
       popup,
       btnSave,
+      btnCancel,
     });
   }
 }
+
+function mapStateToProps(state: any) {
+  return {
+    userInfo: state.profileState.user,
+  };
+}
+
+export default connect<BasePropsType>(mapStateToProps)(EditProfile);
