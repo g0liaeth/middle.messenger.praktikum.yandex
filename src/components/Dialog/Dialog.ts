@@ -1,15 +1,13 @@
-import userAvatarImg from '../../static/mock-ava.png';
 import { DialogPropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
-import UserAvatar from '../UserAvatar/UserAvatar';
 
 export default class Dialog extends Block<DialogPropsType> {
   render() {
     const source = `
     <li class="chat-item">
       <div class="chat-item-left">
-        {{{ userAvatar }}}
+        {{{ dialogAvatar }}}
         <div class="chat-info">
           <div class="sender"><b>{{senderUserName}}</b></div>
           <div>
@@ -33,10 +31,6 @@ export default class Dialog extends Block<DialogPropsType> {
     </li>
     `;
 
-    const userAvatar = new UserAvatar({
-      imgPath: userAvatarImg,
-    });
-
-    return compileComponent(source, { ...this.props, userAvatar });
+    return compileComponent(source, this.props);
   }
 }

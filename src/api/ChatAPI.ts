@@ -6,7 +6,8 @@ export default class ChatAPI extends BaseAPI {
   }
 
   async getChats() {
-    throw new Error('Not implemented');
+    const result = await this.httpClient.get('');
+    return result;
   }
 
   async createChat() {

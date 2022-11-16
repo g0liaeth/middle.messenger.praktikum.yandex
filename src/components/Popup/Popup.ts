@@ -49,7 +49,7 @@ export default class Popup extends Block<PopupPropsType> {
           const target = event.target as HTMLElement;
           const inputs = target.parentElement?.querySelectorAll('input');
           this.props.aaa(inputs[0].files[0]);
-          window.location.assign('profile');
+          window.location.assign('chat');
         },
       },
     });

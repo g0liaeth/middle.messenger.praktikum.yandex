@@ -6,7 +6,7 @@ export default class UserAvatar extends Block<UserAvatarPropsType> {
   render() {
     const source = `
     <div class="avatar-shield">
-      <img src={{ imgPath }} alt="avatar" class="avatar-img">
+      <img src={{ imgPath }} alt="chat-avatar" class="avatar-img">
     </div>
     `;
 

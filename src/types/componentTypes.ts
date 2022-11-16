@@ -1,5 +1,6 @@
 import Input from '../components/Input/Input';
 import Label from '../components/Label/Label';
+import UserAvatar from '../components/UserAvatar/UserAvatar';
 
 export interface BasePropsType {
   className?: string;
@@ -35,6 +36,7 @@ export interface DialogPropsType extends BasePropsType {
   hasNewMessages: boolean;
   newMessagesCount?: number;
   senderUserName?: string;
+  dialogAvatar?: UserAvatar;
 }
 
 export interface FormGroupPropsType extends BasePropsType {

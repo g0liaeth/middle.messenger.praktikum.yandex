@@ -2,7 +2,6 @@ import { LoginData, RegistrationData } from '../types/commonTypes';
 import BaseAPI from './BaseAPI';
 
 const headers = {
-  accept: 'application/json',
   'Content-Type': 'application/json',
 };
 

@@ -14,8 +14,19 @@ import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 import connect from '../../utils/Store/connect';
+import ChatController from './ChatController';
 
 class Chat<T extends BasePropsType> extends Block<T> {
+  protected _chatController: ChatController;
+
+  constructor(props: T) {
+    super(props);
+    this._chatController = new ChatController();
+    // this._chatController.fetchUser();
+    this._chatController.getChats();
+    // console.log(this._chatController.getState());
+  }
+
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
     document.addEventListener('DOMContentLoaded', () => {
@@ -23,10 +34,12 @@ class Chat<T extends BasePropsType> extends Block<T> {
       mainContainer.classList.remove('main-container');
       mainContainer.classList.add('new-main-container');
     });
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   render() {
+    // console.log('render chats');
+
     const source = `
     <main class="chat-wrapper">
       <div class="left-container">
@@ -96,40 +109,43 @@ class Chat<T extends BasePropsType> extends Block<T> {
     const newMessageForm = new NewMessageForm({ attachBtnImg });
 
     const dialogsList: Dialog[] = [];
-    for (let i = 0; i < 9; i++) {
+    this.props.chatsList.forEach((chat) => {
       dialogsList.push(
         new Dialog({
-          hasNewMessages: true,
+          hasNewMessages: chat.unread_count > 0,
           lastMessageSender: true,
-          senderUserName: 'Вадим',
-          lastMessageText: 'Lorem ipsum dolor sit amet consectetur adi...',
-          lastMessageTime: '12:45',
-          newMessagesCount: 4,
+          senderUserName: chat.title,
+          lastMessageText: chat.last_message?.content,
+          lastMessageTime: chat.last_message?.time,
+          newMessagesCount: chat.unread_count,
+          dialogAvatar: new UserAvatar({
+            imgPath: chat.avatar,
+          }),
         }),
       );
-    }
+    });
 
     const messagesList: Message[] = [];
-    for (let i = 0; i < 5; i++) {
-      messagesList.push(
-        new Message({
-          className: 'incoming-message',
-          readed: true,
-          sendTime: '15:47',
-          readMarkImg: readedMessageImg,
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque tenetur qui laudantium autem omnis. Quod ex omnis, totam impedit tempore cupiditate laboriosam fugit, minima commodi assumenda excepturi inventore eaque exercitationem! Possimus voluptates numquam dignissimos natus atque vero iure sed ut adipisci eligendi! Voluptas quas vel quos, amet nemo omnis sit, recusandae iusto laudantium minus iure porro assumenda praesentium saepe ipsa!',
-        }),
-      );
-    }
-    messagesList.push(
-      new Message({
-        className: 'outgoing-message',
-        readed: false,
-        sendTime: '12:00',
-        text: 'Круто!!!',
-        readMarkImg: newMessageImg,
-      }),
-    );
+    // for (let i = 0; i < 5; i++) {
+    //   messagesList.push(
+    //     new Message({
+    //       className: 'incoming-message',
+    //       readed: true,
+    //       sendTime: '15:47',
+    //       readMarkImg: readedMessageImg,
+    //       text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque tenetur qui laudantium autem omnis. Quod ex omnis, totam impedit tempore cupiditate laboriosam fugit, minima commodi assumenda excepturi inventore eaque exercitationem! Possimus voluptates numquam dignissimos natus atque vero iure sed ut adipisci eligendi! Voluptas quas vel quos, amet nemo omnis sit, recusandae iusto laudantium minus iure porro assumenda praesentium saepe ipsa!',
+    //     }),
+    //   );
+    // }
+    // messagesList.push(
+    //   new Message({
+    //     className: 'outgoing-message',
+    //     readed: false,
+    //     sendTime: '12:00',
+    //     text: 'Круто!!!',
+    //     readMarkImg: newMessageImg,
+    //   }),
+    // );
 
     return compileComponent(source, {
       ...this.props,
@@ -147,7 +163,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
 
 function mapStateToProps(state: any) {
   return {
-    userId: state.profileState.user.id,
+    chatsList: state.chatState.chats,
   };
 }
 
