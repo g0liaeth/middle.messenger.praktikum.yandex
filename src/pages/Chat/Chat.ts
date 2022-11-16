@@ -44,6 +44,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
     <main class="chat-wrapper">
       <div class="left-container">
         <div class="profile-link-container">
+          {{{ addChatBtn }}}
           {{{ profileLink }}}
         </div>
         <div class="search-container">
@@ -106,6 +107,12 @@ class Chat<T extends BasePropsType> extends Block<T> {
       type: 'button',
     });
 
+    const addChatBtn = new Button({
+      className: 'btn-menu',
+      label: '',
+      type: 'button',
+    });
+
     const newMessageForm = new NewMessageForm({ attachBtnImg });
 
     const dialogsList: Dialog[] = [];
@@ -157,6 +164,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
       newMessageForm,
       dialogsList,
       messagesList,
+      addChatBtn,
     });
   }
 }
