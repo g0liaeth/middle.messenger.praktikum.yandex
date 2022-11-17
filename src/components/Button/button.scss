@@ -86,6 +86,26 @@ button {
   transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
 }
 
+.btn-attach-file {
+  border-radius: 50%;
+  width: 0.7vw;
+  height: 0.7vw;
+  padding: 0.7vw;
+  outline: none;
+  border: none;
+  background-color: $primary-background;
+  background-image: url('../../static/paperclip-solid.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.5vw 1.5vw;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
+.btn-attach-file:hover {
+  background-color: #c9c9c970;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
 // .btn-add-chat {
 //   border-radius: 50%;
 //   width: 0.7vw;

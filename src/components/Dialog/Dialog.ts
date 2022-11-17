@@ -5,7 +5,7 @@ import compileComponent from '../../utils/Block/compileComponent';
 export default class Dialog extends Block<DialogPropsType> {
   render() {
     const source = `
-    <li class="chat-item">
+    <li class="chat-item {{ className }}" id="{{ id }}">
       <div class="chat-item-left">
         {{{ dialogAvatar }}}
         <div class="chat-info">

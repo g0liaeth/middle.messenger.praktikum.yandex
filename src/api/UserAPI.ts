@@ -32,7 +32,8 @@ export default class UserAPI extends BaseAPI {
     throw new Error('Not implemented');
   }
 
-  async searchUserByLogin() {
-    throw new Error('Not implemented');
+  async searchUserByLogin(login: string) {
+    const result = await this.httpClient.post('/search', { data: { login }, headers });
+    return result;
   }
 }
