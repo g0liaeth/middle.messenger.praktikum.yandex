@@ -1,4 +1,9 @@
+import { CreateChatData } from '../types/commonTypes';
 import BaseAPI from './BaseAPI';
+
+const headers = {
+  'Content-Type': 'application/json',
+};
 
 export default class ChatAPI extends BaseAPI {
   constructor() {
@@ -10,8 +15,9 @@ export default class ChatAPI extends BaseAPI {
     return result;
   }
 
-  async createChat() {
-    throw new Error('Not implemented');
+  async createChat(data: CreateChatData) {
+    const result = await this.httpClient.post('', { data, headers });
+    return result;
   }
 
   async deleteChatById() {

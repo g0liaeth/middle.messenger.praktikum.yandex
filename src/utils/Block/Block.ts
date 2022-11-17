@@ -63,6 +63,8 @@ export default abstract class Block<T extends object> {
     this._element.replaceWith(element);
     this._element = element;
 
+    // console.log(this._element);
+
     this._addEventListeners();
   }
 

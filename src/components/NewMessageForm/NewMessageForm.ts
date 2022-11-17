@@ -37,7 +37,6 @@ export default class NewMessageForm extends Block<NewMessageFormPropsType> {
   render() {
     const source = `
     <form>
-      
       {{{ newMessageInput }}}
       <span id="messageError" class="error" aria-live="polite"></span>
       <div class="send-message-container">

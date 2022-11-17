@@ -1,10 +1,12 @@
 // import Block from '../utils/Block/Block';
 
-import { type } from 'os';
-
 export type LoginData = {
   login: string;
   password: string;
+};
+
+export type CreateChatData = {
+  title: string;
 };
 
 export type RegistrationData = {

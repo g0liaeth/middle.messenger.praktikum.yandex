@@ -1,13 +1,14 @@
 import Button from '../../components/Button/Button';
 import Dialog from '../../components/Dialog/Dialog';
+import Form from '../../components/Form/Form';
 import Input from '../../components/Input/Input';
 import Link from '../../components/Link/Link';
 import Message from '../../components/Message/Message';
 import NewMessageForm from '../../components/NewMessageForm/NewMessageForm';
 import Text from '../../components/Text/Text';
 import UserAvatar from '../../components/UserAvatar/UserAvatar';
-import readedMessageImg from '../../static/check-double-solid.svg';
-import newMessageImg from '../../static/check-solid.svg';
+import readedMessageImg from '../../static/check2-all.svg';
+import newMessageImg from '../../static/check2.svg';
 import avatarImg from '../../static/mock-ava.png';
 import attachBtnImg from '../../static/paperclip-solid.svg';
 import { BasePropsType } from '../../types/componentTypes';
@@ -39,12 +40,12 @@ class Chat<T extends BasePropsType> extends Block<T> {
 
   render() {
     // console.log('render chats');
-
+    const chatController = this._chatController;
     const source = `
     <main class="chat-wrapper">
       <div class="left-container">
         <div class="profile-link-container">
-          {{{ addChatBtn }}}
+          {{{ newChatForm }}}
           {{{ profileLink }}}
         </div>
         <div class="search-container">
@@ -78,6 +79,37 @@ class Chat<T extends BasePropsType> extends Block<T> {
     </main>
     `;
 
+    const newChatTitle = new Input({
+      className: 'new-chat-title',
+      inputType: 'text',
+      inputId: 'new_chat_title',
+      inputName: 'new_chat_title',
+      inputPlaceholder: 'Заголовок чата...',
+    });
+
+    const addChatBtn = new Button({
+      className: 'btn-add-chat',
+      label: 'создать',
+      type: 'submit',
+    });
+
+    const newChatForm = new Form({
+      formItems: [newChatTitle, addChatBtn],
+      className: 'new-chat-form',
+      events: {
+        submit(event) {
+          event.preventDefault();
+          const target = event.target as HTMLFormElement;
+          const data = new FormData(target);
+          if (!data.get('new_chat_title')) {
+            return;
+          }
+          chatController.createChat(data.get('new_chat_title') as string);
+          target.reset();
+        },
+      },
+    });
+
     const profileLink = new Link({
       className: 'profile-link',
       path: 'profile',
@@ -102,12 +134,6 @@ class Chat<T extends BasePropsType> extends Block<T> {
     });
 
     const chatMenu = new Button({
-      className: 'btn-menu',
-      label: '',
-      type: 'button',
-    });
-
-    const addChatBtn = new Button({
       className: 'btn-menu',
       label: '',
       type: 'button',
@@ -164,7 +190,8 @@ class Chat<T extends BasePropsType> extends Block<T> {
       newMessageForm,
       dialogsList,
       messagesList,
-      addChatBtn,
+      newChatForm,
+      // addChatBtn,
     });
   }
 }

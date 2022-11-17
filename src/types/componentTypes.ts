@@ -44,6 +44,13 @@ export interface FormGroupPropsType extends BasePropsType {
   input: Input;
 }
 
+export interface FormPropsType extends BasePropsType {
+  formItems?: unknown[];
+  events?: {
+    submit: (e: Event) => void;
+  };
+}
+
 export interface InputPropsType extends BasePropsType {
   inputType: string;
   inputId: string;

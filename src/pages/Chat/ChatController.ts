@@ -28,8 +28,16 @@ export default class ChatController extends BaseController {
     }
   }
 
-  async createChat() {
-    throw new Error('Not implemented');
+  async createChat(title: string) {
+    try {
+      const res = await this._chatAPI.createChat({ title });
+      if (res.status === 200) {
+        const res = await this._chatAPI.getChats();
+        this._store.setState('chatState.chats', res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async deleteChat() {
@@ -40,8 +48,6 @@ export default class ChatController extends BaseController {
     try {
       const res = await this._chatAPI.getChats();
       if (res.status === 200) {
-        // console.log(res.data);
-
         this._store.setState('chatState.chats', res.data);
       }
     } catch (error) {
