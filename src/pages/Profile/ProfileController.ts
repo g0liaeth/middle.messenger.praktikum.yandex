@@ -30,7 +30,7 @@ export default class ProfileController extends BaseController {
     try {
       const res = await this._authAPI.logout();
       if (res.status === 200) {
-        this._store.setState('profileState.user', PROFILE_STATE);
+        this._store.setState('profileState.user', {});
         this._router.go('/login');
       }
     } catch (error) {
