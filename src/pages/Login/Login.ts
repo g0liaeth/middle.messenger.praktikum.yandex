@@ -11,6 +11,8 @@ import Validator from '../../utils/Validator';
 import LoginController from './LoginController';
 import connect from '../../utils/Store/connect';
 import { BasePropsType } from '../../types/componentTypes';
+import Form from '../../components/Form/Form';
+import Container from '../../components/Container/Container';
 
 class Login<T extends BasePropsType> extends Block<T> {
   private _events = {};
@@ -52,15 +54,7 @@ class Login<T extends BasePropsType> extends Block<T> {
   render() {
     const source = `
     <main class="login-form-container">
-      <form class="login-form">
-        {{{ formHeader }}}
-        <div>
-          {{{ loginFormGroup }}}
-          {{{ passwordFormGroup }}}
-        </div>
-        {{{ loginBtn }}}
-        {{{ registerLink }}}
-      </form>
+      {{{ loginForm }}}
     </main>
     `;
 
@@ -101,37 +95,10 @@ class Login<T extends BasePropsType> extends Block<T> {
       }),
     });
 
-    //TODO Перевесить событие клика на сабмит формы
     const loginBtn = new Button({
       className: 'btn-black',
       label: 'Войти',
       type: 'submit',
-      events: {
-        click: (event) => {
-          event.preventDefault();
-          const target = event.target as HTMLElement;
-          const inputs = target.parentElement?.querySelectorAll('input');
-          let errors: string[] = [];
-          if (!inputs) {
-            return;
-          }
-          inputs.forEach((input) => {
-            const validator = new Validator();
-            const fieldErrors = validator.validateInput(input);
-            errors = [...errors, ...fieldErrors];
-          });
-          if (errors.length > 0) {
-            console.log(errors);
-            return;
-          }
-          const formData: Record<string, unknown> = {};
-          inputs.forEach((input) => {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            formData[input.getAttribute('id')!] = input.value;
-          });
-          this._loginController.login(formData as LoginData);
-        },
-      },
     });
 
     const registerLink = new Link({
@@ -140,13 +107,48 @@ class Login<T extends BasePropsType> extends Block<T> {
       text: 'Нет аккаунта?',
     });
 
+    const loginInputsBlock = new Container({
+      items: [loginFormGroup, passwordFormGroup],
+    });
+
+    const onLoginFormSubmit = (event: SubmitEvent) => {
+      event.preventDefault();
+      const target = event.target as HTMLFormElement;
+      const inputs = target.querySelectorAll('input');
+      let errors: string[] = [];
+      if (!inputs) {
+        return;
+      }
+      inputs.forEach((input) => {
+        const validator = new Validator();
+        const fieldErrors = validator.validateInput(input);
+        errors = [...errors, ...fieldErrors];
+      });
+      if (errors.length > 0) {
+        console.log(errors);
+        return;
+      }
+      const formData: Record<string, unknown> = {};
+      inputs.forEach((input) => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        formData[input.getAttribute('id')!] = input.value;
+      });
+      console.log(formData as LoginData);
+
+      this._loginController.login(formData as LoginData);
+    };
+
+    const loginForm = new Form({
+      className: 'login-form',
+      formItems: [formHeader, loginInputsBlock, loginBtn, registerLink],
+      events: {
+        submit: onLoginFormSubmit,
+      },
+    });
+
     return compileComponent(source, {
       ...this.props,
-      formHeader,
-      loginFormGroup,
-      passwordFormGroup,
-      loginBtn,
-      registerLink,
+      loginForm,
     });
   }
 }

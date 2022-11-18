@@ -1,5 +1,6 @@
 import Badge from '../../components/Badge/Badge';
 import Button from '../../components/Button/Button';
+import Form from '../../components/Form/Form';
 import FormGroup from '../../components/FormGroup/FormGroup';
 import Input from '../../components/Input/Input';
 import Label from '../../components/Label/Label';
@@ -7,7 +8,6 @@ import Popup from '../../components/Popup/Popup';
 import Text from '../../components/Text/Text';
 import { UPLOAD_URL } from '../../constants/apiConstants';
 import { ChangeProfileData } from '../../types/commonTypes';
-// import img from '../../static/mock-ava.png';
 import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
@@ -59,14 +59,7 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
       {{{ profileImg }}}
       {{{ userName }}}
 
-      <form>
-        {{{ emailFormGroup }}}
-        {{{ loginFormGroup }}}
-        {{{ displayNameFormGroup }}}
-        {{{ firstNameFormGroup }}}
-        {{{ secondNameFormGroup }}}
-        {{{ phoneFormGroup }}}
-      </form>
+      {{{ editProfileForm }}}
 
       {{{ btnSave }}}
       {{{ btnCancel }}}
@@ -196,47 +189,19 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
       value: this.props.userInfo.login,
     });
 
-    //TODO Перевесить событие клика на сабмит формы
     const btnSave = new Button({
       label: 'Сохранить',
       className: 'btn-change',
       type: 'submit',
-      events: {
-        click: (event) => {
-          event.preventDefault();
-          const target = event.target as HTMLElement;
-          const inputs = target.parentElement?.querySelectorAll('input');
-          let errors: string[] = [];
-          if (!inputs) {
-            return;
-          }
-          inputs.forEach((input) => {
-            const validator = new Validator();
-            const fieldErrors = validator.validateInput(input);
-            errors = [...errors, ...fieldErrors];
-          });
-          if (errors.length > 0) {
-            console.log(errors);
-            return;
-          }
-          const formData: Record<string, unknown> = {};
-          inputs.forEach((input) => {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            formData[input.getAttribute('id')!] = input.value;
-          });
-          console.log(formData);
-          this._editProfileController.changeProfile(formData as ChangeProfileData);
-        },
-      },
     });
 
     const popup = new Popup({
       events: {
         click: () => {
-          // popup.hide();
+          popup.hide();
         },
       },
-      aaa: async (data) => await this._editProfileController.changeAvatar(data),
+      uploadImage: async (data) => await this._editProfileController.changeAvatar(data),
     });
 
     const btnCancel = new Button({
@@ -251,18 +216,53 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
       },
     });
 
+    const onEditProfileFormSubmit = (event: SubmitEvent) => {
+      event.preventDefault();
+      const target = event.target as HTMLElement;
+      const inputs = target.querySelectorAll('input');
+      let errors: string[] = [];
+      if (!inputs) {
+        return;
+      }
+      inputs.forEach((input) => {
+        const validator = new Validator();
+        const fieldErrors = validator.validateInput(input);
+        errors = [...errors, ...fieldErrors];
+      });
+      if (errors.length > 0) {
+        console.log(errors);
+        return;
+      }
+      const formData: Record<string, unknown> = {};
+      inputs.forEach((input) => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        formData[input.getAttribute('id')!] = input.value;
+      });
+      console.log(formData);
+      this._editProfileController.changeProfile(formData as ChangeProfileData);
+    };
+
+    const editProfileForm = new Form({
+      formItems: [
+        emailFormGroup,
+        loginFormGroup,
+        displayNameFormGroup,
+        firstNameFormGroup,
+        secondNameFormGroup,
+        phoneFormGroup,
+      ],
+      events: {
+        submit: onEditProfileFormSubmit,
+      },
+    });
+
     popup.hide();
 
     return compileComponent(source, {
       ...this.props,
       profileImg,
       userName,
-      emailFormGroup,
-      loginFormGroup,
-      displayNameFormGroup,
-      firstNameFormGroup,
-      secondNameFormGroup,
-      phoneFormGroup,
+      editProfileForm,
       popup,
       btnSave,
       btnCancel,

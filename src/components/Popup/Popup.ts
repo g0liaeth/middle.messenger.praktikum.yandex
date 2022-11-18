@@ -50,7 +50,7 @@ export default class Popup extends Block<PopupPropsType> {
           const inputs = target.parentElement?.querySelectorAll('input');
 
           // @ts-expect-error because of ???
-          this.props.aaa(inputs[0].files[0]);
+          this.props.uploadImage(inputs[0].files[0]);
 
           window.location.assign('chat');
         },

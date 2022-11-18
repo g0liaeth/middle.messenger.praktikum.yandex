@@ -1,8 +1,8 @@
 import Button from '../../components/Button/Button';
+import Form from '../../components/Form/Form';
 import FormGroup from '../../components/FormGroup/FormGroup';
 import Input from '../../components/Input/Input';
 import Label from '../../components/Label/Label';
-// import Text from '../../components/Text/Text';
 import { ChangePasswordData } from '../../types/commonTypes';
 import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
@@ -69,12 +69,7 @@ export default class ChangePassword<T extends BasePropsType> extends Block<T> {
     const source = `
     <main class="main-container">
       <h1>Смена пароля</h1>
-      <form>
-        {{{ oldPasswordFormGroup }}}
-        {{{ newPasswordFormGroup }}}
-        {{{ repeatNewPasswordFormGroup }}}
-      </form>
-      
+      {{{ changePasswordForm }}}
       {{{ btnSave }}}
       {{{ btnCancel }}}
     </main>
@@ -128,7 +123,6 @@ export default class ChangePassword<T extends BasePropsType> extends Block<T> {
       }),
     });
 
-    //TODO Перевесить событие клика на сабмит формы
     const btnSave = new Button({
       label: 'Сохранить',
       className: 'btn-change',
@@ -157,6 +151,9 @@ export default class ChangePassword<T extends BasePropsType> extends Block<T> {
             formData[input.getAttribute('id')!] = input.value;
           });
           console.log(formData);
+          if (formData.newPassword !== formData.repeatNewPassword) {
+            return;
+          }
           this._changePasswordController.changePassword(formData as ChangePasswordData);
         },
       },
@@ -174,11 +171,42 @@ export default class ChangePassword<T extends BasePropsType> extends Block<T> {
       },
     });
 
+    const onChangePassowrdFormSubmit = (event: SubmitEvent) => {
+      event.preventDefault();
+      const target = event.target as HTMLElement;
+      const inputs = target.querySelectorAll('input');
+      let errors: string[] = [];
+      if (!inputs) {
+        return;
+      }
+      inputs.forEach((input) => {
+        const validator = new Validator();
+        const fieldErrors = validator.validateInput(input);
+        errors = [...errors, ...fieldErrors];
+      });
+      if (errors.length > 0) {
+        console.log(errors);
+        return;
+      }
+      const formData: Record<string, unknown> = {};
+      inputs.forEach((input) => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        formData[input.getAttribute('id')!] = input.value;
+      });
+      console.log(formData);
+      this._changePasswordController.changePassword(formData as ChangePasswordData);
+    };
+
+    const changePasswordForm = new Form({
+      formItems: [oldPasswordFormGroup, newPasswordFormGroup, repeatNewPasswordFormGroup],
+      events: {
+        submit: onChangePassowrdFormSubmit,
+      },
+    });
+
     return compileComponent(source, {
       ...this.props,
-      oldPasswordFormGroup,
-      newPasswordFormGroup,
-      repeatNewPasswordFormGroup,
+      changePasswordForm,
       btnSave,
       btnCancel,
     });
