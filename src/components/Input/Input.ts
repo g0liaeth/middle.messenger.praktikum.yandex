@@ -1,6 +1,6 @@
 import { InputPropsType } from '../../types/componentTypes';
-import Block from '../../utils/Block';
-import compileComponent from '../../utils/compileComponent';
+import Block from '../../utils/Block/Block';
+import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Input extends Block<InputPropsType> {
   render() {
@@ -11,7 +11,7 @@ export default class Input extends Block<InputPropsType> {
       name={{ inputName }}
       {{ disabled }}
       class={{ className }}
-      placeholder={{#if inputPlaceholder}}{{inputPlaceholder}}{{else}}""{{/if}}
+      placeholder={{#if inputPlaceholder}}"{{inputPlaceholder}}"{{else}}""{{/if}}
       autocomplete="off"
       {{#if inputValue}}value="{{ inputValue }}"{{else}}{{/if}}
     />

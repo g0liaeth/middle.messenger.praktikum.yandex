@@ -1,6 +1,6 @@
 import { PopupPropsType } from '../../types/componentTypes';
-import Block from '../../utils/Block';
-import compileComponent from '../../utils/compileComponent';
+import Block from '../../utils/Block/Block';
+import compileComponent from '../../utils/Block/compileComponent';
 import Button from '../Button/Button';
 import FormGroup from '../FormGroup/FormGroup';
 import Input from '../Input/Input';
@@ -12,11 +12,11 @@ export default class Popup extends Block<PopupPropsType> {
     const source = `
     <div class="popup">
       <div class="popup-body">
-        <div class="popup-content">
+        <form class="popup-content">
           {{{ popupHeader }}}
           {{{ popupContent }}}
           {{{ btnUpload }}}
-        </div>
+        </form>
       </div>
     </div>
     `;
@@ -42,9 +42,17 @@ export default class Popup extends Block<PopupPropsType> {
     const btnUpload = new Button({
       label: 'Поменять',
       className: 'btn-black-w100',
+      type: 'submit',
       events: {
-        click: () => {
-          window.location.assign('profile');
+        click: (event) => {
+          event.preventDefault();
+          const target = event.target as HTMLElement;
+          const inputs = target.parentElement?.querySelectorAll('input');
+
+          // @ts-expect-error because of ???
+          this.props.uploadImage(inputs[0].files[0]);
+
+          window.location.assign('chat');
         },
       },
     });
