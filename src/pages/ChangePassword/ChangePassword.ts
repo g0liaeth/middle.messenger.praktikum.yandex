@@ -17,6 +17,7 @@ export default class ChangePassword<T extends BasePropsType> extends Block<T> {
   constructor(props: T) {
     super(props);
     this._changePasswordController = new ChangePasswordController();
+    this._changePasswordController.fetchUser();
   }
 
   componentDidMount(): void {
