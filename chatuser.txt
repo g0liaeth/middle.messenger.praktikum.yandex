@@ -1,18 +1,10 @@
 {
-  id: 113179
-  "first_name": "Ivan",
-  "second_name": "Ivanov",
+  "id": 113179
   "login": "Ivan1234567890",
-  "email": "ivan@yandex.ru",
   "password": "Zxcvbnm123",
-  "phone": "+79999999999"
 }
 {
   "id":145684,
-  "first_name": "SIvan",
-  "second_name": "SIvanov",
   "login": "SIvan1234567890",
-  "email": "sivan@yandex.ru",
   "password": "Zxcvbnm123",
-  "phone": "+79999999998"
 }
