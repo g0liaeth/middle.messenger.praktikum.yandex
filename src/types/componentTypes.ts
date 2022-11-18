@@ -81,7 +81,7 @@ export interface InputPropsType extends BasePropsType {
   events?: {
     blur?: (event: Event) => void;
     focus?: (event: Event) => void;
-    keyup?: (event: Event) => void;
+    keypress?: (event: Event) => void;
   };
 }
 

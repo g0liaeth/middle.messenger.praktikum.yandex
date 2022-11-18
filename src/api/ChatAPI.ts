@@ -40,8 +40,11 @@ export default class ChatAPI extends BaseAPI {
     throw new Error('Not implemented');
   }
 
-  async addUsersToChat() {
-    throw new Error('Not implemented');
+  async addUsersToChat(userId: string, chatId: number) {
+    const result = await this.httpClient.put('/users', {
+      data: { users: [Number(userId)], chatId },
+      headers,
+    });
   }
 
   async deleteUsersFromChat() {

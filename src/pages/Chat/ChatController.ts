@@ -62,8 +62,15 @@ export default class ChatController extends BaseController {
     throw new Error('Not implemented');
   }
 
-  async addUser() {
-    throw new Error('Not implemented');
+  async addUser(userId: string) {
+    try {
+      const chatId = this._store.getState().chatState.currentChat;
+      if (userId && chatId) {
+        const res = await this._chatAPI.addUsersToChat(userId, chatId);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async deleteUser() {
@@ -88,6 +95,14 @@ export default class ChatController extends BaseController {
       if (res.status === 200) {
         this._store.setState('chatState.findedUsers', res.data);
       }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async clearFindedUsers() {
+    try {
+      this._store.setState('chatState.findedUsers', []);
     } catch (error) {
       console.log(error);
     }

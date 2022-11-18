@@ -16,7 +16,7 @@ export default class AuthAPI extends BaseAPI {
   }
 
   async registration(data: RegistrationData) {
-    const response = await this.httpClient.post('/signup', { data });
+    const response = await this.httpClient.post('/signup', { data, headers });
     return response.data;
   }
 

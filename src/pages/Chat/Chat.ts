@@ -160,13 +160,16 @@ class Chat<T extends BasePropsType> extends Block<T> {
         //   dropdownEl!.style.top = `${sourceElRect.bottom}px`;
         //   dropdownEl!.style.left = `${sourceElRect.left}px`;
         // },
-        keyup(event) {
-          // const sourceElRect = event?.target?.getBoundingClientRect();
-          // const dropdownEl = document.getElementById('dropdown');
-          // dropdownEl!.classList.add('dropdown-active');
-          // dropdownEl!.style.top = `${sourceElRect.bottom}px`;
-          // dropdownEl!.style.left = `${sourceElRect.left}px`;
-          chatController.findUsers(event.target.value);
+        keypress(event) {
+          if (event.which === 13) {
+            event.preventDefault();
+            // const sourceElRect = event?.target?.getBoundingClientRect();
+            // const dropdownEl = document.getElementById('dropdown');
+            // dropdownEl!.classList.add('dropdown-active');
+            // dropdownEl!.style.top = `${sourceElRect.bottom}px`;
+            // dropdownEl!.style.left = `${sourceElRect.left}px`;
+            chatController.findUsers(event.target.value);
+          }
         },
       },
     });
@@ -204,9 +207,12 @@ class Chat<T extends BasePropsType> extends Block<T> {
             content: item.login,
             events: {
               click(event) {
-                console.log(event.target.parentNode);
-
-                console.log(event.target.id);
+                // console.log(event.target.parentNode);
+                // const dropdown = document.getElementById('dropdown');
+                // dropdown!.style.display = 'none';
+                chatController.addUser(event.target.id);
+                chatController.clearFindedUsers();
+                // console.log(event.target.id);
               },
             },
           }),

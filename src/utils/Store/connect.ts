@@ -19,7 +19,7 @@ export default function connect<T extends object>(mapStateToProps: (state: any) 
             this.setProps({ ...newState });
             state = newState;
           }
-          // this._eventBus.emit(Block.EVENTS.FLOW_RENDER);
+          this._eventBus.emit(Block.EVENTS.FLOW_RENDER);
         });
       }
     };
