@@ -76,7 +76,6 @@ export default class HTTPClient {
 
   private _queryStringify(data: PlainObject) {
     if (!isPlainObject(data)) {
-      // throw new Error('input must be an object');
       return '';
     }
 

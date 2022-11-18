@@ -31,7 +31,6 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
       blur: this._onFocusChange.bind(this),
       focus: this._onFocusChange.bind(this),
     };
-    // console.log(this.props);
   }
 
   private _onFocusChange(event: Event) {

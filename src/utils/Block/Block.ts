@@ -63,8 +63,6 @@ export default abstract class Block<T extends object> {
     this._element.replaceWith(element);
     this._element = element;
 
-    // console.log(this._element);
-
     this._addEventListeners();
   }
 
@@ -112,7 +110,6 @@ export default abstract class Block<T extends object> {
     if (element) {
       element.style.display = 'flex';
     }
-    console.log(this);
   }
 
   public hide() {
@@ -120,7 +117,6 @@ export default abstract class Block<T extends object> {
     if (element) {
       element.style.display = 'none';
     }
-    // console.log(this);
   }
 
   public setProps = (nextProps: T) => {

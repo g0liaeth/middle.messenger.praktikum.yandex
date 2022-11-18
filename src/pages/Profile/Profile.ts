@@ -18,12 +18,9 @@ class Profile<T extends BasePropsType> extends Block<T> {
 
   componentDidMount(): void {
     if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
-    // console.log(this.props);
   }
 
   render() {
-    // console.log('render Profile');
-
     const source = `
     <main class="main-container">
       <img src={{ avatarUrl }} alt="avatar-img" class="profile-photo">

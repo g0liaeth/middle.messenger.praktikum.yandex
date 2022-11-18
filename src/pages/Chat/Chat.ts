@@ -39,7 +39,6 @@ class Chat<T extends BasePropsType> extends Block<T> {
       mainContainer.classList.remove('main-container');
       mainContainer.classList.add('new-main-container');
     });
-    console.log(this.props);
   }
 
   private _onFocusChange(event: Event) {
@@ -303,26 +302,6 @@ class Chat<T extends BasePropsType> extends Block<T> {
     });
 
     const messagesList: Message[] = [];
-    // for (let i = 0; i < 5; i++) {
-    //   messagesList.push(
-    //     new Message({
-    //       className: 'incoming-message',
-    //       readed: true,
-    //       sendTime: '15:47',
-    //       readMarkImg: readedMessageImg,
-    //       text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque tenetur qui laudantium autem omnis. Quod ex omnis, totam impedit tempore cupiditate laboriosam fugit, minima commodi assumenda excepturi inventore eaque exercitationem! Possimus voluptates numquam dignissimos natus atque vero iure sed ut adipisci eligendi! Voluptas quas vel quos, amet nemo omnis sit, recusandae iusto laudantium minus iure porro assumenda praesentium saepe ipsa!',
-    //     }),
-    //   );
-    // }
-    // messagesList.push(
-    //   new Message({
-    //     className: 'outgoing-message',
-    //     readed: false,
-    //     sendTime: '12:00',
-    //     text: 'Круто!!!',
-    //     readMarkImg: newMessageImg,
-    //   }),
-    // );
 
     return compileComponent(source, {
       ...this.props,

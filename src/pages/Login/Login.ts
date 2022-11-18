@@ -133,7 +133,7 @@ class Login<T extends BasePropsType> extends Block<T> {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         formData[input.getAttribute('id')!] = input.value;
       });
-      console.log(formData as LoginData);
+      console.log(formData);
 
       this._loginController.login(formData as LoginData);
     };
