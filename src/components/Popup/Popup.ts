@@ -48,7 +48,10 @@ export default class Popup extends Block<PopupPropsType> {
           event.preventDefault();
           const target = event.target as HTMLElement;
           const inputs = target.parentElement?.querySelectorAll('input');
+
+          // @ts-expect-error because of ???
           this.props.aaa(inputs[0].files[0]);
+
           window.location.assign('chat');
         },
       },

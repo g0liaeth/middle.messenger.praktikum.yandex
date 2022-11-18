@@ -5,17 +5,29 @@ import UserAPI from '../../api/UserAPI';
 import { WS_URL } from '../../constants/apiConstants';
 import BaseController from '../../utils/BaseController';
 
+function ensure<T>(
+  argument: T | undefined | null,
+  message = 'This value was promised to be there.',
+): T {
+  if (argument === undefined || argument === null) {
+    throw new TypeError(message);
+  }
+
+  return argument;
+}
+
 export default class ChatController extends BaseController {
   private _authAPI: AuthAPI;
   private _chatAPI: ChatAPI;
   private _userAPI: UserAPI;
-  private _messagesAPIs: Record<string, number | MessagesAPI>[] = [];
+  private _messagesAPIs: { chatId: number; ws: MessagesAPI }[];
 
   constructor() {
     super();
     this._authAPI = new AuthAPI();
     this._chatAPI = new ChatAPI();
     this._userAPI = new UserAPI();
+    this._messagesAPIs = [];
   }
 
   async fetchUser() {
@@ -70,6 +82,9 @@ export default class ChatController extends BaseController {
       const chatId = this._store.getState().chatState.currentChat;
       if (userId && chatId) {
         const res = await this._chatAPI.addUsersToChat(userId, chatId);
+        if (res.status === 200) {
+          console.log(`User ${userId} added to chat ${chatId}`);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -168,6 +183,6 @@ export default class ChatController extends BaseController {
 
   sendMessage(message: string) {
     const chatId = this._store.getState().chatState.currentChat;
-    this._messagesAPIs.find((item) => item.chatId === chatId)['ws'].send(message);
+    ensure(this._messagesAPIs.find((item) => item.chatId === chatId))['ws'].send(message);
   }
 }

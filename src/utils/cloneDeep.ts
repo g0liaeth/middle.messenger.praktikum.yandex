@@ -57,10 +57,12 @@ export default function cloneDeep<T extends object = object>(obj: T) {
 
       // Handle:
       // * Object.symbol
+      //@ts-expect-error get this copy[s] = _cloneDeep(item[s]) from theory
       Object.getOwnPropertySymbols(item).forEach((s) => (copy[s] = _cloneDeep(item[s])));
 
       // Handle:
       // * Object.name (other)
+      //@ts-expect-error get this copy[s] = _cloneDeep(item[s]) from theory
       Object.keys(item).forEach((k) => (copy[k] = _cloneDeep(item[k])));
 
       return copy;

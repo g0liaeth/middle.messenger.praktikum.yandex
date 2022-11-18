@@ -1,6 +1,5 @@
 import AuthAPI from '../../api/AuthAPI';
 import BaseController from '../../utils/BaseController';
-import { PROFILE_STATE } from '../../utils/Store/initialState/profileState';
 
 export default class ProfileController extends BaseController {
   private _authAPI: AuthAPI;

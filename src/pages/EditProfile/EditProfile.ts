@@ -76,8 +76,10 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
     `;
 
     const profileImg = new Badge({
-      imgPath: this.props.userInfo.hasOwnProperty('avatar')
-        ? UPLOAD_URL + this.props.userInfo.avatar
+      //@ts-expect-error problem typing props from HOC
+      imgPath: Object.prototype.hasOwnProperty.call(this.props.userInfo, 'avatar')
+        ? //@ts-expect-error problem typing props from HOC
+          UPLOAD_URL + this.props.userInfo.avatar
         : null,
       events: {
         click: () => {
@@ -97,6 +99,7 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
         inputType: 'email',
         inputId: 'email',
         inputName: 'email',
+        //@ts-expect-error problem typing props from HOC
         inputValue: this.props.userInfo.email,
         events: this._events,
       }),
@@ -113,6 +116,7 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
         inputType: 'text',
         inputId: 'login',
         inputName: 'login',
+        //@ts-expect-error problem typing props from HOC
         inputValue: this.props.userInfo.login,
         events: this._events,
       }),
@@ -129,6 +133,7 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
         inputType: 'text',
         inputId: 'display_name',
         inputName: 'display_name',
+        //@ts-expect-error problem typing props from HOC
         inputValue: this.props.userInfo.display_name,
         events: this._events,
       }),
@@ -145,6 +150,7 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
         inputType: 'text',
         inputId: 'first_name',
         inputName: 'first_name',
+        //@ts-expect-error problem typing props from HOC
         inputValue: this.props.userInfo.first_name,
         events: this._events,
       }),
@@ -161,6 +167,7 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
         inputType: 'text',
         inputId: 'second_name',
         inputName: 'second_name',
+        //@ts-expect-error problem typing props from HOC
         inputValue: this.props.userInfo.second_name,
         events: this._events,
       }),
@@ -177,6 +184,7 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
         inputType: 'tel',
         inputId: 'phone',
         inputName: 'phone',
+        //@ts-expect-error problem typing props from HOC
         inputValue: this.props.userInfo.phone,
         events: this._events,
       }),
@@ -184,6 +192,7 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
 
     const userName = new Text({
       className: 'profile-name',
+      //@ts-expect-error problem typing props from HOC
       value: this.props.userInfo.login,
     });
 

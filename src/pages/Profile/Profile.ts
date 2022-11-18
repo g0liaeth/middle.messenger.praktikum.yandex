@@ -61,6 +61,7 @@ class Profile<T extends BasePropsType> extends Block<T> {
 
     const userName = new Text({
       className: 'profile-name',
+      //@ts-expect-error HOC returns anonymouse class
       value: this.props.userInfo.login,
     });
 
@@ -115,8 +116,10 @@ class Profile<T extends BasePropsType> extends Block<T> {
       btnChangePassword,
       btnExit,
       btnBack,
-      avatarUrl: this.props.userInfo.hasOwnProperty('avatar')
-        ? UPLOAD_URL + this.props.userInfo.avatar
+      //@ts-expect-error HOC returns anonymouse class
+      avatarUrl: Object.prototype.hasOwnProperty.call(this.props.userInfo, 'avatar')
+        ? //@ts-expect-error HOC returns anonymouse class
+          UPLOAD_URL + this.props.userInfo.avatar
         : null,
     });
   }

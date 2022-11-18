@@ -26,7 +26,6 @@ class Chat<T extends BasePropsType> extends Block<T> {
     this._chatController = new ChatController();
     this._chatController.fetchUser();
     this._chatController.getChats();
-    // console.log(this._chatController.getState());
     this._events = {
       blur: this._onFocusChange.bind(this),
       focus: this._onFocusChange.bind(this),
@@ -64,9 +63,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
   }
 
   render() {
-    // console.log('render chats');
     const chatController = this._chatController;
-    const self = this;
     const source = `
     <main class="chat-wrapper">
       <div class="left-container">
@@ -182,66 +179,31 @@ class Chat<T extends BasePropsType> extends Block<T> {
       inputName: 'search',
       inputId: 'search',
       events: {
-        // focus: (event) => {
-        //   const sourceElRect = event?.target?.getBoundingClientRect();
-        //   const dropdownEl = document.getElementById('dropdown');
-        //   dropdownEl!.classList.add('dropdown-active');
-        //   dropdownEl!.style.top = `${sourceElRect.bottom}px`;
-        //   dropdownEl!.style.left = `${sourceElRect.left}px`;
-        // },
         keypress(event) {
+          //@ts-expect-error problem typing event
           if (event.which === 13) {
             event.preventDefault();
-            // const sourceElRect = event?.target?.getBoundingClientRect();
-            // const dropdownEl = document.getElementById('dropdown');
-            // dropdownEl!.classList.add('dropdown-active');
-            // dropdownEl!.style.top = `${sourceElRect.bottom}px`;
-            // dropdownEl!.style.left = `${sourceElRect.left}px`;
-            chatController.findUsers(event.target.value);
+            //@ts-expect-error problem typing event
+            chatController.findUsers(event?.target?.value);
           }
         },
       },
     });
-
-    // const mockData = [
-    //   {
-    //     id: 123,
-    //     first_name: 'Petya',
-    //     second_name: 'Pupkin',
-    //     display_name: 'Petya Pupkin',
-    //     login: 'Petya Login',
-    //     email: 'my@email.com',
-    //     phone: '89223332211',
-    //     avatar: '/path/to/avatar.jpg',
-    //   },
-    //   {
-    //     id: 124,
-    //     first_name: 'Vasya',
-    //     second_name: 'Pupkin',
-    //     display_name: 'Petya Pupkin',
-    //     login: 'Vasya Login',
-    //     email: 'my@email.com',
-    //     phone: '89223332211',
-    //     avatar: '/path/to/avatar.jpg',
-    //   },
-    // ];
-
     const searchResults = new Dropdown({
+      //@ts-expect-error problem typing props from HOC
       className: this.props.findedUsers.length > 0 ? 'dropdown-active' : '',
+      //@ts-expect-error problem typing props from HOC
       listItems: this.props.findedUsers.map(
-        (item) =>
+        (item: any) =>
           new ListItem({
             id: item.id,
             className: 'dropdown-list-item',
             content: item.login,
             events: {
               click(event) {
-                // console.log(event.target.parentNode);
-                // const dropdown = document.getElementById('dropdown');
-                // dropdown!.style.display = 'none';
-                chatController.addUser(event.target.id);
+                //@ts-expect-error problem typing event click on <div>
+                chatController.addUser(event?.target?.id);
                 chatController.clearFindedUsers();
-                // console.log(event.target.id);
               },
             },
           }),
@@ -249,11 +211,13 @@ class Chat<T extends BasePropsType> extends Block<T> {
     });
 
     const currentChatAvatar = new UserAvatar({
+      //@ts-expect-error problem typing props from HOC
       imgPath: this.props?.chatsList.find((chat) => chat.id === this.props.currentChat)?.avatar,
     });
 
     const currentChatTitle = new Text({
       className: 'avatar-name',
+      //@ts-expect-error problem typing props from HOC
       value: this.props?.chatsList.find((chat) => chat.id === this.props.currentChat)?.title,
     });
 
@@ -310,9 +274,11 @@ class Chat<T extends BasePropsType> extends Block<T> {
     });
 
     const dialogsList: Dialog[] = [];
+    //@ts-expect-error problem typing props from HOC
     this.props.chatsList.forEach((chat) => {
       dialogsList.push(
         new Dialog({
+          //@ts-expect-error problem typing props from HOC
           className: this.props.currentChat === chat.id ? 'active' : '',
           id: chat.id,
           hasNewMessages: chat.unread_count > 0,
@@ -326,6 +292,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
           }),
           events: {
             click(event) {
+              //@ts-expect-error problem typing props from HOC
               const selectedChat = Number(event.currentTarget?.id);
               chatController.setCurrentChat(selectedChat);
               chatController.connectToChat(selectedChat);
