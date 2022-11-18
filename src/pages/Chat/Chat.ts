@@ -8,9 +8,6 @@ import Message from '../../components/Message/Message';
 import FormGroup from '../../components/FormGroup/FormGroup';
 import Text from '../../components/Text/Text';
 import UserAvatar from '../../components/UserAvatar/UserAvatar';
-import readedMessageImg from '../../static/check2-all.svg';
-import newMessageImg from '../../static/check2.svg';
-import avatarImg from '../../static/mock-ava.png';
 import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
@@ -90,10 +87,11 @@ class Chat<T extends BasePropsType> extends Block<T> {
       <div class="right-container">
         <div class="chat-header">
           <div class="chat-header-left">
-            {{{ currentUserAvatar }}}
-            {{{ currentUserName }}}
+            {{{ currentChatAvatar }}}
+            {{{ currentChatTitle }}}
           </div>
           <div class="chat-header-right">
+            {{{ deleteUserForm }}}
             {{{ chatMenu }}}
           </div>
         </div>
@@ -135,6 +133,37 @@ class Chat<T extends BasePropsType> extends Block<T> {
             return;
           }
           chatController.createChat(data.get('new_chat_title') as string);
+          target.reset();
+        },
+      },
+    });
+
+    const deleteUserLogin = new Input({
+      className: 'delete-user-login',
+      inputType: 'text',
+      inputId: 'delete_user_login',
+      inputName: 'delete_user_login',
+      inputPlaceholder: 'Логин пользователя',
+    });
+
+    const deleteUserBtn = new Button({
+      className: 'btn-delete-user',
+      label: 'Удалить',
+      type: 'submit',
+    });
+
+    const deleteUserForm = new Form({
+      className: 'delete-user-form',
+      formItems: [deleteUserLogin, deleteUserBtn],
+      events: {
+        submit(event) {
+          event.preventDefault();
+          const target = event.target as HTMLFormElement;
+          const data = new FormData(target);
+          if (!data.get('delete_user_login')) {
+            return;
+          }
+          chatController.deleteUser(data.get('delete_user_login') as string);
           target.reset();
         },
       },
@@ -332,14 +361,15 @@ class Chat<T extends BasePropsType> extends Block<T> {
       ...this.props,
       profileLink,
       searchInput,
-      currentUserAvatar: currentChatAvatar,
-      currentUserName: currentChatTitle,
+      currentChatAvatar,
+      currentChatTitle,
       chatMenu,
       newMessageForm,
       dialogsList,
       messagesList,
       newChatForm,
       searchResults,
+      deleteUserForm,
     });
   }
 }

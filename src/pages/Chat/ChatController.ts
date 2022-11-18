@@ -76,8 +76,17 @@ export default class ChatController extends BaseController {
     }
   }
 
-  async deleteUser() {
-    throw new Error('Not implemented');
+  async deleteUser(userLogin: string) {
+    try {
+      const userId = await this.getUsersByLogin(userLogin).then((res) => res[0].id);
+      const chatId = this._store.getState().chatState.currentChat;
+      const res = await this._chatAPI.deleteUsersFromChat(userId, chatId);
+      if (res.status === 200) {
+        console.log(`User ${userLogin} deleted from chat ${chatId}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async getNewMessagesCount() {
@@ -146,12 +155,11 @@ export default class ChatController extends BaseController {
           (data) => console.log(data),
         );
         ws.error((data) => console.log(data));
+        ws.ping();
         this._messagesAPIs.push({
           chatId,
           ws,
         });
-      } else {
-        this._messagesAPIs.find((item) => item.chatId === chatId)['ws'].ping();
       }
     } catch (error) {
       console.log(error);

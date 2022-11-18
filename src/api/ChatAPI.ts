@@ -48,8 +48,12 @@ export default class ChatAPI extends BaseAPI {
     return result;
   }
 
-  async deleteUsersFromChat() {
-    throw new Error('Not implemented');
+  async deleteUsersFromChat(userId: number, chatId: number) {
+    const result = await this.httpClient.delete('/users', {
+      data: { users: [userId], chatId },
+      headers,
+    });
+    return result;
   }
 
   async getWsToken(chatId: number) {
