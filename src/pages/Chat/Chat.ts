@@ -27,7 +27,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
   constructor(props: T) {
     super(props);
     this._chatController = new ChatController();
-    // this._chatController.fetchUser();
+    this._chatController.fetchUser();
     this._chatController.getChats();
     // console.log(this._chatController.getState());
     this._events = {
@@ -269,7 +269,13 @@ class Chat<T extends BasePropsType> extends Block<T> {
       events: {
         submit(event) {
           event.preventDefault();
-          console.log(event.target);
+          const target = event.target as HTMLFormElement;
+          const data = new FormData(target);
+          if (!data.get('message')) {
+            return;
+          }
+          chatController.sendMessage(data.get('message') as string);
+          target.reset();
         },
       },
     });
@@ -291,7 +297,9 @@ class Chat<T extends BasePropsType> extends Block<T> {
           }),
           events: {
             click(event) {
-              chatController.setCurrentChat(Number(event.currentTarget?.id));
+              const selectedChat = Number(event.currentTarget?.id);
+              chatController.setCurrentChat(selectedChat);
+              chatController.connectToChat(selectedChat);
             },
           },
         }),

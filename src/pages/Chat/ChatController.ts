@@ -1,12 +1,15 @@
 import AuthAPI from '../../api/AuthAPI';
 import ChatAPI from '../../api/ChatAPI';
+import MessagesAPI from '../../api/MesaagesAPI';
 import UserAPI from '../../api/UserAPI';
+import { WS_URL } from '../../constants/apiConstants';
 import BaseController from '../../utils/BaseController';
 
 export default class ChatController extends BaseController {
   private _authAPI: AuthAPI;
   private _chatAPI: ChatAPI;
   private _userAPI: UserAPI;
+  private _messagesAPIs: Record<string, number | MessagesAPI>[] = [];
 
   constructor() {
     super();
@@ -117,5 +120,46 @@ export default class ChatController extends BaseController {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async getWsToken(chatId: number) {
+    try {
+      const res = await this._chatAPI.getWsToken(chatId);
+      if (res.status === 200) {
+        return res.data.token;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async connectToChat(chatId: number) {
+    try {
+      if (!this._messagesAPIs.some((item) => item.chatId === chatId)) {
+        const token = await this.getWsToken(chatId);
+        const userId = this._store.getState().profileState.user.id;
+        const ws = new MessagesAPI(`${WS_URL}/${userId}/${chatId}/${token}`);
+        ws.open((msg) => console.log(msg));
+        ws.message((data) => console.log('Получены данные: ', data));
+        ws.close(
+          (data) => console.log(data),
+          (data) => console.log(data),
+        );
+        ws.error((data) => console.log(data));
+        this._messagesAPIs.push({
+          chatId,
+          ws,
+        });
+      } else {
+        this._messagesAPIs.find((item) => item.chatId === chatId)['ws'].ping();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  sendMessage(message: string) {
+    const chatId = this._store.getState().chatState.currentChat;
+    this._messagesAPIs.find((item) => item.chatId === chatId)['ws'].send(message);
   }
 }

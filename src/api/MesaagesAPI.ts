@@ -37,11 +37,13 @@ export default class MessagesAPI {
 
   public message(callback: (data: unknown) => void): void {
     this._socket.addEventListener('message', (event) => {
-      if (typeof event.data === 'string') {
-        callback(JSON.parse(event.data));
-      } else {
-        callback(event.data);
-      }
+      // console.log(event.data);
+      callback(event.data);
+      // if (typeof event.data === 'string') {
+      //   callback(JSON.parse(event.data));
+      // } else {
+      //   callback(event.data);
+      // }
     });
   }
 
@@ -78,6 +80,6 @@ export default class MessagesAPI {
       }),
     );
 
-    console.log('websocket ping');
+    console.log('websocket ping...');
   }
 }
