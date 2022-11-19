@@ -20,8 +20,9 @@ export default class ChatAPI extends BaseAPI {
     return result;
   }
 
-  async deleteChatById() {
-    throw new Error('Not implemented');
+  async deleteChatById(chatId: number) {
+    const result = await this.httpClient.delete('', { data: { chatId }, headers });
+    return result;
   }
 
   async getChatSendFiles() {

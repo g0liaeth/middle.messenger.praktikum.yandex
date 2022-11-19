@@ -1,5 +1,6 @@
 import Badge from '../../components/Badge/Badge';
 import Button from '../../components/Button/Button';
+import Container from '../../components/Container/Container';
 import Form from '../../components/Form/Form';
 import FormGroup from '../../components/FormGroup/FormGroup';
 import Input from '../../components/Input/Input';
@@ -197,7 +198,7 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
     const popup = new Popup({
       events: {
         click: () => {
-          popup.hide();
+          // popup.hide();
         },
       },
       uploadImage: async (data) => await this._editProfileController.changeAvatar(data),
@@ -241,6 +242,11 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
       this._editProfileController.changeProfile(formData as ChangeProfileData);
     };
 
+    const buttobsBlock = new Container({
+      className: 'edit-profile-form-buttons-container',
+      items: [btnSave, btnCancel],
+    });
+
     const editProfileForm = new Form({
       formItems: [
         emailFormGroup,
@@ -249,6 +255,7 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
         firstNameFormGroup,
         secondNameFormGroup,
         phoneFormGroup,
+        buttobsBlock,
       ],
       events: {
         submit: onEditProfileFormSubmit,
@@ -263,8 +270,8 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
       userName,
       editProfileForm,
       popup,
-      btnSave,
-      btnCancel,
+      // btnSave,
+      // btnCancel,
     });
   }
 }

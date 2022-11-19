@@ -5,10 +5,14 @@ export default class MessagesAPI {
     this._socket = new WebSocket(url);
   }
 
-  public open(callback: (message: string) => void): void {
-    this._socket.addEventListener('open', () => {
-      callback('Соединение установлено');
+  public open(callback: (...args: any) => void): void {
+    this._socket.addEventListener('open', (...args) => {
+      callback(...args);
     });
+  }
+
+  public getState() {
+    return this._socket.readyState;
   }
 
   public close(

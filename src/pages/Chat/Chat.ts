@@ -16,6 +16,8 @@ import Validator from '../../utils/Validator';
 import ChatController from './ChatController';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import ListItem from '../../components/ListItem/ListItem';
+import { UPLOAD_URL } from '../../constants/apiConstants';
+import { UserData, wsMessageType } from '../../types/commonTypes';
 
 class Chat<T extends BasePropsType> extends Block<T> {
   protected _chatController: ChatController;
@@ -88,6 +90,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
           </div>
           <div class="chat-header-right">
             {{{ deleteUserForm }}}
+            {{{ deleteChatBtn }}}
             {{{ chatMenu }}}
           </div>
         </div>
@@ -193,7 +196,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
       className: this.props.findedUsers.length > 0 ? 'dropdown-active' : '',
       //@ts-expect-error problem typing props from HOC
       listItems: this.props.findedUsers.map(
-        (item: any) =>
+        (item: UserData) =>
           new ListItem({
             id: item.id,
             className: 'dropdown-list-item',
@@ -210,8 +213,12 @@ class Chat<T extends BasePropsType> extends Block<T> {
     });
 
     const currentChatAvatar = new UserAvatar({
-      //@ts-expect-error problem typing props from HOC
-      imgPath: this.props?.chatsList.find((chat) => chat.id === this.props.currentChat)?.avatar,
+      imgPath:
+        // @ts-expect-error problem typing props from HOC
+        this.props?.chatsList.find((chat) => chat.id === this.props.currentChat)?.avatar &&
+        UPLOAD_URL +
+          // @ts-expect-error problem typing props from HOC
+          this.props?.chatsList.find((chat) => chat.id === this.props.currentChat)?.avatar,
     });
 
     const currentChatTitle = new Text({
@@ -267,6 +274,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
             return;
           }
           chatController.sendMessage(data.get('message') as string);
+          chatController.getChats();
           target.reset();
         },
       },
@@ -275,6 +283,10 @@ class Chat<T extends BasePropsType> extends Block<T> {
     const dialogsList: Dialog[] = [];
     //@ts-expect-error problem typing props from HOC
     this.props.chatsList.forEach((chat) => {
+      const msgTime = new Date(chat.last_message?.time);
+      const hours = msgTime.getHours();
+      const minutes = msgTime.getMinutes();
+      const timeStr = hours || minutes ? `${hours}:${minutes}` : '';
       dialogsList.push(
         new Dialog({
           //@ts-expect-error problem typing props from HOC
@@ -284,10 +296,10 @@ class Chat<T extends BasePropsType> extends Block<T> {
           lastMessageSender: true,
           senderUserName: chat.title,
           lastMessageText: chat.last_message?.content,
-          lastMessageTime: chat.last_message?.time,
+          lastMessageTime: timeStr,
           newMessagesCount: chat.unread_count,
           dialogAvatar: new UserAvatar({
-            imgPath: chat.avatar,
+            imgPath: chat.avatar && UPLOAD_URL + chat.avatar,
           }),
           events: {
             click(event) {
@@ -301,7 +313,37 @@ class Chat<T extends BasePropsType> extends Block<T> {
       );
     });
 
-    const messagesList: Message[] = [];
+    //@ts-expect-error problem typing props from HOC
+    const messagesList: Message[] = this.props.messages
+      //@ts-expect-error problem typing props from HOC
+      .filter((msg: wsMessageType) => msg.chat_id === this.props.currentChat)
+      .map((msg: wsMessageType) => {
+        const msgTime = new Date(msg.time);
+        const timeStr = `${msgTime.getHours()}:${msgTime.getMinutes()}`;
+        const msgClass =
+          //@ts-expect-error problem typing props from HOC
+          this.props.currentUser === msg.user_id ? 'outgoing-message' : 'incoming-message';
+        return new Message({
+          className: msgClass,
+          readed: false,
+          sendTime: timeStr,
+          readMarkImg: '',
+          text: msg.content,
+        });
+      });
+
+    const onDeleteButtonClick = () => {
+      //@ts-expect-error problem typing props from HOC
+      chatController.deleteChat(this.props.currentChat);
+    };
+
+    const deleteChatBtn = new Button({
+      label: 'Удалить чат',
+      type: 'button',
+      events: {
+        click: onDeleteButtonClick,
+      },
+    });
 
     return compileComponent(source, {
       ...this.props,
@@ -316,6 +358,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
       newChatForm,
       searchResults,
       deleteUserForm,
+      deleteChatBtn,
     });
   }
 }
@@ -324,7 +367,9 @@ function mapStateToProps(state: any) {
   return {
     chatsList: state.chatState.chats,
     currentChat: state.chatState.currentChat,
+    messages: state.chatState.messages,
     findedUsers: state.chatState.findedUsers,
+    currentUser: state.profileState.user.id,
   };
 }
 

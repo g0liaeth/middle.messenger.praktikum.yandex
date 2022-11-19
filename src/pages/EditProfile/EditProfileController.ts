@@ -17,7 +17,7 @@ export default class EditProfileController extends BaseController {
     try {
       const res = await this._userAPI.changeProfile(data);
       if (res.status === 200) {
-        this._router.go('/profile');
+        this._router.go('/chat');
       }
     } catch (error) {
       console.log(error);
@@ -28,7 +28,7 @@ export default class EditProfileController extends BaseController {
     try {
       const res = await this._userAPI.changeAvatar(data);
       if (res.status === 200) {
-        this._router.go('/profile');
+        this._router.go('/chat');
       }
     } catch (error) {
       console.log(error);

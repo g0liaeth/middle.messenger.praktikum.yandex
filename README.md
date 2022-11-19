@@ -28,5 +28,5 @@ Chat page: https://yandex-middle-frontend-chat.netlify.app/chat
 Profile page: https://yandex-middle-frontend-chat.netlify.app/profile  
 Edit profile page: https://yandex-middle-frontend-chat.netlify.app/edit-profile  
 Change password page: https://yandex-middle-frontend-chat.netlify.app/change-password  
-404 page: https://yandex-middle-frontend-chat.netlify.app/404
+404 page: https://yandex-middle-frontend-chat.netlify.app/404  
 500 page: https://yandex-middle-frontend-chat.netlify.app/500
