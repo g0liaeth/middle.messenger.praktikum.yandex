@@ -332,7 +332,8 @@ class Chat<T extends BasePropsType> extends Block<T> {
         });
       });
 
-    const onDeleteButtonClick = (event: Event) => {
+    const onDeleteButtonClick = () => {
+      //@ts-expect-error problem typing props from HOC
       chatController.deleteChat(this.props.currentChat);
     };
 

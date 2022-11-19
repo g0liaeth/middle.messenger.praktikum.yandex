@@ -4,7 +4,6 @@ import MessagesAPI from '../../api/MesaagesAPI';
 import UserAPI from '../../api/UserAPI';
 import { WS_URL } from '../../constants/apiConstants';
 import BaseController from '../../utils/BaseController';
-import { StoreEvents } from '../../utils/Store/Store';
 
 function ensure<T>(
   argument: T | undefined | null,
