@@ -4,6 +4,7 @@ import MessagesAPI from '../../api/MesaagesAPI';
 import UserAPI from '../../api/UserAPI';
 import { WS_URL } from '../../constants/apiConstants';
 import BaseController from '../../utils/BaseController';
+import { StoreEvents } from '../../utils/Store/Store';
 
 function ensure<T>(
   argument: T | undefined | null,
@@ -21,6 +22,7 @@ export default class ChatController extends BaseController {
   private _chatAPI: ChatAPI;
   private _userAPI: UserAPI;
   private _messagesAPIs: { chatId: number; ws: MessagesAPI }[];
+  private _messageQueue: any[];
 
   constructor() {
     super();
@@ -28,6 +30,7 @@ export default class ChatController extends BaseController {
     this._chatAPI = new ChatAPI();
     this._userAPI = new UserAPI();
     this._messagesAPIs = [];
+    this._messageQueue = [];
   }
 
   async fetchUser() {
@@ -58,8 +61,17 @@ export default class ChatController extends BaseController {
     }
   }
 
-  async deleteChat() {
-    throw new Error('Not implemented');
+  async deleteChat(chatId: number) {
+    try {
+      const res = await this._chatAPI.deleteChatById(chatId);
+      if (res.status === 200) {
+        console.log(`Chat ${chatId} successfully deleted`);
+        this._store.setState('chatState.messages', []);
+        this.getChats();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async getChats() {
@@ -163,8 +175,24 @@ export default class ChatController extends BaseController {
         const token = await this.getWsToken(chatId);
         const userId = this._store.getState().profileState.user.id;
         const ws = new MessagesAPI(`${WS_URL}/${userId}/${chatId}/${token}`);
-        ws.open((msg) => console.log(msg));
-        ws.message((data) => console.log('Получены данные: ', data));
+        ws.open(() => {
+          console.log('Соединение установлено');
+
+          this._messageQueue.forEach((msg) => {
+            this.sendMessage(msg[0], msg[1]);
+          });
+
+          this._messageQueue = [];
+          ws.send('0', 'get old');
+        });
+        ws.message((data) => {
+          const prepearedData = JSON.parse(data as string);
+          if (Array.isArray(prepearedData)) {
+            this._store.setState('chatState.messages', [...prepearedData]);
+          } else if (prepearedData.type === 'message') {
+            ws.send('0', 'get old');
+          }
+        });
         ws.close(
           (data) => console.log(data),
           (data) => console.log(data),
@@ -175,14 +203,29 @@ export default class ChatController extends BaseController {
           chatId,
           ws,
         });
+      } else {
+        this.sendMessage('0', 'get old');
       }
     } catch (error) {
       console.log(error);
     }
   }
 
-  sendMessage(message: string) {
+  sendMessage(message: string, type = 'message') {
     const chatId = this._store.getState().chatState.currentChat;
-    ensure(this._messagesAPIs.find((item) => item.chatId === chatId))['ws'].send(message);
+    const socket = ensure(this._messagesAPIs.find((item) => item.chatId === chatId))['ws'];
+
+    if (socket.getState() !== WebSocket.OPEN) {
+      // Ежели нет, добавляем сообщение в очередь
+      this._messageQueue.push([message, type]);
+      return;
+    }
+
+    // Отправляет сообщение, если есть соединение
+    socket.send(message, type);
   }
+
+  // getMessgaes() {
+  //   this.sendMessage('0', 'get old');
+  // }
 }

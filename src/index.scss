@@ -123,6 +123,10 @@ input:focus.invalid {
   padding: 5px;
 }
 
+.chat-header-right {
+  display: flex;
+}
+
 .chat-body {
   background-color: $primary-background;
   flex: 11;

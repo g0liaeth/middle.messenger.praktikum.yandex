@@ -52,7 +52,7 @@ export default class Popup extends Block<PopupPropsType> {
           // @ts-expect-error because of ???
           this.props.uploadImage(inputs[0].files[0]);
 
-          window.location.assign('chat');
+          // window.location.assign('chat');
         },
       },
     });

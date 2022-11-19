@@ -7,5 +7,6 @@ export default abstract class BaseController {
 
   constructor() {
     this._router = new Router();
+    window.__store = this._store;
   }
 }
