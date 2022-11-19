@@ -32,5 +32,3 @@ router
     backgroundColor: '#d4e3f7',
   })
   .start();
-
-window.__router = router;

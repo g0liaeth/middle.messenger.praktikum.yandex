@@ -2,6 +2,7 @@ import { PopupPropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 import Button from '../Button/Button';
+import Form from '../Form/Form';
 import FormGroup from '../FormGroup/FormGroup';
 import Input from '../Input/Input';
 import Label from '../Label/Label';
@@ -12,11 +13,7 @@ export default class Popup extends Block<PopupPropsType> {
     const source = `
     <div class="popup">
       <div class="popup-body">
-        <form class="popup-content">
-          {{{ popupHeader }}}
-          {{{ popupContent }}}
-          {{{ btnUpload }}}
-        </form>
+        {{{ uploadPhotForm }}}
       </div>
     </div>
     `;
@@ -43,20 +40,25 @@ export default class Popup extends Block<PopupPropsType> {
       label: 'Поменять',
       className: 'btn-black-w100',
       type: 'submit',
+    });
+
+    const onUploadPhotoFormSubmit = (event: SubmitEvent) => {
+      event.preventDefault();
+      const target = event.target as HTMLElement;
+      const inputs = target.querySelectorAll('input');
+
+      // @ts-expect-error because of ??? need to research
+      this.props.uploadImage(inputs[0].files[0]);
+    };
+
+    const uploadPhotForm = new Form({
+      className: 'popup-content',
+      formItems: [popupHeader, popupContent, btnUpload],
       events: {
-        click: (event) => {
-          event.preventDefault();
-          const target = event.target as HTMLElement;
-          const inputs = target.parentElement?.querySelectorAll('input');
-
-          // @ts-expect-error because of ???
-          this.props.uploadImage(inputs[0].files[0]);
-
-          // window.location.assign('chat');
-        },
+        submit: onUploadPhotoFormSubmit,
       },
     });
 
-    return compileComponent(source, { ...this.props, popupHeader, btnUpload, popupContent });
+    return compileComponent(source, { ...this.props, uploadPhotForm });
   }
 }
