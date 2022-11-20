@@ -106,16 +106,102 @@ button {
   transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
 }
 
-// .btn-add-chat {
-//   border-radius: 50%;
-//   width: 0.7vw;
-//   height: 0.7vw;
-//   padding: 0.7vw;
-//   outline: none;
-//   border: none;
-//   background-color: $secondary-background;
-//   background-image: url('../../static/plus-circle.svg');
-//   background-position: center;
-//   background-repeat: no-repeat;
-//   background-size: 1.5vw 1.5vw;
-// }
+.btn-add-chat {
+  border-radius: 50%;
+  width: 0.6vw;
+  height: 0.6vw;
+  padding: 0.6vw;
+  outline: none;
+  border: none;
+  background-color: $secondary-background;
+  background-image: url('../../static/plus-circle.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.5vw 1.5vw;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
+.btn-add-chat:hover {
+  background-color: rgba(0, 128, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
+.delete-chat-btn {
+  border-radius: 50%;
+  width: 0.6vw;
+  height: 0.6vw;
+  padding: 0.6vw;
+  outline: none;
+  border: none;
+  background-color: $secondary-background;
+  background-image: url('../../static/x-circle.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.4vw 1.4vw;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
+.delete-chat-btn:hover {
+  background-color: rgba(255, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
+.add-chat-user-btn {
+  border-radius: 50%;
+  width: 0.6vw;
+  height: 0.6vw;
+  padding: 0.6vw;
+  outline: none;
+  border: none;
+  background-color: $secondary-background;
+  background-image: url('../../static/person-add.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.4vw 1.4vw;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
+.add-chat-user-btn:hover {
+  background-color: rgba(0, 128, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
+.delete-chat-user-btn {
+  border-radius: 50%;
+  width: 0.6vw;
+  height: 0.6vw;
+  padding: 0.6vw;
+  outline: none;
+  border: none;
+  background-color: $secondary-background;
+  background-image: url('../../static/person-x.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.4vw 1.4vw;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
+.delete-chat-user-btn:hover {
+  background-color: rgba(255, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
+.change-chat-avatar-btn {
+  border-radius: 50%;
+  width: 0.6vw;
+  height: 0.6vw;
+  padding: 0.6vw;
+  outline: none;
+  border: none;
+  background-color: $secondary-background;
+  background-image: url('../../static/person-bounding-box.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1.1vw 1.1vw;
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}
+
+.change-chat-avatar-btn:hover {
+  background-color: rgba(0, 128, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1) 0s;
+}

@@ -5,7 +5,7 @@ import compileComponent from '../../utils/Block/compileComponent';
 export default class Container extends Block<ContainerPropsType> {
   render() {
     const source = `
-    <div class="{{ className }}">
+    <div id="{{ id }}" class="{{ className }}">
       {{{ items }}}
     </div>
     `;

@@ -195,13 +195,56 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
       type: 'submit',
     });
 
-    const popup = new Popup({
+    const popupHeader = new Text({
+      className: 'header-form-md',
+      value: 'Загрузить файл',
+    });
+
+    const popupContent = new FormGroup({
+      className: '',
+      label: new Label({
+        labelFor: 'myfile',
+        text: '',
+      }),
+      input: new Input({
+        inputType: 'file',
+        inputId: 'myfile',
+        inputName: 'myfile',
+      }),
+    });
+
+    const btnUpload = new Button({
+      label: 'Поменять',
+      className: 'btn-black-w100',
+      type: 'submit',
+    });
+
+    const onUploadPhotoFormSubmit = (event: SubmitEvent) => {
+      event.preventDefault();
+      const target = event.target as HTMLElement;
+      const inputs = target.querySelectorAll('input');
+
+      // @ts-expect-error because of ??? need to research
+      this._editProfileController.changeAvatar(inputs[0].files[0]);
+    };
+
+    const uploadPhotoForm = new Form({
+      className: 'upload-photo-form',
+      formItems: [popupHeader, popupContent, btnUpload],
       events: {
-        click: () => {
-          // popup.hide();
+        submit: onUploadPhotoFormSubmit,
+      },
+    });
+
+    const popup = new Popup({
+      popupItems: [uploadPhotoForm],
+      events: {
+        click: (event) => {
+          if (event.target === event.currentTarget) {
+            popup.hide();
+          }
         },
       },
-      uploadImage: async (data) => await this._editProfileController.changeAvatar(data),
     });
 
     const btnCancel = new Button({
@@ -270,8 +313,6 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
       userName,
       editProfileForm,
       popup,
-      // btnSave,
-      // btnCancel,
     });
   }
 }

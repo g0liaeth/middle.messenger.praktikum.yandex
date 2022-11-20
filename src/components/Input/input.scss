@@ -68,3 +68,17 @@
 .new-message-textinput:focus {
   outline: none;
 }
+
+.new-chat-input {
+  background-color: $secondary-background;
+  font-family: 'Comfortaa', cursive;
+  border: 0;
+  font-size: 0.9em;
+  border-bottom: 1px solid $primary-black;
+  padding: 5px;
+  width: 80%;
+}
+
+.new-chat-input:focus {
+  outline: none;
+}
