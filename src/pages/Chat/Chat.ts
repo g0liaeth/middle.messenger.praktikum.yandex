@@ -265,10 +265,13 @@ class Chat<T extends BasePropsType> extends Block<T> {
     });
 
     const onChatMenuBtnClick = (event: Event) => {
+      //@ts-expect-error ???
       const sourceElRect = event.target.getBoundingClientRect();
       const menu = document.getElementById('chat_menu_container');
 
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       menu!.style.right = `${sourceElRect.right - sourceElRect.left}px`;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       menu!.style.top = `${sourceElRect.bottom}px`;
       if (menu?.classList.contains('active')) {
         menu?.classList.remove('active');
@@ -386,10 +389,8 @@ class Chat<T extends BasePropsType> extends Block<T> {
       });
 
     const onSearchInputKeyUp = (event: Event) => {
-      //@ts-expect-error problem typing event
-      // if (event.which === 13) {
       event.preventDefault();
-
+      //@ts-expect-error problem typing event
       const currVal = event.target.value;
       this.setProps({ ...this.props, searchUserValue: currVal });
       //@ts-expect-error problem typing event
@@ -403,6 +404,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
       inputPlaceholder: 'Поиск',
       inputName: 'search',
       inputId: 'search',
+      //@ts-expect-error problem typing props from HOC
       inputValue: this.props.searchUserValue,
       events: {
         keyup: onSearchInputKeyUp,
@@ -414,6 +416,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
       items: [
         new List({
           className: '',
+          //@ts-expect-error problem typing props from HOC
           listItems: this.props.findedUsers.map(
             (item: UserData) =>
               new ListItem({
@@ -545,11 +548,13 @@ class Chat<T extends BasePropsType> extends Block<T> {
       },
     });
 
+    //@ts-expect-error problem typing props from HOC
     if (this.props.findedUsers.length > 0 || this.props?.searchUserValue?.length > 0) {
       newUserPopup.show();
       setTimeout(function () {
         const input = document.getElementById('search');
         input?.focus();
+        //@ts-expect-error ???
         input.selectionStart = input.value.length;
       }, 100);
     } else {
