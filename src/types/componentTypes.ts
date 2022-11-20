@@ -64,6 +64,10 @@ export interface DropdownPropsType extends BasePropsType {
   listItems?: unknown[];
 }
 
+export interface ListPropsType extends BasePropsType {
+  listItems?: unknown[];
+}
+
 export interface ListItemPropsType extends BasePropsType {
   id: number;
   content?: string;
@@ -82,7 +86,7 @@ export interface InputPropsType extends BasePropsType {
   events?: {
     blur?: (event: Event) => void;
     focus?: (event: Event) => void;
-    keypress?: (event: Event) => void;
+    keyup?: (event: Event) => void;
   };
 }
 

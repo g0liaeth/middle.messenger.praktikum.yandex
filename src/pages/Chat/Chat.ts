@@ -14,12 +14,12 @@ import compileComponent from '../../utils/Block/compileComponent';
 import connect from '../../utils/Store/connect';
 import Validator from '../../utils/Validator';
 import ChatController from './ChatController';
-import Dropdown from '../../components/Dropdown/Dropdown';
 import ListItem from '../../components/ListItem/ListItem';
 import { UPLOAD_URL } from '../../constants/apiConstants';
 import { UserData, wsMessageType } from '../../types/commonTypes';
 import Popup from '../../components/Popup/Popup';
 import Label from '../../components/Label/Label';
+import List from '../../components/List/List';
 
 class Chat<T extends BasePropsType> extends Block<T> {
   protected _chatController: ChatController;
@@ -43,6 +43,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
       mainContainer.classList.remove('main-container');
       mainContainer.classList.add('new-main-container');
     });
+    // console.log(this.props);
   }
 
   private _onFocusChange(event: Event) {
@@ -384,42 +385,52 @@ class Chat<T extends BasePropsType> extends Block<T> {
         });
       });
 
+    const onSearchInputKeyUp = (event: Event) => {
+      //@ts-expect-error problem typing event
+      // if (event.which === 13) {
+      event.preventDefault();
+
+      const currVal = event.target.value;
+      this.setProps({ ...this.props, searchUserValue: currVal });
+      //@ts-expect-error problem typing event
+      chatController.findUsers(event?.target?.value);
+      // }
+    };
+
     const searchInput = new Input({
       className: 'search-textinput',
       inputType: 'text',
       inputPlaceholder: 'Поиск',
       inputName: 'search',
       inputId: 'search',
+      inputValue: this.props.searchUserValue,
       events: {
-        keypress(event) {
-          //@ts-expect-error problem typing event
-          if (event.which === 13) {
-            event.preventDefault();
-            //@ts-expect-error problem typing event
-            chatController.findUsers(event?.target?.value);
-          }
-        },
+        keyup: onSearchInputKeyUp,
       },
     });
-    const searchResults = new Dropdown({
-      //@ts-expect-error problem typing props from HOC
-      className: this.props.findedUsers.length > 0 ? 'dropdown-active' : '',
-      //@ts-expect-error problem typing props from HOC
-      listItems: this.props.findedUsers.map(
-        (item: UserData) =>
-          new ListItem({
-            id: item.id,
-            className: 'dropdown-list-item',
-            content: item.login,
-            events: {
-              click(event) {
-                //@ts-expect-error problem typing event click on <div>
-                chatController.addUser(event?.target?.id);
-                chatController.clearFindedUsers();
-              },
-            },
-          }),
-      ),
+
+    const searchResults = new Container({
+      className: '',
+      items: [
+        new List({
+          className: '',
+          listItems: this.props.findedUsers.map(
+            (item: UserData) =>
+              new ListItem({
+                id: item.id,
+                className: 'dropdown-list-item',
+                content: item.login,
+                events: {
+                  click(event) {
+                    //@ts-expect-error problem typing event click on <div>
+                    chatController.addUser(event?.target?.id);
+                    chatController.clearFindedUsers();
+                  },
+                },
+              }),
+          ),
+        }),
+      ],
     });
 
     const addUserForm = new Form({
@@ -433,6 +444,8 @@ class Chat<T extends BasePropsType> extends Block<T> {
         click: (event) => {
           if (event.target === event.currentTarget) {
             newUserPopup.hide();
+            this.setProps({ ...this.props, searchUserValue: '' });
+            this._chatController.clearFindedUsers();
           }
         },
       },
@@ -532,7 +545,17 @@ class Chat<T extends BasePropsType> extends Block<T> {
       },
     });
 
-    newUserPopup.hide();
+    if (this.props.findedUsers.length > 0 || this.props?.searchUserValue?.length > 0) {
+      newUserPopup.show();
+      setTimeout(function () {
+        const input = document.getElementById('search');
+        input?.focus();
+        input.selectionStart = input.value.length;
+      }, 100);
+    } else {
+      newUserPopup.hide();
+    }
+
     deleteUserPopup.hide();
     uploadChatAvatarPopup.hide();
 
