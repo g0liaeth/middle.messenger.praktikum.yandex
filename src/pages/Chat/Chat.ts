@@ -145,7 +145,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
       inputPlaceholder: 'Логин пользователя',
     });
 
-    const deleteUserBtn = new Button({
+    const deleteUserBtn2 = new Button({
       className: 'btn-delete-user',
       label: 'Удалить',
       type: 'submit',
@@ -153,7 +153,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
 
     const deleteUserForm = new Form({
       className: 'delete-user-form',
-      formItems: [deleteUserLogin, deleteUserBtn],
+      formItems: [deleteUserLogin, deleteUserBtn2],
       events: {
         submit(event) {
           event.preventDefault();
@@ -228,10 +228,13 @@ class Chat<T extends BasePropsType> extends Block<T> {
     });
 
     const deleteChatTitle = new Text({
+      className: 'chat-menu-item-title',
       value: 'Удалить чат',
     });
 
     const onDeleteButtonClick = () => {
+      const menu = document.getElementById('chat_menu_container');
+      menu!.style.display = 'none';
       //@ts-expect-error problem typing props from HOC
       chatController.deleteChat(this.props.currentChat);
     };
@@ -245,13 +248,83 @@ class Chat<T extends BasePropsType> extends Block<T> {
     });
 
     const deleteChatItem = new Container({
+      className: 'chat-menu-item',
       items: [deleteChatTitle, deleteChatBtn],
+    });
+
+    const addUserTitle = new Text({
+      className: 'chat-menu-item-title',
+      value: 'Добавить пользователя',
+    });
+
+    const onAddUserButtonClick = () => {
+      const menu = document.getElementById('chat_menu_container');
+      menu!.style.display = 'none';
+    };
+
+    const addUserBtn = new Button({
+      className: 'add-chat-user-btn',
+      type: 'button',
+      events: {
+        click: onAddUserButtonClick,
+      },
+    });
+
+    const addUserItem = new Container({
+      className: 'chat-menu-item',
+      items: [addUserTitle, addUserBtn],
+    });
+
+    const deleteUserTitle = new Text({
+      className: 'chat-menu-item-title',
+      value: 'Удалить пользователя',
+    });
+
+    const onDeleteUserButtonClick = () => {
+      const menu = document.getElementById('chat_menu_container');
+      menu!.style.display = 'none';
+    };
+
+    const deleteUserBtn = new Button({
+      className: 'delete-chat-user-btn',
+      type: 'button',
+      events: {
+        click: onDeleteUserButtonClick,
+      },
+    });
+
+    const deleteUserItem = new Container({
+      className: 'chat-menu-item',
+      items: [deleteUserTitle, deleteUserBtn],
+    });
+
+    const changeChatAvatarTitle = new Text({
+      className: 'chat-menu-item-title',
+      value: 'Сменить аватар чата',
+    });
+
+    const onChangeChatAvatarBtnClick = () => {
+      const menu = document.getElementById('chat_menu_container');
+      menu!.style.display = 'none';
+    };
+
+    const changeChatAvatarBtn = new Button({
+      className: 'change-chat-avatar-btn',
+      type: 'button',
+      events: {
+        click: onChangeChatAvatarBtnClick,
+      },
+    });
+
+    const changeChatAvatar = new Container({
+      className: 'chat-menu-item',
+      items: [changeChatAvatarTitle, changeChatAvatarBtn],
     });
 
     const chatMenuContainer = new Container({
       className: 'chat-menu-container',
       id: 'chat_menu_container',
-      items: [deleteChatItem],
+      items: [addUserItem, deleteUserItem, changeChatAvatar, deleteChatItem],
     });
 
     const onChatMenuBtnClick = (event: Event) => {
