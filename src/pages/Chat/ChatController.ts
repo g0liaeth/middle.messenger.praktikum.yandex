@@ -224,7 +224,14 @@ export default class ChatController extends BaseController {
     socket.send(message, type);
   }
 
-  // getMessgaes() {
-  //   this.sendMessage('0', 'get old');
-  // }
+  async changeChatAvatar(chatId: number, avatar: File) {
+    try {
+      const res = await this._chatAPI.uploadChatAvatar(chatId, avatar);
+      if (res.status === 200) {
+        this.getChats();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

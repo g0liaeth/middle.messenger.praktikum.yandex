@@ -61,4 +61,12 @@ export default class ChatAPI extends BaseAPI {
     const result = await this.httpClient.post(`/token/${chatId}`);
     return result;
   }
+
+  async uploadChatAvatar(chatId: number, data: File) {
+    const formData = new FormData();
+    formData.append('chatId', chatId);
+    formData.append('avatar', data);
+    const result = await this.httpClient.put('/avatar', { data: formData });
+    return result;
+  }
 }

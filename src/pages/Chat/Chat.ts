@@ -18,6 +18,8 @@ import Dropdown from '../../components/Dropdown/Dropdown';
 import ListItem from '../../components/ListItem/ListItem';
 import { UPLOAD_URL } from '../../constants/apiConstants';
 import { UserData, wsMessageType } from '../../types/commonTypes';
+import Popup from '../../components/Popup/Popup';
+import Label from '../../components/Label/Label';
 
 class Chat<T extends BasePropsType> extends Block<T> {
   protected _chatController: ChatController;
@@ -87,10 +89,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
             {{{ currentChatTitle }}}
           </div>
           <div class="chat-header-right">
-            {{{ searchInput }}}
-            {{{ searchResults }}}          
             {{{ deleteUserForm }}}
-            {{{ deleteChatBtn }}}
             {{{ chatMenu }}}
           </div>
         </div>
@@ -104,6 +103,9 @@ class Chat<T extends BasePropsType> extends Block<T> {
         </div>
       </div>
       {{{ chatMenuContainer }}}
+      {{{ newUserPopup }}}
+      {{{ deleteUserPopup }}}
+      {{{ uploadChatAvatarPopup }}}
     </main>
     `;
 
@@ -137,79 +139,10 @@ class Chat<T extends BasePropsType> extends Block<T> {
       },
     });
 
-    const deleteUserLogin = new Input({
-      className: 'delete-user-login',
-      inputType: 'text',
-      inputId: 'delete_user_login',
-      inputName: 'delete_user_login',
-      inputPlaceholder: 'Логин пользователя',
-    });
-
-    const deleteUserBtn2 = new Button({
-      className: 'btn-delete-user',
-      label: 'Удалить',
-      type: 'submit',
-    });
-
-    const deleteUserForm = new Form({
-      className: 'delete-user-form',
-      formItems: [deleteUserLogin, deleteUserBtn2],
-      events: {
-        submit(event) {
-          event.preventDefault();
-          const target = event.target as HTMLFormElement;
-          const data = new FormData(target);
-          if (!data.get('delete_user_login')) {
-            return;
-          }
-          chatController.deleteUser(data.get('delete_user_login') as string);
-          target.reset();
-        },
-      },
-    });
-
     const profileLink = new Link({
       className: 'profile-link',
       path: 'profile',
       text: 'Профиль >',
-    });
-
-    const searchInput = new Input({
-      className: 'search-textinput',
-      inputType: 'text',
-      inputPlaceholder: 'Поиск',
-      inputName: 'search',
-      inputId: 'search',
-      events: {
-        keypress(event) {
-          //@ts-expect-error problem typing event
-          if (event.which === 13) {
-            event.preventDefault();
-            //@ts-expect-error problem typing event
-            chatController.findUsers(event?.target?.value);
-          }
-        },
-      },
-    });
-    const searchResults = new Dropdown({
-      //@ts-expect-error problem typing props from HOC
-      className: this.props.findedUsers.length > 0 ? 'dropdown-active' : '',
-      //@ts-expect-error problem typing props from HOC
-      listItems: this.props.findedUsers.map(
-        (item: UserData) =>
-          new ListItem({
-            id: item.id,
-            className: 'dropdown-list-item',
-            content: item.login,
-            events: {
-              click(event) {
-                //@ts-expect-error problem typing event click on <div>
-                chatController.addUser(event?.target?.id);
-                chatController.clearFindedUsers();
-              },
-            },
-          }),
-      ),
     });
 
     const currentChatAvatar = new UserAvatar({
@@ -260,6 +193,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
     const onAddUserButtonClick = () => {
       const menu = document.getElementById('chat_menu_container');
       menu?.classList.remove('active');
+      newUserPopup.show();
     };
 
     const addUserBtn = new Button({
@@ -283,6 +217,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
     const onDeleteUserButtonClick = () => {
       const menu = document.getElementById('chat_menu_container');
       menu?.classList.remove('active');
+      deleteUserPopup.show();
     };
 
     const deleteUserBtn = new Button({
@@ -306,6 +241,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
     const onChangeChatAvatarBtnClick = () => {
       const menu = document.getElementById('chat_menu_container');
       menu?.classList.remove('active');
+      uploadChatAvatarPopup.show();
     };
 
     const changeChatAvatarBtn = new Button({
@@ -338,8 +274,6 @@ class Chat<T extends BasePropsType> extends Block<T> {
       } else {
         menu?.classList.add('active');
       }
-
-      console.log(sourceElRect);
     };
 
     const chatMenu = new Button({
@@ -450,10 +384,161 @@ class Chat<T extends BasePropsType> extends Block<T> {
         });
       });
 
+    const searchInput = new Input({
+      className: 'search-textinput',
+      inputType: 'text',
+      inputPlaceholder: 'Поиск',
+      inputName: 'search',
+      inputId: 'search',
+      events: {
+        keypress(event) {
+          //@ts-expect-error problem typing event
+          if (event.which === 13) {
+            event.preventDefault();
+            //@ts-expect-error problem typing event
+            chatController.findUsers(event?.target?.value);
+          }
+        },
+      },
+    });
+    const searchResults = new Dropdown({
+      //@ts-expect-error problem typing props from HOC
+      className: this.props.findedUsers.length > 0 ? 'dropdown-active' : '',
+      //@ts-expect-error problem typing props from HOC
+      listItems: this.props.findedUsers.map(
+        (item: UserData) =>
+          new ListItem({
+            id: item.id,
+            className: 'dropdown-list-item',
+            content: item.login,
+            events: {
+              click(event) {
+                //@ts-expect-error problem typing event click on <div>
+                chatController.addUser(event?.target?.id);
+                chatController.clearFindedUsers();
+              },
+            },
+          }),
+      ),
+    });
+
+    const addUserForm = new Form({
+      className: 'add-user-form',
+      formItems: [searchInput, searchResults],
+    });
+
+    const newUserPopup = new Popup({
+      popupItems: [addUserForm],
+      events: {
+        click: (event) => {
+          if (event.target === event.currentTarget) {
+            newUserPopup.hide();
+          }
+        },
+      },
+    });
+
+    const deleteUserLogin = new Input({
+      className: 'delete-user-login',
+      inputType: 'text',
+      inputId: 'delete_user_login',
+      inputName: 'delete_user_login',
+      inputPlaceholder: 'Логин пользователя',
+    });
+
+    const deleteUserBtn2 = new Button({
+      className: 'btn-delete-user',
+      label: 'Удалить',
+      type: 'submit',
+    });
+
+    const deleteUserForm = new Form({
+      className: 'delete-user-form',
+      formItems: [deleteUserLogin, deleteUserBtn2],
+      events: {
+        submit(event) {
+          event.preventDefault();
+          const target = event.target as HTMLFormElement;
+          const data = new FormData(target);
+          if (!data.get('delete_user_login')) {
+            return;
+          }
+          chatController.deleteUser(data.get('delete_user_login') as string);
+          target.reset();
+        },
+      },
+    });
+
+    const deleteUserPopup = new Popup({
+      popupItems: [deleteUserForm],
+      events: {
+        click: (event) => {
+          if (event.target === event.currentTarget) {
+            deleteUserPopup.hide();
+          }
+        },
+      },
+    });
+
+    const changeAvatarHeader = new Text({
+      className: 'header-form-md',
+      value: 'Загрузить файл',
+    });
+
+    const changeAvatarFormContent = new FormGroup({
+      className: '',
+      label: new Label({
+        labelFor: 'myfile',
+        text: '',
+      }),
+      input: new Input({
+        inputType: 'file',
+        inputId: 'myfile',
+        inputName: 'myfile',
+      }),
+    });
+
+    const changeAvatarBtn = new Button({
+      label: 'Поменять',
+      className: 'btn-black-w100',
+      type: 'submit',
+    });
+
+    const onUploadChatAvatarFormSubmit = (event: SubmitEvent) => {
+      event.preventDefault();
+      const target = event.target as HTMLElement;
+      const inputs = target.querySelectorAll('input');
+
+      // @ts-expect-error because of ??? need to research
+      this._chatController.changeChatAvatar(this.props.currentChat, inputs[0].files[0]);
+    };
+
+    const uploadChatAvatarForm = new Form({
+      className: 'upload-photo-form',
+      formItems: [changeAvatarHeader, changeAvatarFormContent, changeAvatarBtn],
+      events: {
+        submit: onUploadChatAvatarFormSubmit,
+      },
+    });
+
+    const uploadChatAvatarPopup = new Popup({
+      popupItems: [uploadChatAvatarForm],
+      events: {
+        click: (event) => {
+          if (event.target === event.currentTarget) {
+            uploadChatAvatarPopup.hide();
+          }
+        },
+      },
+    });
+
+    newUserPopup.hide();
+    deleteUserPopup.hide();
+    uploadChatAvatarPopup.hide();
+
     return compileComponent(source, {
       ...this.props,
       profileLink,
-      searchInput,
       currentChatAvatar,
       currentChatTitle,
       chatMenu,
@@ -461,9 +546,10 @@ class Chat<T extends BasePropsType> extends Block<T> {
       dialogsList,
       messagesList,
       newChatForm,
-      searchResults,
-      deleteUserForm,
       chatMenuContainer,
+      newUserPopup,
+      deleteUserPopup,
+      uploadChatAvatarPopup,
     });
   }
 }
