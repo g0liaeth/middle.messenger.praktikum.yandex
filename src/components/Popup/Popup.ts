@@ -13,52 +13,11 @@ export default class Popup extends Block<PopupPropsType> {
     const source = `
     <div class="popup">
       <div class="popup-body">
-        {{{ uploadPhotForm }}}
+        {{{ popupItems }}}
       </div>
     </div>
     `;
 
-    const popupHeader = new Text({
-      className: 'header-form-md',
-      value: 'Загрузить файл',
-    });
-
-    const popupContent = new FormGroup({
-      className: '',
-      label: new Label({
-        labelFor: 'myfile',
-        text: '',
-      }),
-      input: new Input({
-        inputType: 'file',
-        inputId: 'myfile',
-        inputName: 'myfile',
-      }),
-    });
-
-    const btnUpload = new Button({
-      label: 'Поменять',
-      className: 'btn-black-w100',
-      type: 'submit',
-    });
-
-    const onUploadPhotoFormSubmit = (event: SubmitEvent) => {
-      event.preventDefault();
-      const target = event.target as HTMLElement;
-      const inputs = target.querySelectorAll('input');
-
-      // @ts-expect-error because of ??? need to research
-      this.props.uploadImage(inputs[0].files[0]);
-    };
-
-    const uploadPhotForm = new Form({
-      className: 'popup-content',
-      formItems: [popupHeader, popupContent, btnUpload],
-      events: {
-        submit: onUploadPhotoFormSubmit,
-      },
-    });
-
-    return compileComponent(source, { ...this.props, uploadPhotForm });
+    return compileComponent(source, { ...this.props });
   }
 }

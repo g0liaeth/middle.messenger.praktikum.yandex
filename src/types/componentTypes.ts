@@ -108,7 +108,7 @@ export interface NewMessageFormPropsType extends BasePropsType {
 }
 
 export interface PopupPropsType extends BasePropsType {
-  uploadImage: (data: any) => void;
+  popupItems?: unknown[];
   events?: {
     click: (event: Event) => void;
   };

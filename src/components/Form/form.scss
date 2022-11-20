@@ -1,3 +1,5 @@
+@import '../variables.scss';
+
 .new-chat-form {
   display: flex;
   align-items: center;
@@ -6,4 +8,17 @@
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
+}
+
+.upload-photo-form {
+  background-color: $primary-background;
+  border: 2px solid $primary-black;
+  color: $primary-black;
+  width: 400px;
+  height: 300px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }

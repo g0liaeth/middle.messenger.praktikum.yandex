@@ -5,7 +5,7 @@ import compileComponent from '../../utils/Block/compileComponent';
 export default class Form extends Block<FormPropsType> {
   render() {
     const source = `
-    <form class="{{ className }}">
+    <form id="{{ tagId }}" class="{{ className }}">
       {{{ formItems }}}
     </form>
     `;
