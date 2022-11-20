@@ -56,6 +56,7 @@ export interface FormPropsType extends BasePropsType {
 }
 
 export interface ContainerPropsType extends BasePropsType {
+  id?: string;
   items?: unknown[];
 }
 

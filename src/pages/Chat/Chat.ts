@@ -69,12 +69,10 @@ class Chat<T extends BasePropsType> extends Block<T> {
     <main class="chat-wrapper">
       <div class="left-container">
         <div class="profile-link-container">
-          {{{ newChatForm }}}
           {{{ profileLink }}}
         </div>
         <div class="search-container">
-          {{{ searchInput }}}
-          {{{ searchResults }}}
+          {{{ newChatForm }}}
         </div>
         <div class="chat-list-container">
           <ul class="chat-list">
@@ -89,6 +87,8 @@ class Chat<T extends BasePropsType> extends Block<T> {
             {{{ currentChatTitle }}}
           </div>
           <div class="chat-header-right">
+            {{{ searchInput }}}
+            {{{ searchResults }}}          
             {{{ deleteUserForm }}}
             {{{ deleteChatBtn }}}
             {{{ chatMenu }}}
@@ -103,20 +103,20 @@ class Chat<T extends BasePropsType> extends Block<T> {
           {{{ newMessageForm }}}
         </div>
       </div>
+      {{{ chatMenuContainer }}}
     </main>
     `;
 
     const newChatTitle = new Input({
-      className: 'new-chat-title',
+      className: 'new-chat-input',
       inputType: 'text',
       inputId: 'new_chat_title',
       inputName: 'new_chat_title',
-      inputPlaceholder: 'Заголовок чата...',
     });
 
     const addChatBtn = new Button({
       className: 'btn-add-chat',
-      label: 'создать',
+      label: '',
       type: 'submit',
     });
 
@@ -227,9 +227,50 @@ class Chat<T extends BasePropsType> extends Block<T> {
       value: this.props?.chatsList.find((chat) => chat.id === this.props.currentChat)?.title,
     });
 
+    const deleteChatTitle = new Text({
+      value: 'Удалить чат',
+    });
+
+    const onDeleteButtonClick = () => {
+      //@ts-expect-error problem typing props from HOC
+      chatController.deleteChat(this.props.currentChat);
+    };
+
+    const deleteChatBtn = new Button({
+      className: 'delete-chat-btn',
+      type: 'button',
+      events: {
+        click: onDeleteButtonClick,
+      },
+    });
+
+    const deleteChatItem = new Container({
+      items: [deleteChatTitle, deleteChatBtn],
+    });
+
+    const chatMenuContainer = new Container({
+      className: 'chat-menu-container',
+      id: 'chat_menu_container',
+      items: [deleteChatItem],
+    });
+
+    const onChatMenuBtnClick = (event: Event) => {
+      const sourceElRect = event.target.getBoundingClientRect();
+      const menu = document.getElementById('chat_menu_container');
+
+      menu!.style.right = `${sourceElRect.right - sourceElRect.left}px`;
+      menu!.style.top = `${sourceElRect.bottom}px`;
+      menu!.style.display = 'flex';
+
+      console.log(sourceElRect);
+    };
+
     const chatMenu = new Button({
       className: 'btn-menu',
       type: 'button',
+      events: {
+        click: onChatMenuBtnClick,
+      },
     });
 
     const messageInput = new Input({
@@ -332,19 +373,6 @@ class Chat<T extends BasePropsType> extends Block<T> {
         });
       });
 
-    const onDeleteButtonClick = () => {
-      //@ts-expect-error problem typing props from HOC
-      chatController.deleteChat(this.props.currentChat);
-    };
-
-    const deleteChatBtn = new Button({
-      label: 'Удалить чат',
-      type: 'button',
-      events: {
-        click: onDeleteButtonClick,
-      },
-    });
-
     return compileComponent(source, {
       ...this.props,
       profileLink,
@@ -358,7 +386,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
       newChatForm,
       searchResults,
       deleteUserForm,
-      deleteChatBtn,
+      chatMenuContainer,
     });
   }
 }
