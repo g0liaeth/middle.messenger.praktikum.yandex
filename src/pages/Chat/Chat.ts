@@ -234,7 +234,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
 
     const onDeleteButtonClick = () => {
       const menu = document.getElementById('chat_menu_container');
-      menu!.style.display = 'none';
+      menu?.classList.remove('active');
       //@ts-expect-error problem typing props from HOC
       chatController.deleteChat(this.props.currentChat);
     };
@@ -259,7 +259,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
 
     const onAddUserButtonClick = () => {
       const menu = document.getElementById('chat_menu_container');
-      menu!.style.display = 'none';
+      menu?.classList.remove('active');
     };
 
     const addUserBtn = new Button({
@@ -282,7 +282,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
 
     const onDeleteUserButtonClick = () => {
       const menu = document.getElementById('chat_menu_container');
-      menu!.style.display = 'none';
+      menu?.classList.remove('active');
     };
 
     const deleteUserBtn = new Button({
@@ -305,7 +305,7 @@ class Chat<T extends BasePropsType> extends Block<T> {
 
     const onChangeChatAvatarBtnClick = () => {
       const menu = document.getElementById('chat_menu_container');
-      menu!.style.display = 'none';
+      menu?.classList.remove('active');
     };
 
     const changeChatAvatarBtn = new Button({
@@ -333,7 +333,11 @@ class Chat<T extends BasePropsType> extends Block<T> {
 
       menu!.style.right = `${sourceElRect.right - sourceElRect.left}px`;
       menu!.style.top = `${sourceElRect.bottom}px`;
-      menu!.style.display = 'flex';
+      if (menu?.classList.contains('active')) {
+        menu?.classList.remove('active');
+      } else {
+        menu?.classList.add('active');
+      }
 
       console.log(sourceElRect);
     };

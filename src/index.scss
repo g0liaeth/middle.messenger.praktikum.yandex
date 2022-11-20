@@ -135,7 +135,7 @@ input:focus.invalid {
 
 .message-list {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   padding: 20px 30px 20px 30px;
 }
 
