@@ -45,7 +45,7 @@
   font-size: large;
   border: 0;
   border-bottom: 1px solid $primary-black;
-  background: url(../static/magnifying-glass-solid.svg) no-repeat 9px 9px;
+  background: url(../../static/search.svg) no-repeat 9px 9px;
   background-size: 20px;
   padding-left: 40px;
 }
@@ -56,9 +56,7 @@
 
 .new-message-textinput {
   padding: 20px;
-  width: calc(100% - 60px);
-  margin-left: 30px;
-  margin-right: 30px;
+  width: calc(100% - 30px);
   background-color: $primary-background;
   font-family: 'Comfortaa', cursive;
   font-size: large;
@@ -68,5 +66,19 @@
 }
 
 .new-message-textinput:focus {
+  outline: none;
+}
+
+.new-chat-input {
+  background-color: $secondary-background;
+  font-family: 'Comfortaa', cursive;
+  border: 0;
+  font-size: 0.9em;
+  border-bottom: 1px solid $primary-black;
+  padding: 5px;
+  width: 80%;
+}
+
+.new-chat-input:focus {
   outline: none;
 }

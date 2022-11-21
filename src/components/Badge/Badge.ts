@@ -1,6 +1,6 @@
 import { BadgePropsType } from '../../types/componentTypes';
-import Block from '../../utils/Block';
-import compileComponent from '../../utils/compileComponent';
+import Block from '../../utils/Block/Block';
+import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Badge extends Block<BadgePropsType> {
   render() {

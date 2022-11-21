@@ -14,6 +14,7 @@
 
 - `npm install` — установка стабильной версии,
 - `npm run dev` — запуск версии для разработчика,
+- `npm run test` — запуск тестов Mocha + Chai,
 - `npm run build` — сборка стабильной версии,
 - `npm run start` — сборка стабильной версии + запуск Express-сервера с раздачей статики — файла index.html,
 - `npm run lint` — анализ кода при помощи ESLint,
@@ -22,10 +23,10 @@
 ## Страницы
 
 Login page: https://yandex-middle-frontend-chat.netlify.app/login  
-Register page: https://yandex-middle-frontend-chat.netlify.app/signin  
+Register page: https://yandex-middle-frontend-chat.netlify.app/signup  
 Chat page: https://yandex-middle-frontend-chat.netlify.app/chat  
 Profile page: https://yandex-middle-frontend-chat.netlify.app/profile  
 Edit profile page: https://yandex-middle-frontend-chat.netlify.app/edit-profile  
 Change password page: https://yandex-middle-frontend-chat.netlify.app/change-password  
-404 page: https://yandex-middle-frontend-chat.netlify.app/abcd  
+404 page: https://yandex-middle-frontend-chat.netlify.app/404  
 500 page: https://yandex-middle-frontend-chat.netlify.app/500

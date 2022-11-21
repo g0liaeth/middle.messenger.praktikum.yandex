@@ -123,6 +123,10 @@ input:focus.invalid {
   padding: 5px;
 }
 
+.chat-header-right {
+  display: flex;
+}
+
 .chat-body {
   background-color: $primary-background;
   flex: 11;
@@ -131,7 +135,7 @@ input:focus.invalid {
 
 .message-list {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   padding: 20px 30px 20px 30px;
 }
 
@@ -164,11 +168,12 @@ input:focus.invalid {
   color: $secondary-black;
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
 
 .message-meta-img {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   padding-right: 2px;
 }
 
@@ -201,7 +206,8 @@ input:focus.invalid {
   display: flex;
   align-items: center;
   justify-content: end;
-  padding-right: 20px;
+  padding-right: 30px;
+  padding-top: 10px;
 }
 
 .search-container {
