@@ -1,3 +1,0 @@
-{
-  "presets": ["@babel/preset-typescript", "@parcel/babel-preset-env"]
-}
