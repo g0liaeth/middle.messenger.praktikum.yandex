@@ -6,6 +6,6 @@ export default class Picture extends Block<PicturePropsType> {
   render() {
     const source = `<img class="{{ className }}" src="{{ src }}" alt="{{ alt }}">`;
 
-    return compileComponent(source, this.props);
+    return compileComponent(source, this._props);
   }
 }

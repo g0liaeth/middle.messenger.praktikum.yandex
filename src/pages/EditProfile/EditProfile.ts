@@ -9,53 +9,24 @@ import Popup from '../../components/Popup/Popup';
 import Text from '../../components/Text/Text';
 import { UPLOAD_URL } from '../../constants/apiConstants';
 import { ChangeProfileData } from '../../types/commonTypes';
-import { BasePropsType } from '../../types/componentTypes';
+// import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 import connect from '../../utils/Store/connect';
 import Validator from '../../utils/Validator';
 import EditProfileController from './EditProfileController';
 
-class EditProfile<T extends BasePropsType> extends Block<T> {
-  private _events = {};
-  protected _editProfileController: EditProfileController;
+class EditProfile extends Block<any> {
+  protected _controller: EditProfileController;
 
-  constructor(props: T) {
-    super(props);
-    this._editProfileController = new EditProfileController();
-    this._editProfileController.fetchUser();
-  }
-
-  componentDidMount(): void {
-    if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
-    this._events = {
-      blur: this._onFocusChange.bind(this),
-      focus: this._onFocusChange.bind(this),
-    };
-  }
-
-  private _onFocusChange(event: Event) {
-    const validator = new Validator();
-    const input = event.target as HTMLInputElement;
-    const errors = validator.validateInput(input);
-    const errorMessage = document.querySelector(`#${input.getAttribute('id')}-error`);
-
-    if (!errorMessage) {
-      throw new Error('Нет спана для ошибки');
-    }
-
-    if (errors.length !== 0) {
-      errorMessage.textContent = errors.join('/n');
-      input.classList.add('invalid');
-    } else {
-      errorMessage.textContent = '';
-      input.classList.remove('invalid');
-    }
+  constructor(props: any) {
+    super('main', { ...props, class: 'main-container' });
+    this._controller = new EditProfileController();
+    this._controller.fetchUser();
   }
 
   render() {
     const source = `
-    <main class="main-container">
       {{{ profileImg }}}
       {{{ userName }}}
 
@@ -65,158 +36,191 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
       {{{ btnCancel }}}
 
       {{{ popup }}}
-    </main>
     `;
 
+    const onFocusChange = (event: Event) => {
+      const validator = new Validator();
+      const input = event.target as HTMLInputElement;
+      const errors = validator.validateInput(input);
+      const errorMessage = document.querySelector(`#${input.getAttribute('id')}-error`);
+
+      if (!errorMessage) {
+        throw new Error('Нет спана для ошибки');
+      }
+
+      if (errors.length !== 0) {
+        errorMessage.textContent = errors.join('/n');
+        input.classList.add('invalid');
+      } else {
+        errorMessage.textContent = '';
+        input.classList.remove('invalid');
+      }
+    };
+
+    const inputEvents = {
+      onBlur: onFocusChange,
+      onFocus: onFocusChange,
+      onKeyup: onFocusChange,
+    };
+
     const profileImg = new Badge({
-      //@ts-expect-error problem typing props from HOC
-      imgPath: Object.prototype.hasOwnProperty.call(this.props.userInfo, 'avatar')
-        ? //@ts-expect-error problem typing props from HOC
-          UPLOAD_URL + this.props.userInfo.avatar
-        : null,
-      events: {
-        click: () => {
-          popup.show();
-        },
+      class: 'img-back',
+      data: {
+        imgPath: Object.prototype.hasOwnProperty.call(this._props.userInfo, 'avatar')
+          ? UPLOAD_URL + this._props.userInfo.avatar
+          : null,
+      },
+      onClick: () => {
+        popup.show();
       },
     });
 
     const emailFormGroup = new FormGroup({
-      className: 'form-group-profile',
+      class: 'form-group-profile',
       label: new Label({
-        labelFor: 'email',
-        text: 'Почта',
+        for: 'email',
+        data: {
+          text: 'Почта',
+        },
       }),
       input: new Input({
-        className: 'profile-editable-input',
-        inputType: 'email',
-        inputId: 'email',
-        inputName: 'email',
-        //@ts-expect-error problem typing props from HOC
-        inputValue: this.props.userInfo.email,
-        events: this._events,
+        class: 'profile-editable-input',
+        type: 'email',
+        id: 'email',
+        name: 'email',
+        value: this._props.userInfo.email,
+        ...inputEvents,
       }),
     });
 
     const loginFormGroup = new FormGroup({
-      className: 'form-group-profile',
+      class: 'form-group-profile',
       label: new Label({
-        labelFor: 'login',
-        text: 'Логин',
+        for: 'login',
+        data: {
+          text: 'Логин',
+        },
       }),
       input: new Input({
-        className: 'profile-editable-input',
-        inputType: 'text',
-        inputId: 'login',
-        inputName: 'login',
-        //@ts-expect-error problem typing props from HOC
-        inputValue: this.props.userInfo.login,
-        events: this._events,
+        class: 'profile-editable-input',
+        type: 'text',
+        id: 'login',
+        name: 'login',
+        value: this._props.userInfo.login,
+        ...inputEvents,
       }),
     });
 
     const displayNameFormGroup = new FormGroup({
-      className: 'form-group-profile',
+      class: 'form-group-profile',
       label: new Label({
-        labelFor: 'display_name',
-        text: 'Отображаемое имя',
+        for: 'display_name',
+        data: {
+          text: 'Отображаемое имя',
+        },
       }),
       input: new Input({
-        className: 'profile-editable-input',
-        inputType: 'text',
-        inputId: 'display_name',
-        inputName: 'display_name',
-        //@ts-expect-error problem typing props from HOC
-        inputValue: this.props.userInfo.display_name,
-        events: this._events,
+        class: 'profile-editable-input',
+        type: 'text',
+        id: 'display_name',
+        name: 'display_name',
+        value: this._props.userInfo.display_name,
+        ...inputEvents,
       }),
     });
 
     const firstNameFormGroup = new FormGroup({
-      className: 'form-group-profile',
+      class: 'form-group-profile',
       label: new Label({
-        labelFor: 'first_name',
-        text: 'Имя',
+        for: 'first_name',
+        data: {
+          text: 'Имя',
+        },
       }),
       input: new Input({
-        className: 'profile-editable-input',
-        inputType: 'text',
-        inputId: 'first_name',
-        inputName: 'first_name',
-        //@ts-expect-error problem typing props from HOC
-        inputValue: this.props.userInfo.first_name,
-        events: this._events,
+        class: 'profile-editable-input',
+        type: 'text',
+        id: 'first_name',
+        name: 'first_name',
+        value: this._props.userInfo.first_name,
+        ...inputEvents,
       }),
     });
 
     const secondNameFormGroup = new FormGroup({
-      className: 'form-group-profile',
+      class: 'form-group-profile',
       label: new Label({
-        labelFor: 'second_name',
-        text: 'Фамилия',
+        for: 'second_name',
+        data: {
+          text: 'Фамилия',
+        },
       }),
       input: new Input({
-        className: 'profile-editable-input',
-        inputType: 'text',
-        inputId: 'second_name',
-        inputName: 'second_name',
-        //@ts-expect-error problem typing props from HOC
-        inputValue: this.props.userInfo.second_name,
-        events: this._events,
+        class: 'profile-editable-input',
+        type: 'text',
+        id: 'second_name',
+        name: 'second_name',
+        value: this._props.userInfo.second_name,
+        ...inputEvents,
       }),
     });
 
     const phoneFormGroup = new FormGroup({
-      className: 'form-group-profile',
+      class: 'form-group-profile',
       label: new Label({
-        labelFor: 'phone',
-        text: 'Телефон',
+        for: 'phone',
+        data: {
+          text: 'Телефон',
+        },
       }),
       input: new Input({
-        className: 'profile-editable-input',
-        inputType: 'tel',
-        inputId: 'phone',
-        inputName: 'phone',
-        //@ts-expect-error problem typing props from HOC
-        inputValue: this.props.userInfo.phone,
-        events: this._events,
+        class: 'profile-editable-input',
+        type: 'tel',
+        id: 'phone',
+        name: 'phone',
+        value: this._props.userInfo.phone,
+        ...inputEvents,
       }),
     });
 
     const userName = new Text({
-      className: 'profile-name',
+      class: 'profile-name',
       //@ts-expect-error problem typing props from HOC
-      value: this.props.userInfo.login,
+      value: this._props.userInfo.login,
     });
 
     const btnSave = new Button({
-      label: 'Сохранить',
-      className: 'btn-change',
+      class: 'btn-change',
       type: 'submit',
+      data: {
+        label: 'Сохранить',
+      },
     });
 
     const popupHeader = new Text({
-      className: 'header-form-md',
-      value: 'Загрузить файл',
+      class: 'header-form-md',
+      data: {
+        value: 'Загрузить файл',
+      },
     });
 
     const popupContent = new FormGroup({
-      className: '',
       label: new Label({
-        labelFor: 'myfile',
-        text: '',
+        for: 'myfile',
       }),
       input: new Input({
-        inputType: 'file',
-        inputId: 'myfile',
-        inputName: 'myfile',
+        type: 'file',
+        id: 'myfile',
+        name: 'myfile',
       }),
     });
 
     const btnUpload = new Button({
-      label: 'Поменять',
-      className: 'btn-black-w100',
+      class: 'btn-black-w100',
       type: 'submit',
+      data: {
+        label: 'Поменять',
+      },
     });
 
     const onUploadPhotoFormSubmit = (event: SubmitEvent) => {
@@ -225,37 +229,34 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
       const inputs = target.querySelectorAll('input');
 
       // @ts-expect-error because of ??? need to research
-      this._editProfileController.changeAvatar(inputs[0].files[0]);
+      this._controller.changeAvatar(inputs[0].files[0]);
     };
 
     const uploadPhotoForm = new Form({
-      className: 'upload-photo-form',
+      class: 'upload-photo-form',
       formItems: [popupHeader, popupContent, btnUpload],
-      events: {
-        submit: onUploadPhotoFormSubmit,
-      },
+      onSubmit: onUploadPhotoFormSubmit,
     });
 
     const popup = new Popup({
+      class: 'popup',
       popupItems: [uploadPhotoForm],
-      events: {
-        click: (event) => {
-          if (event.target === event.currentTarget) {
-            popup.hide();
-          }
-        },
+      onClick: (event) => {
+        if (event.target === event.currentTarget) {
+          popup.hide();
+        }
       },
     });
 
     const btnCancel = new Button({
-      label: 'Отмена',
-      className: 'btn-exit',
+      class: 'btn-exit',
       type: 'button',
-      events: {
-        click: (event) => {
-          event.preventDefault();
-          this._editProfileController.cancel();
-        },
+      data: {
+        label: 'Отмена',
+      },
+      onClick: (event) => {
+        event.preventDefault();
+        this._controller.cancel();
       },
     });
 
@@ -282,11 +283,11 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
         formData[input.getAttribute('id')!] = input.value;
       });
       console.log(formData);
-      this._editProfileController.changeProfile(formData as ChangeProfileData);
+      this._controller.changeProfile(formData as ChangeProfileData);
     };
 
     const buttobsBlock = new Container({
-      className: 'edit-profile-form-buttons-container',
+      class: 'edit-profile-form-buttons-container',
       items: [btnSave, btnCancel],
     });
 
@@ -300,15 +301,13 @@ class EditProfile<T extends BasePropsType> extends Block<T> {
         phoneFormGroup,
         buttobsBlock,
       ],
-      events: {
-        submit: onEditProfileFormSubmit,
-      },
+      onSubmit: onEditProfileFormSubmit,
     });
 
     popup.hide();
 
     return compileComponent(source, {
-      ...this.props,
+      ...this._props,
       profileImg,
       userName,
       editProfileForm,
@@ -323,4 +322,4 @@ function mapStateToProps(state: any) {
   };
 }
 
-export default connect<BasePropsType>(mapStateToProps)(EditProfile);
+export default connect<any>(mapStateToProps)(EditProfile);

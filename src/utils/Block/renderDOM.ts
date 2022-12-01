@@ -7,7 +7,5 @@ export default function renderDOM(query: string, block: Block<any>): void {
     throw new Error('Root element not found');
   }
 
-  root.innerHTML = '';
-
   root.append(block.getContent());
 }

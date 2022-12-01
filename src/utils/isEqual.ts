@@ -26,11 +26,17 @@ export default function isEqual(lhs: PlainObject, rhs: PlainObject) {
 
   for (const [key, value] of Object.entries(lhs)) {
     const rightValue = rhs[key];
+
     if (isArrayOrObject(value) && isArrayOrObject(rightValue)) {
       if (isEqual(value, rightValue)) {
         continue;
       }
       return false;
+    }
+
+    //todo think about another way
+    if (typeof value === 'function') {
+      return true;
     }
 
     if (value !== rightValue) {

@@ -1,28 +1,23 @@
 import Button from '../../components/Button/Button';
 import Text from '../../components/Text/Text';
 import { UPLOAD_URL } from '../../constants/apiConstants';
-import { BasePropsType } from '../../types/componentTypes';
+// import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 import connect from '../../utils/Store/connect';
 import ProfileController from './ProfileController';
 
-class Profile<T extends BasePropsType> extends Block<T> {
-  protected _profileController: ProfileController;
+class Profile extends Block<any> {
+  protected _controller: ProfileController;
 
-  constructor(props: T) {
-    super(props);
-    this._profileController = new ProfileController();
-    this._profileController.fetchUser();
-  }
-
-  componentDidMount(): void {
-    if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
+  constructor(props: any) {
+    super('main', { ...props, class: 'main-container' });
+    this._controller = new ProfileController();
+    this._controller.fetchUser();
   }
 
   render() {
     const source = `
-    <main class="main-container">
       <img src={{ avatarUrl }} alt="avatar-img" class="profile-photo">
       {{{ userName }}}
 
@@ -53,70 +48,71 @@ class Profile<T extends BasePropsType> extends Block<T> {
       {{{ btnBack }}}
 
       {{{ popup }}}
-    </main>
     `;
 
     const userName = new Text({
-      className: 'profile-name',
-      //@ts-expect-error HOC returns anonymouse class
-      value: this.props.userInfo.login,
+      class: 'profile-name',
+
+      data: {
+        value: this._props?.userInfo?.login,
+      },
     });
 
     const btnProfileEdit = new Button({
-      label: 'Изменить данные',
-      className: 'btn-change',
+      class: 'btn-change',
       type: 'button',
-      events: {
-        click: () => {
-          window.location.assign('edit-profile');
-        },
+      data: {
+        label: 'Изменить данные',
+      },
+
+      onClick: () => {
+        window.location.assign('edit-profile');
       },
     });
 
     const btnChangePassword = new Button({
-      label: 'Изменить пароль',
-      className: 'btn-change',
+      class: 'btn-change',
       type: 'button',
-      events: {
-        click: () => {
-          window.location.assign('change-password');
-        },
+      data: {
+        label: 'Изменить пароль',
+      },
+      onClick: () => {
+        window.location.assign('change-password');
       },
     });
 
     const btnExit = new Button({
-      label: 'Выйти',
-      className: 'btn-exit',
+      class: 'btn-exit',
       type: 'button',
-      events: {
-        click: () => {
-          this._profileController.logout();
-        },
+      data: {
+        label: 'Выйти',
+      },
+      onClick: () => {
+        this._controller.logout();
       },
     });
 
     const btnBack = new Button({
-      label: '< назад к чатам',
-      className: 'btn-back',
+      class: 'btn-back',
       type: 'button',
-      events: {
-        click: () => {
-          window.location.assign('/chat');
-        },
+      data: {
+        label: '< назад к чатам',
+      },
+      onClick: () => {
+        window.location.assign('/chat');
       },
     });
 
     return compileComponent(source, {
-      ...this.props,
+      ...this._props,
       userName,
       btnProfileEdit,
       btnChangePassword,
       btnExit,
       btnBack,
-      //@ts-expect-error HOC returns anonymouse class
-      avatarUrl: Object.prototype.hasOwnProperty.call(this.props.userInfo, 'avatar')
-        ? //@ts-expect-error HOC returns anonymouse class
-          UPLOAD_URL + this.props.userInfo.avatar
+
+      avatarUrl: Object.prototype.hasOwnProperty.call(this._props.userInfo, 'avatar')
+        ? UPLOAD_URL + this._props.userInfo.avatar
         : null,
     });
   }
@@ -128,4 +124,4 @@ function mapStateToProps(state: any) {
   };
 }
 
-export default connect<BasePropsType>(mapStateToProps)(Profile);
+export default connect<any>(mapStateToProps)(Profile);

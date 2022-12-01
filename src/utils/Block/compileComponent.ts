@@ -2,17 +2,15 @@ import Handlebars from 'handlebars';
 import Block from './Block';
 
 export default function compileComponent(source: string, props: Record<string, any>) {
-  const parser = new DOMParser();
-  const fragment = document.createElement('template');
-
+  const propsWithStubs = { ...props };
   const components: Record<string, Block<any>> = {};
 
-  Object.entries(props).forEach(([key, value]) => {
+  Object.entries(propsWithStubs).forEach(([key, value]) => {
     if (value instanceof Block) {
-      components[value.id] = value;
+      components[value.getId()] = value;
 
       try {
-        props[key] = `<div id="id-${value.id}"></div>`;
+        propsWithStubs[key] = `<div id="id-${value.getId()}"></div>`;
       } catch (err) {
         console.log(err);
       }
@@ -21,27 +19,29 @@ export default function compileComponent(source: string, props: Record<string, a
       const multiValues: string[] = [];
       Object.values(value).forEach((v) => {
         if (v instanceof Block) {
-          components[v.id] = v;
-          multiValues.push(`<div id="id-${v.id}"></div>`);
+          components[v.getId()] = v;
+
+          multiValues.push(`<div id="id-${v.getId()}"></div>`);
         }
       });
       if (multiValues.length) {
-        props[key] = multiValues.join('');
+        try {
+          propsWithStubs[key] = multiValues.join('');
+        } catch (err) {
+          console.log(err);
+        }
       }
     }
   });
 
-  fragment.innerHTML = parser.parseFromString(
-    Handlebars.compile(source)(props),
-    'text/html',
-  ).body.innerHTML;
+  const fragment = document.createElement('template');
+  fragment.innerHTML = Handlebars.compile(source)(propsWithStubs);
 
   Object.entries(components).forEach(([id, component]) => {
     const stub = fragment.content.querySelector(`#id-${id}`);
-    if (!stub) {
-      return;
+    if (stub) {
+      stub.replaceWith(component.getContent());
     }
-    stub.replaceWith(component.getContent());
   });
 
   return fragment.content;

@@ -14,7 +14,6 @@ html {
 
 body {
   height: 100%;
-  background-color: $accent-background;
 }
 
 .main-container {
@@ -30,6 +29,7 @@ body {
   height: 100%;
   display: flex;
   width: 100%;
+  justify-content: center;
 }
 
 .chat-wrapper {
@@ -239,4 +239,8 @@ input:focus.invalid {
   height: 150px;
   border-radius: 100%;
   margin-bottom: 20px;
+}
+
+.hidden-block {
+  display: none !important;
 }

@@ -3,9 +3,12 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Dialog extends Block<DialogPropsType> {
+  constructor(props: DialogPropsType) {
+    super('li', props);
+  }
+
   render() {
     const source = `
-    <li class="chat-item {{ className }}" id="{{ id }}">
       <div class="chat-item-left">
         {{{ dialogAvatar }}}
         <div class="chat-info">
@@ -28,9 +31,8 @@ export default class Dialog extends Block<DialogPropsType> {
           </div>
           {{/if}}
       </div>
-    </li>
     `;
 
-    return compileComponent(source, this.props);
+    return compileComponent(source, this._props);
   }
 }

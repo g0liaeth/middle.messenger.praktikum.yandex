@@ -3,9 +3,13 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Text extends Block<TextPropsType> {
-  render() {
-    const source = `<span class={{ className }}>{{ value }}</span>`;
+  constructor(props: TextPropsType) {
+    super('span', props);
+  }
 
-    return compileComponent(source, this.props);
+  render() {
+    const source = `{{ data.value }}`;
+
+    return compileComponent(source, this._props);
   }
 }

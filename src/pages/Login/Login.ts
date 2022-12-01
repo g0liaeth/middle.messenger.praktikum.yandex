@@ -10,146 +10,140 @@ import compileComponent from '../../utils/Block/compileComponent';
 import Validator from '../../utils/Validator';
 import LoginController from './LoginController';
 import connect from '../../utils/Store/connect';
-import { BasePropsType } from '../../types/componentTypes';
+// import { BasePropsType } from '../../types/componentTypes';
 import Form from '../../components/Form/Form';
 import Container from '../../components/Container/Container';
 
-class Login<T extends BasePropsType> extends Block<T> {
-  private _events = {};
-  private _loginController: LoginController;
+class Login extends Block<any> {
+  private _controller: LoginController;
 
-  constructor(props: T) {
-    super(props);
-    this._loginController = new LoginController();
-    this._loginController.checkAuth();
-  }
-
-  componentDidMount(): void {
-    if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
-    this._events = {
-      blur: this._onFocusChange.bind(this),
-      focus: this._onFocusChange.bind(this),
-    };
-  }
-
-  private _onFocusChange(event: Event) {
-    const validator = new Validator();
-    const input = event.target as HTMLInputElement;
-    const errors = validator.validateInput(input);
-    const errorMessage = document.querySelector(`#${input.getAttribute('id')}-error`);
-
-    if (!errorMessage) {
-      throw new Error('Нет спана для ошибки');
-    }
-
-    if (errors.length !== 0) {
-      errorMessage.textContent = errors.join('/n');
-      input.classList.add('invalid');
-    } else {
-      errorMessage.textContent = '';
-      input.classList.remove('invalid');
-    }
+  constructor(props: any) {
+    super('main', { ...props, class: 'login-form-container' });
+    this._controller = new LoginController();
+    this._controller.checkAuth();
   }
 
   render() {
-    const source = `
-    <main class="login-form-container">
-      {{{ loginForm }}}
-    </main>
-    `;
+    const source = `{{{ loginForm }}}`;
+
+    const onFocusChange = (event: Event) => {
+      const validator = new Validator();
+      const input = event.target as HTMLInputElement;
+      const errors = validator.validateInput(input);
+      const errorMessage = document.querySelector(`#${input.getAttribute('id')}-error`);
+
+      if (!errorMessage) {
+        throw new Error('Нет спана для ошибки');
+      }
+
+      if (errors.length !== 0) {
+        errorMessage.textContent = errors.join('/n');
+        input.classList.add('invalid');
+      } else {
+        errorMessage.textContent = '';
+        input.classList.remove('invalid');
+      }
+    };
 
     const formHeader = new Text({
-      className: 'header-form',
-      value: 'Вход',
+      class: 'header-form',
+      data: {
+        value: 'Вход',
+      },
     });
 
     const loginFormGroup = new FormGroup({
-      className: 'form-group',
+      class: 'form-group',
       label: new Label({
-        className: 'login-label',
-        labelFor: 'login',
-        text: 'Логин',
+        class: 'login-label',
+        for: 'login',
+        data: {
+          text: 'Логин',
+        },
       }),
       input: new Input({
-        className: 'login-input',
-        inputType: 'text',
-        inputId: 'login',
-        inputName: 'login',
-        events: this._events,
+        class: 'login-input',
+        type: 'text',
+        id: 'login',
+        name: 'login',
+        onBlur: onFocusChange,
+        onFocus: onFocusChange,
+        onKeyup: onFocusChange,
       }),
     });
 
     const passwordFormGroup = new FormGroup({
-      className: 'form-group',
+      class: 'form-group',
       label: new Label({
-        className: 'login-label',
-        labelFor: 'password',
-        text: 'Пароль',
+        class: 'login-label',
+        for: 'password',
+        data: {
+          text: 'Пароль',
+        },
       }),
       input: new Input({
-        className: 'login-input',
-        inputType: 'password',
-        inputId: 'password',
-        inputName: 'password',
-        events: this._events,
+        class: 'login-input',
+        type: 'password',
+        id: 'password',
+        name: 'password',
+        onBlur: onFocusChange,
+        onFocus: onFocusChange,
+        onKeyup: onFocusChange,
       }),
     });
 
     const loginBtn = new Button({
-      className: 'btn-black',
-      label: 'Войти',
+      class: 'btn-black',
+      data: {
+        label: 'Войти',
+      },
       type: 'submit',
     });
 
     const registerLink = new Link({
-      className: 'simple-link',
-      path: 'signup',
-      text: 'Нет аккаунта?',
+      class: 'simple-link',
+      href: 'signup',
+      data: {
+        text: 'Нет аккаунта?',
+      },
     });
 
     const loginInputsBlock = new Container({
       items: [loginFormGroup, passwordFormGroup],
     });
 
-    const onLoginFormSubmit = (event: SubmitEvent) => {
-      event.preventDefault();
-      const target = event.target as HTMLFormElement;
-      const inputs = target.querySelectorAll('input');
-      let errors: string[] = [];
-      if (!inputs) {
-        return;
-      }
-      inputs.forEach((input) => {
-        const validator = new Validator();
-        const fieldErrors = validator.validateInput(input);
-        errors = [...errors, ...fieldErrors];
-      });
-      if (errors.length > 0) {
-        console.log(errors);
-        return;
-      }
-      const formData: Record<string, unknown> = {};
-      inputs.forEach((input) => {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        formData[input.getAttribute('id')!] = input.value;
-      });
-      console.log(formData);
-
-      this._loginController.login(formData as LoginData);
-    };
-
     const loginForm = new Form({
-      className: 'login-form',
+      class: 'login-form',
       formItems: [formHeader, loginInputsBlock, loginBtn, registerLink],
-      events: {
-        submit: onLoginFormSubmit,
+      onSubmit: (event: SubmitEvent) => {
+        event.preventDefault();
+        const target = event.target as HTMLFormElement;
+        const inputs = target.querySelectorAll('input');
+        let errors: string[] = [];
+        if (!inputs) {
+          return;
+        }
+        inputs.forEach((input) => {
+          const validator = new Validator();
+          const fieldErrors = validator.validateInput(input);
+          errors = [...errors, ...fieldErrors];
+        });
+        if (errors.length > 0) {
+          console.log(errors);
+          return;
+        }
+        const formData: Record<string, unknown> = {};
+        inputs.forEach((input) => {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          formData[input.getAttribute('id')!] = input.value;
+        });
+        console.log(formData);
+
+        this._controller.login(formData as LoginData);
       },
     });
 
-    return compileComponent(source, {
-      ...this.props,
-      loginForm,
-    });
+    return compileComponent(source, { ...this._props, loginForm });
   }
 }
 
@@ -159,4 +153,4 @@ function mapStateToProps(state: any) {
   };
 }
 
-export default connect<BasePropsType>(mapStateToProps)(Login);
+export default connect<any>(mapStateToProps)(Login);

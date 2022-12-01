@@ -23,7 +23,11 @@ class Store extends EventBus {
 
   public setState(path: string, value: unknown) {
     const oldState = cloneDeep(this._state);
+    // console.log(oldState);
+
     setProp(this._state, path, value);
+    // console.log('newState', this._state);
+
     if (!isEqual(oldState, this._state)) {
       this.emit(StoreEvents.Updated);
     }

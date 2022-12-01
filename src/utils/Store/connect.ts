@@ -5,6 +5,7 @@ import isEqual from '../isEqual';
 export default function connect<T extends object>(mapStateToProps: (state: any) => any) {
   return function (Component: typeof Block) {
     let state = mapStateToProps(store.getState());
+    // console.log(state);
 
     return class extends Component<T> {
       constructor(props: T) {
@@ -12,11 +13,13 @@ export default function connect<T extends object>(mapStateToProps: (state: any) 
         store.on(StoreEvents.Updated, () => {
           const newState = mapStateToProps(store.getState());
 
+          // console.log(newState);
+
           if (!isEqual(state, newState)) {
             this.setProps({ ...newState });
             state = newState;
           }
-          this._eventBus.emit(Block.EVENTS.FLOW_RENDER);
+          // this.emit(Block.EVENTS.FLOW_RENDER);
         });
       }
     };

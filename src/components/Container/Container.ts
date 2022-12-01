@@ -3,13 +3,13 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Container extends Block<ContainerPropsType> {
-  render() {
-    const source = `
-    <div id="{{ id }}" class="{{ className }}">
-      {{{ items }}}
-    </div>
-    `;
+  constructor(props: ContainerPropsType) {
+    super('div', props);
+  }
 
-    return compileComponent(source, this.props);
+  render() {
+    const source = `{{{ items }}}`;
+
+    return compileComponent(source, this._props);
   }
 }

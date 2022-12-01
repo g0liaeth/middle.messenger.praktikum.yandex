@@ -84,7 +84,9 @@ export type PlainObject<T = unknown> = {
   [key in string]: T;
 };
 
-export type BlockInheritor = new (props: any) => any;
+export type BlockInheritor = new (tag: string, props: any) => any;
+
+export type BlockInheritorV2 = new (tag: string, props: any) => any;
 
 export type Indexed<T = any> = {
   [key in string]: T;

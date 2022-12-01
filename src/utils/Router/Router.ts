@@ -6,11 +6,11 @@ export default class Router {
   history: History;
   private _currentRoute: Route | null;
   private _rootQuery: string;
-  static __instance: Router | null;
+  static _instance: Router | null;
 
   constructor(rootQuery?: string) {
-    if (Router.__instance) {
-      return Router.__instance;
+    if (Router._instance) {
+      return Router._instance;
     }
 
     this.routes = [];
@@ -18,26 +18,34 @@ export default class Router {
     this._currentRoute = null;
     this._rootQuery = rootQuery ? rootQuery : '';
 
-    Router.__instance = this;
+    Router._instance = this;
   }
 
-  use(pathname: string, block: BlockInheritor, props: Record<string, unknown>) {
-    const route = new Route(pathname, block, { rootQuery: this._rootQuery, props });
+  use(
+    pathname: string,
+    block: BlockInheritor,
+    tag: string,
+    props: Record<string, unknown>,
+  ): Router {
+    const route = new Route(pathname, block, tag, { rootQuery: this._rootQuery, props });
 
     this.routes.push(route);
 
     return this;
   }
 
-  start() {
+  start(): void {
     window.onpopstate = (event: PopStateEvent) => {
       this._onRoute((event.currentTarget as typeof window).location.pathname);
     };
 
+    //todo try to disable
+    this._currentRoute = this.getRoute(window.location.pathname);
+
     this._onRoute(window.location.pathname);
   }
 
-  _onRoute(pathname: string) {
+  _onRoute(pathname: string): void {
     const route = this.getRoute(pathname);
     if (!route) {
       return;
@@ -47,23 +55,25 @@ export default class Router {
       this._currentRoute.leave();
     }
 
+    this._currentRoute = route;
+
     route.render();
   }
 
-  go(pathname: string) {
+  go(pathname: string): void {
     this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 
-  back() {
+  back(): void {
     this.history.back();
   }
 
-  forward() {
+  forward(): void {
     this.history.forward();
   }
 
-  getRoute(pathname: string) {
-    return this.routes.find((route) => route.match(pathname));
+  getRoute(pathname: string): Route | null {
+    return this.routes.find((route) => route.match(pathname)) || null;
   }
 }

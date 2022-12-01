@@ -3,8 +3,8 @@ import Label from '../components/Label/Label';
 import UserAvatar from '../components/UserAvatar/UserAvatar';
 
 export interface BasePropsType {
-  className?: string;
-  backgroundColor?: string;
+  class?: string;
+  data?: Record<string, unknown>;
 }
 
 export interface ErrorPropsType extends BasePropsType {
@@ -15,18 +15,12 @@ export interface ErrorPropsType extends BasePropsType {
 }
 
 export interface BadgePropsType extends BasePropsType {
-  imgPath: string;
-  events?: {
-    click: (event: Event) => void;
-  };
+  onClick?: (event: Event) => void;
 }
 
 export interface ButtonPropsType extends BasePropsType {
-  label?: string;
   type?: string;
-  events?: {
-    click: (event: Event) => void;
-  };
+  onClick?: (event: Event) => void;
 }
 
 export interface DialogPropsType extends BasePropsType {
@@ -38,9 +32,7 @@ export interface DialogPropsType extends BasePropsType {
   newMessagesCount?: number;
   senderUserName?: string;
   dialogAvatar?: UserAvatar;
-  events?: {
-    click: (event: Event) => void;
-  };
+  onClick?: (event: Event) => void;
 }
 
 export interface FormGroupPropsType extends BasePropsType {
@@ -49,10 +41,9 @@ export interface FormGroupPropsType extends BasePropsType {
 }
 
 export interface FormPropsType extends BasePropsType {
+  id?: string;
   formItems?: unknown[];
-  events?: {
-    submit: (event: Event) => void;
-  };
+  onSubmit?: (event: Event) => void;
 }
 
 export interface ContainerPropsType extends BasePropsType {
@@ -69,42 +60,37 @@ export interface ListPropsType extends BasePropsType {
 }
 
 export interface ListItemPropsType extends BasePropsType {
-  id: number;
-  content?: string;
-  events?: {
-    click: (event: Event) => void;
-  };
+  id?: number;
+  onClick?: (event: Event) => void;
 }
 
 export interface InputPropsType extends BasePropsType {
-  inputType: string;
-  inputId: string;
-  inputName: string;
-  disabled?: string;
-  inputValue?: string;
-  inputPlaceholder?: string;
-  events?: {
-    blur?: (event: Event) => void;
-    focus?: (event: Event) => void;
-    keyup?: (event: Event) => void;
-  };
+  type: string;
+  id: string;
+  name: string;
+  disabled?: boolean;
+  value?: string;
+  placeholder?: string;
+  onBlur?: (event: Event) => void;
+  onFocus?: (event: Event) => void;
+  onKeyup?: (event: Event) => void;
 }
 
 export interface LabelPropsType extends BasePropsType {
-  text: string;
-  labelFor: string;
+  for: string;
 }
 
 export interface LinkPropsType extends BasePropsType {
-  text: string;
-  path: string;
+  href: string;
 }
 
 export interface MessagePropsType extends BasePropsType {
-  text: string;
-  readed: boolean;
-  sendTime: string;
-  readMarkImg: string;
+  data: {
+    text: string;
+    readed: boolean;
+    sendTime: string;
+    readMarkImg: string;
+  };
 }
 
 export interface NewMessageFormPropsType extends BasePropsType {
@@ -113,20 +99,16 @@ export interface NewMessageFormPropsType extends BasePropsType {
 
 export interface PopupPropsType extends BasePropsType {
   popupItems?: unknown[];
-  events?: {
-    click: (event: Event) => void;
-  };
+  onClick?: (event: Event) => void;
 }
 
-export interface TextPropsType extends BasePropsType {
-  value: string;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TextPropsType extends BasePropsType {}
 
 export interface PicturePropsType extends BasePropsType {
   src: string;
   alt: string;
 }
 
-export interface UserAvatarPropsType extends BasePropsType {
-  imgPath: string;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface UserAvatarPropsType extends BasePropsType {}

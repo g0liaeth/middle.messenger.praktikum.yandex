@@ -3,20 +3,13 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Input extends Block<InputPropsType> {
-  render() {
-    const source = `
-    <input
-      type={{ inputType }}
-      id={{ inputId }}
-      name={{ inputName }}
-      {{ disabled }}
-      class={{ className }}
-      placeholder={{#if inputPlaceholder}}"{{inputPlaceholder}}"{{else}}""{{/if}}
-      autocomplete="off"
-      {{#if inputValue}}value="{{ inputValue }}"{{else}}{{/if}}
-    />
-    `;
+  constructor(props: InputPropsType) {
+    super('input', props);
+  }
 
-    return compileComponent(source, this.props);
+  render() {
+    const source = ``;
+
+    return compileComponent(source, this._props);
   }
 }

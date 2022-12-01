@@ -3,9 +3,13 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Button extends Block<ButtonPropsType> {
-  render() {
-    const source = `<button class={{ className }} type={{ type }}>{{ label }}</button>`;
+  constructor(props: ButtonPropsType) {
+    super('button', props);
+  }
 
-    return compileComponent(source, this.props);
+  render() {
+    const source = `{{ data.label }}`;
+
+    return compileComponent(source, this._props);
   }
 }

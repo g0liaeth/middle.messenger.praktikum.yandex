@@ -15,7 +15,7 @@ export default class LoginController extends BaseController {
       await this._authAPI.login(data);
       const res = await this._authAPI.getUserInfo();
       if (res.status === 200) {
-        this._store.setState('user', res.data);
+        this._store.setState('profileState.user', res.data);
         this._router.go('/chat');
       }
     } catch (error) {
@@ -36,7 +36,7 @@ export default class LoginController extends BaseController {
     try {
       const res = await this._authAPI.getUserInfo();
       if (res.status === 200) {
-        this._store.setState('user', res.data);
+        this._store.setState('profileState.user', res.data);
         this._router.go('/chat');
       }
     } catch (error) {

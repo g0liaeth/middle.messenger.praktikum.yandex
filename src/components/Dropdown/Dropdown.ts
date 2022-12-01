@@ -12,6 +12,6 @@ export default class Dropdown extends Block<DropdownPropsType> {
     </div>
     `;
 
-    return compileComponent(source, this.props);
+    return compileComponent(source, this._props);
   }
 }

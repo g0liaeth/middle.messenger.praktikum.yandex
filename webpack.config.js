@@ -55,4 +55,17 @@ module.exports = {
       template: './src/index.html',
     }),
   ],
+
+  devServer: {
+    port: 1234,
+    historyApiFallback: {
+      rewrites: [{ from: /^\/$/, to: '/src/index.html.html' }],
+    },
+    // open: false,
+    open: {
+      app: {
+        name: 'google-chrome',
+      },
+    },
+  },
 };
