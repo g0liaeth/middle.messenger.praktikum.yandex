@@ -51,10 +51,6 @@ export interface ContainerPropsType extends BasePropsType {
   items?: unknown[];
 }
 
-export interface DropdownPropsType extends BasePropsType {
-  listItems?: unknown[];
-}
-
 export interface ListPropsType extends BasePropsType {
   listItems?: unknown[];
 }
@@ -104,11 +100,6 @@ export interface PopupPropsType extends BasePropsType {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TextPropsType extends BasePropsType {}
-
-export interface PicturePropsType extends BasePropsType {
-  src: string;
-  alt: string;
-}
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UserAvatarPropsType extends BasePropsType {}

@@ -5,11 +5,15 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Error extends Block<any> {
-  constructor(props: any) {
+  constructor(_tag: string, props: any) {
+    console.log(props);
+
     super('main', { ...props, class: 'main-container' });
   }
 
   render() {
+    // console.log(this._props);
+
     const source = `
       {{{ errorStatus }}}
       {{{ errorText }}}

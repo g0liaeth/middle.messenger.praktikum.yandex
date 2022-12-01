@@ -37,6 +37,7 @@ export default class Route {
   public render() {
     if (!this._block) {
       this._block = new this._blockClass(this._tag, this._props.props);
+
       renderDOM(this._props.rootQuery, this._block as Block<any>);
       return;
     }
