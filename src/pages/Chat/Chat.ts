@@ -424,9 +424,10 @@ class Chat extends Block<any> {
     });
 
     const newUserPopup = new Popup({
+      class: 'popup',
       popupItems: [addUserForm],
       onClick: (event) => {
-        if (event.target === event.currentTarget) {
+        if ((event.target as HTMLElement).classList.contains('popup-body')) {
           newUserPopup.hide();
           this.setProps({ ...this._props, searchUserValue: '' });
           this._controller.clearFindedUsers();
@@ -466,9 +467,10 @@ class Chat extends Block<any> {
     });
 
     const deleteUserPopup = new Popup({
+      class: 'popup',
       popupItems: [deleteUserForm],
       onClick: (event) => {
-        if (event.target === event.currentTarget) {
+        if ((event.target as HTMLElement).classList.contains('popup-body')) {
           deleteUserPopup.hide();
         }
       },
@@ -519,9 +521,10 @@ class Chat extends Block<any> {
     });
 
     const uploadChatAvatarPopup = new Popup({
+      class: 'popup',
       popupItems: [uploadChatAvatarForm],
       onClick: (event) => {
-        if (event.target === event.currentTarget) {
+        if ((event.target as HTMLElement).classList.contains('popup-body')) {
           uploadChatAvatarPopup.hide();
         }
       },
