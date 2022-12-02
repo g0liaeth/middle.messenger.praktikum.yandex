@@ -1,10 +1,10 @@
 import Button from '../../components/Button/Button';
 import Text from '../../components/Text/Text';
 import { UPLOAD_URL } from '../../constants/apiConstants';
+import { AppStateType } from '../../types/commonTypes';
 import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
-import { AppStateType } from '../../utils/Store/initialState/initialState';
 import ProfileController from './ProfileController';
 
 class Profile extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> {

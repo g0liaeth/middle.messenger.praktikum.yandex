@@ -10,23 +10,25 @@ import Text from '../../components/Text/Text';
 import UserAvatar from '../../components/UserAvatar/UserAvatar';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
-// import connect from '../../utils/Store/connect';
+import connect from '../../utils/Store/connect';
 import Validator from '../../utils/Validator';
 import ChatController from './ChatController';
 import ListItem from '../../components/ListItem/ListItem';
 import { UPLOAD_URL } from '../../constants/apiConstants';
-import { UserData, wsMessageType } from '../../types/commonTypes';
+import { AppStateType, UserData, wsMessageType } from '../../types/commonTypes';
 import Popup from '../../components/Popup/Popup';
 import Label from '../../components/Label/Label';
 import List from '../../components/List/List';
 import readedMark from '../../static/check2.svg';
 import unreadedMark from '../../static/check2-all.svg';
+import { BasePropsType } from '../../types/componentTypes';
 
-class Chat extends Block<any> {
+class Chat extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> {
   protected _controller: ChatController;
 
-  constructor(tag = 'main', props?: any) {
-    super(tag, { ...props, class: 'chat-wrapper' });
+  constructor(tag = 'main', props?: BasePropsType & ReturnType<typeof mapStateToProps>) {
+    super(tag, { ...props, class: 'chat-wrapper' } as BasePropsType &
+      ReturnType<typeof mapStateToProps>);
     this._controller = new ChatController();
     this._controller.fetchUser();
     this._controller.getChats();
@@ -37,6 +39,8 @@ class Chat extends Block<any> {
   }
 
   render() {
+    console.log('render chat', this._props);
+
     const source = `
       <div class="left-container">
         <div class="profile-link-container">
@@ -136,19 +140,16 @@ class Chat extends Block<any> {
       class: 'avatar-shield' + (!this._props.currentChat && ' hidden-block'),
       data: {
         imgPath:
-          // @ts-expect-error problem typing props from HOC
-          this._props?.chatsList.find((chat) => chat.id === this._props.currentChat)?.avatar &&
+          this._props?.chats?.find((chat) => chat.id === this._props?.currentChat)?.avatar &&
           UPLOAD_URL +
-            // @ts-expect-error problem typing props from HOC
-            this._props?.chatsList.find((chat) => chat.id === this._props.currentChat)?.avatar,
+            this._props?.chats.find((chat) => chat.id === this._props?.currentChat)?.avatar,
       },
     });
 
     const currentChatTitle = new Text(undefined, {
       class: 'avatar-name',
       data: {
-        //@ts-expect-error problem typing props from HOC
-        value: this._props?.chatsList.find((chat) => chat.id === this._props.currentChat)?.title,
+        value: this._props?.chats?.find((chat) => chat.id === this._props?.currentChat)?.title,
       },
     });
 
@@ -162,7 +163,7 @@ class Chat extends Block<any> {
     const onDeleteButtonClick = () => {
       const menu = document.getElementById('chat_menu_container');
       menu?.classList.remove('active');
-      this._controller.deleteChat(this._props.currentChat);
+      this._controller.deleteChat(this._props?.currentChat);
       this._controller.setCurrentChat(null);
     };
 
@@ -328,8 +329,7 @@ class Chat extends Block<any> {
     });
 
     const dialogsList: Dialog[] = [];
-    //@ts-expect-error problem typing props from HOC
-    this._props.chatsList.forEach((chat) => {
+    this._props?.chats?.forEach((chat) => {
       const msgTime = new Date(chat.last_message?.time);
       const hours = msgTime.getHours();
       const minutes = msgTime.getMinutes();
@@ -337,7 +337,7 @@ class Chat extends Block<any> {
       dialogsList.push(
         new Dialog(undefined, {
           class: 'chat-item ' + (this._props.currentChat === chat.id ? 'active' : ''),
-          id: chat.id,
+          id: chat.id.toString(),
           data: {
             hasNewMessages: chat.unread_count > 0,
             lastMessageSender: true,
@@ -361,13 +361,15 @@ class Chat extends Block<any> {
       );
     });
 
-    const messagesList: Message[] = this._props.messages
-      .filter((msg: wsMessageType) => msg.chat_id === this._props.currentChat)
+    const messagesList: Message[] = this._props?.messages
+      .filter((msg: wsMessageType) => msg.chat_id === this._props?.currentChat)
       .map((msg: wsMessageType) => {
         const msgTime = new Date(msg.time);
         const timeStr = `${msgTime.getHours()}:${msgTime.getMinutes()}`;
         const msgClass =
-          this._props.currentUser === msg.user_id ? 'outgoing-message' : 'incoming-message';
+          this._props?.currentUser === Number(msg.user_id)
+            ? 'outgoing-message'
+            : 'incoming-message';
         return new Message(undefined, {
           class: msgClass,
           data: {
@@ -395,7 +397,8 @@ class Chat extends Block<any> {
       placeholder: 'Поиск',
       name: 'search',
       id: 'search',
-      value: this._props.searchUserValue,
+      // @ts-expect-error because of ??? need to research
+      value: this._props?.searchUserValue,
       onKeyup: onSearchInputKeyUp,
     });
 
@@ -533,6 +536,7 @@ class Chat extends Block<any> {
       },
     });
 
+    // @ts-expect-error because of ??? need to research
     if (this._props.findedUsers.length > 0 || this._props?.searchUserValue?.length > 0) {
       newUserPopup.show();
       setTimeout(function () {
@@ -566,16 +570,16 @@ class Chat extends Block<any> {
   }
 }
 
-// function mapStateToProps(state: any) {
-//   return {
-//     chatsList: state.chatState.chats,
-//     currentChat: state.chatState.currentChat,
-//     messages: state.chatState.messages,
-//     findedUsers: state.chatState.findedUsers,
-//     currentUser: state.profileState.user.id,
-//   };
-// }
+function mapStateToProps(state: AppStateType) {
+  return {
+    chats: state.chatState.chats,
+    currentChat: state.chatState.currentChat,
+    messages: state.chatState.messages,
+    findedUsers: state.chatState.findedUsers,
+    currentUser: state.profileState.user?.id,
+  };
+}
 
-// export default connect<any>(mapStateToProps)(Chat);
+export default connect<BasePropsType, any>(mapStateToProps)(Chat);
 
-export default Chat;
+// export default Chat;

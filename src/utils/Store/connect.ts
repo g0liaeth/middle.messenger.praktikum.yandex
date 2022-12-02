@@ -1,7 +1,7 @@
 import { PlainObject } from '../../types/commonTypes';
 // import Block from '../Block/Block';
-import Store from './Store';
-// import isEqual from '../isEqual';
+import Store, { StoreEvents } from './Store';
+import isEqual from '../isEqual';
 
 export default function connect<BeforeProps, MSPType extends (state: PlainObject) => PlainObject>(
   mapStateToProps: MSPType,
@@ -17,17 +17,17 @@ export default function connect<BeforeProps, MSPType extends (state: PlainObject
     return class extends Component<BeforeProps & typeof state> {
       constructor(tag?: string, props?: BeforeProps & typeof state) {
         super(tag, { ...props, ...state });
-        // store.on(StoreEvents.Updated, () => {
-        //   const newState = mapStateToProps(store.getState());
-        //   // console.log(Component.toString(), newState);
+        store.on(StoreEvents.Updated, () => {
+          const newState = mapStateToProps(store.getState());
+          // console.log(Component.toString(), newState);
 
-        //   if (!isEqual(state, newState)) {
-        //     this.setProps({ ...newState });
-        //     state = newState;
-        //   }
-        //   // //todo think about it
-        //   // this.emit(Block.EVENTS.FLOW_RENDER);
-        // });
+          if (!isEqual(state, newState)) {
+            this.setProps({ ...newState });
+            state = newState;
+          }
+          // //todo think about it
+          // this.emit(Block.EVENTS.FLOW_RENDER);
+        });
       }
     };
   };

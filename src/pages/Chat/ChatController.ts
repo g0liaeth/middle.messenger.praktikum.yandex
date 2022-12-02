@@ -34,14 +34,11 @@ export default class ChatController extends BaseController {
 
   async fetchUser() {
     try {
-      const state = this._store.getState();
-      if (!state.profileState.user.login) {
-        const res = await this._authAPI.getUserInfo();
-        if (res.status === 200) {
-          this._store.setState('profileState.user', res.data);
-        } else {
-          this._router.go('/login');
-        }
+      const res = await this._authAPI.getUserInfo();
+      if (res.status === 200) {
+        this._store.setState('profileState.user', res.data);
+      } else {
+        this._router.go('/login');
       }
     } catch (error) {
       console.log(error);
@@ -60,8 +57,12 @@ export default class ChatController extends BaseController {
     }
   }
 
-  async deleteChat(chatId: number) {
+  async deleteChat(chatId: number | null) {
     try {
+      if (!chatId) {
+        return;
+      }
+
       const res = await this._chatAPI.deleteChatById(chatId);
       if (res.status === 200) {
         console.log(`Chat ${chatId} successfully deleted`);

@@ -1,4 +1,5 @@
-import { CreateChatData } from '../types/commonTypes';
+import { ChatType, CreateChatData } from '../types/commonTypes';
+import { TResponse } from '../utils/Http/HTTPClient';
 import BaseAPI from './BaseAPI';
 
 const headers = {
@@ -10,7 +11,7 @@ export default class ChatAPI extends BaseAPI {
     super('/chats');
   }
 
-  async getChats() {
+  async getChats(): Promise<TResponse<ChatType[]>> {
     const result = await this.httpClient.get('');
     return result;
   }

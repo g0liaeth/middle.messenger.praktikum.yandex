@@ -8,11 +8,10 @@ import Label from '../../components/Label/Label';
 import Popup from '../../components/Popup/Popup';
 import Text from '../../components/Text/Text';
 import { UPLOAD_URL } from '../../constants/apiConstants';
-import { ChangeProfileData, PlainObject } from '../../types/commonTypes';
+import { AppStateType, ChangeProfileData, PlainObject } from '../../types/commonTypes';
 import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
-import { AppStateType } from '../../utils/Store/initialState/initialState';
 import Validator from '../../utils/Validator';
 import EditProfileController from './EditProfileController';
 
