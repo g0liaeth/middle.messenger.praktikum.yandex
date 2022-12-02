@@ -64,7 +64,7 @@ export default class ChatAPI extends BaseAPI {
     return result;
   }
 
-  async getWsToken(chatId: number): Promise<TResponse<GetWSTokenResponseType[]>> {
+  async getWsToken(chatId: number): Promise<TResponse<GetWSTokenResponseType>> {
     const result = await this.httpClient.post(`/token/${chatId}`);
     return result;
   }

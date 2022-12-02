@@ -6,7 +6,6 @@ import Profile from './pages/Profile/Profile';
 import EditProfile from './pages/EditProfile/EditProfile';
 import ChangePassword from './pages/ChangePassword/ChangePassword';
 import Router from './utils/Router/Router';
-import Store from './utils/Store/Store';
 
 const router = new Router('#root');
 
@@ -35,6 +34,3 @@ router
     },
   })
   .start();
-
-(window as any)._appStore = new Store();
-(window as any)._myRouter = router;

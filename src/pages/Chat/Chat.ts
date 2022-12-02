@@ -586,5 +586,3 @@ function mapStateToProps(state: AppStateType) {
 }
 
 export default connect<BasePropsType, any>(mapStateToProps)(Chat);
-
-// export default Chat;

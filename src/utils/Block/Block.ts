@@ -48,10 +48,6 @@ export default abstract class Block<T> extends EventBus {
   _createDocumentElement(tag: string): HTMLElement {
     const element = document.createElement(tag);
 
-    // if (this._props.settings.withInternalId) {
-    //   this._element.setAttribute('data-id', this._id);
-    // }
-
     return element;
   }
 
@@ -84,8 +80,6 @@ export default abstract class Block<T> extends EventBus {
   }
 
   _addAttributes() {
-    // console.log(this._element);
-
     Object.entries(this._attributes).forEach(([key, value]) => {
       this._element.setAttribute(key, value as string);
     });
@@ -120,8 +114,6 @@ export default abstract class Block<T> extends EventBus {
     if (!newProps) {
       return;
     }
-
-    // console.log(newProps);
 
     this._setUpdate = false;
     const oldProps = { ...this._props };
@@ -164,15 +156,9 @@ export default abstract class Block<T> extends EventBus {
     const element = this.getContent();
 
     if (element) {
-      // console.log('block-hiding', element);
       element.classList.add('hidden-block');
     }
   }
-
-  // public destroy() {
-  //   const element = this.getContent();
-  //   element.innerHTML = '';
-  // }
 
   _getChildsFromProps(props: any) {
     const childrens: any = {};
@@ -187,8 +173,6 @@ export default abstract class Block<T> extends EventBus {
   }
 
   _getAttributesFromProps(props: any) {
-    // console.log(props);
-
     const attributes: any = {};
 
     Object.keys(props).forEach((key) => {

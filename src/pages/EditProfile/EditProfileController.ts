@@ -3,7 +3,6 @@ import UserAPI from '../../api/UserAPI';
 import { ChangeProfileData } from '../../types/commonTypes';
 import BaseController from '../../utils/BaseController';
 import EditProfile from './EditProfile';
-// import { StoreEvents } from '../../utils/Store/Store';
 
 export default class EditProfileController extends BaseController {
   private _userAPI: UserAPI;
