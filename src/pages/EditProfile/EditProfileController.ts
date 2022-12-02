@@ -2,6 +2,7 @@ import AuthAPI from '../../api/AuthAPI';
 import UserAPI from '../../api/UserAPI';
 import { ChangeProfileData } from '../../types/commonTypes';
 import BaseController from '../../utils/BaseController';
+import EditProfile from './EditProfile';
 // import { StoreEvents } from '../../utils/Store/Store';
 
 export default class EditProfileController extends BaseController {
@@ -18,7 +19,7 @@ export default class EditProfileController extends BaseController {
     try {
       const res = await this._userAPI.changeProfile(data);
       if (res.status === 200) {
-        this._router.go('/chat');
+        this._router.go('/profile');
       }
     } catch (error) {
       console.log(error);
@@ -29,7 +30,7 @@ export default class EditProfileController extends BaseController {
     try {
       const res = await this._userAPI.changeAvatar(data);
       if (res.status === 200) {
-        this._router.go('/chat');
+        this._router.go('/profile');
       }
     } catch (error) {
       console.log(error);
@@ -40,16 +41,13 @@ export default class EditProfileController extends BaseController {
     this._router.go('/profile');
   }
 
-  async fetchUser() {
+  async getUserDetails(view: EditProfile) {
     try {
-      const state = this._store.getState();
-      if (!state.profileState.user.login) {
-        const res = await this._authAPI.getUserInfo();
-        if (res.status === 200) {
-          this._store.setState('profileState.user', res.data);
-        } else {
-          this._router.go('/profile');
-        }
+      const res = await this._authAPI.getUserInfo();
+      if (res.status === 200) {
+        view.setProps({ user: res.data });
+      } else {
+        this._router.go('/login');
       }
     } catch (error) {
       console.log(error);

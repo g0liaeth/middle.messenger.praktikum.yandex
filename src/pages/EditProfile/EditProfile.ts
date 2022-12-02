@@ -8,21 +8,24 @@ import Label from '../../components/Label/Label';
 import Popup from '../../components/Popup/Popup';
 import Text from '../../components/Text/Text';
 import { UPLOAD_URL } from '../../constants/apiConstants';
-// import { ChangeProfileData } from '../../types/commonTypes';
-// import { BasePropsType } from '../../types/componentTypes';
+import { ChangeProfileData, PlainObject } from '../../types/commonTypes';
+import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
-import connect from '../../utils/Store/connect';
+import { AppStateType } from '../../utils/Store/initialState/initialState';
 import Validator from '../../utils/Validator';
 import EditProfileController from './EditProfileController';
 
-class EditProfile extends Block<any> {
+export default class EditProfile extends Block<
+  BasePropsType & Pick<AppStateType['profileState'], 'user'>
+> {
   protected _controller: EditProfileController;
 
-  constructor(tag = 'main', props?: any) {
-    super(tag, { ...props, class: 'main-container' });
-    // this._controller = new EditProfileController();
-    // this._controller.fetchUser();
+  constructor(tag = 'main', props?: BasePropsType & Pick<AppStateType['profileState'], 'user'>) {
+    super(tag, { ...props, class: 'main-container' } as BasePropsType &
+      Pick<AppStateType['profileState'], 'user'>);
+    this._controller = new EditProfileController();
+    this._controller.getUserDetails(this);
   }
 
   render() {
@@ -68,9 +71,7 @@ class EditProfile extends Block<any> {
     const profileImg = new Badge(undefined, {
       class: 'img-back',
       data: {
-        imgPath: Object.prototype.hasOwnProperty.call(this._props.user, 'avatar')
-          ? UPLOAD_URL + this._props.user.avatar
-          : null,
+        imgPath: this._props?.user && UPLOAD_URL + this._props?.user?.avatar,
       },
       onClick: () => {
         popup.show();
@@ -227,11 +228,11 @@ class EditProfile extends Block<any> {
 
     const onUploadPhotoFormSubmit = (event: SubmitEvent) => {
       event.preventDefault();
-      // const target = event.target as HTMLElement;
-      // const inputs = target.querySelectorAll('input');
-
-      // // @ts-expect-error because of ??? need to research
-      // this._controller.changeAvatar(inputs[0].files[0]);
+      const target = event.target as HTMLElement;
+      const inputs = target.querySelectorAll('input');
+      popup.hide();
+      // @ts-expect-error because of ??? need to research
+      this._controller.changeAvatar(inputs[0].files[0]);
     };
 
     const uploadPhotoForm = new Form(undefined, {
@@ -258,7 +259,7 @@ class EditProfile extends Block<any> {
       },
       onClick: (event) => {
         event.preventDefault();
-        // this._controller.cancel();
+        this._controller.cancel();
       },
     });
 
@@ -279,13 +280,13 @@ class EditProfile extends Block<any> {
         console.log(errors);
         return;
       }
-      const formData: Record<string, unknown> = {};
+      const formData: PlainObject = {};
       inputs.forEach((input) => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         formData[input.getAttribute('id')!] = input.value;
       });
       console.log(formData);
-      // this._controller.changeProfile(formData as ChangeProfileData);
+      this._controller.changeProfile(formData as ChangeProfileData);
     };
 
     const buttobsBlock = new Container(undefined, {
@@ -317,13 +318,3 @@ class EditProfile extends Block<any> {
     });
   }
 }
-
-function mapStateToProps(state: any) {
-  return {
-    user: state.profileState.user,
-  };
-}
-
-export default connect(mapStateToProps)(EditProfile);
-
-// export default EditProfile;

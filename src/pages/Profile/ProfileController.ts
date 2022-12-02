@@ -35,4 +35,16 @@ export default class ProfileController extends BaseController {
       console.log(error);
     }
   }
+
+  goChangeProfile() {
+    this._router.go('/edit-profile');
+  }
+
+  goChangePassword() {
+    this._router.go('/change-password');
+  }
+
+  goToChat() {
+    this._router.go('/chat');
+  }
 }

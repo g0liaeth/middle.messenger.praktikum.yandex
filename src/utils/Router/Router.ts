@@ -42,15 +42,13 @@ export default class Router {
       this._onRoute((event.currentTarget as typeof window).location.pathname);
     };
 
-    //todo try to disable
-    this._currentRoute = this.getRoute(window.location.pathname);
-
     this._onRoute(window.location.pathname);
   }
 
   _onRoute(pathname: string): void {
     const route = this.getRoute(pathname);
     if (!route) {
+      this.go('/404');
       return;
     }
 

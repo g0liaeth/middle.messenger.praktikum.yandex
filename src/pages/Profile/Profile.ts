@@ -17,7 +17,17 @@ class Profile extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> 
     this._controller.getUserDetails(this);
   }
 
+  public show() {
+    this._controller.getUserDetails(this);
+    const element = this.getContent();
+    if (element) {
+      element.classList.remove('hidden-block');
+    }
+  }
+
   render() {
+    console.log('render profile', this._props);
+
     const source = `
       <img src={{ avatarUrl }} alt="avatar-img" class="profile-photo">
       {{{ userName }}}
@@ -64,8 +74,9 @@ class Profile extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> 
       data: {
         label: 'Изменить данные',
       },
-      onClick: () => {
-        window.location.assign('edit-profile');
+      onClick: (event) => {
+        event.preventDefault();
+        this._controller.goChangeProfile();
       },
     });
 
@@ -75,8 +86,9 @@ class Profile extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> 
       data: {
         label: 'Изменить пароль',
       },
-      onClick: () => {
-        window.location.assign('change-password');
+      onClick: (event) => {
+        event.preventDefault();
+        this._controller.goChangePassword();
       },
     });
 
@@ -86,7 +98,8 @@ class Profile extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> 
       data: {
         label: 'Выйти',
       },
-      onClick: () => {
+      onClick: (event) => {
+        event.preventDefault();
         this._controller.logout(this);
       },
     });
@@ -97,8 +110,9 @@ class Profile extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> 
       data: {
         label: '< назад к чатам',
       },
-      onClick: () => {
-        window.location.assign('/chat');
+      onClick: (event) => {
+        event.preventDefault();
+        this._controller.goToChat();
       },
     });
 

@@ -10,6 +10,8 @@ export default class Error extends Block<ErrorPropsType> {
   }
 
   render() {
+    console.log('render error', this._props);
+
     const source = `
       {{{ errorStatus }}}
       {{{ errorText }}}
