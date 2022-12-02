@@ -7,18 +7,17 @@ import Label from '../../components/Label/Label';
 import Link from '../../components/Link/Link';
 import Text from '../../components/Text/Text';
 import { RegistrationData } from '../../types/commonTypes';
-// import { BasePropsType } from '../../types/componentTypes';
+import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
-import connect from '../../utils/Store/connect';
 import Validator from '../../utils/Validator';
 import RegistrationController from './RegistrationController';
 
-class Registration extends Block<any> {
+export default class Registration extends Block<BasePropsType> {
   private _controller: RegistrationController;
 
-  constructor(props: any) {
-    super('main', { ...props, class: 'register-form-container' });
+  constructor(tag = 'main', props?: BasePropsType) {
+    super(tag, { ...props, class: 'register-form-container' });
     this._controller = new RegistrationController();
   }
 
@@ -70,23 +69,23 @@ class Registration extends Block<any> {
       onKeyup: onFocusChange,
     };
 
-    const formHeader = new Text({
+    const formHeader = new Text(undefined, {
       class: 'header-form',
       data: {
         value: 'Регистрация',
       },
     });
 
-    const emailFormGroup = new FormGroup({
+    const emailFormGroup = new FormGroup(undefined, {
       class: 'form-group',
-      label: new Label({
+      label: new Label(undefined, {
         class: 'login-label',
         for: 'email',
         data: {
           text: 'Почта',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         class: 'login-input',
         type: 'email',
         id: 'email',
@@ -95,16 +94,16 @@ class Registration extends Block<any> {
       }),
     });
 
-    const loginFormGroup = new FormGroup({
+    const loginFormGroup = new FormGroup(undefined, {
       class: 'form-group',
-      label: new Label({
+      label: new Label(undefined, {
         class: 'login-label',
         for: 'login',
         data: {
           text: 'Логин',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         class: 'login-input',
         type: 'text',
         id: 'login',
@@ -113,16 +112,16 @@ class Registration extends Block<any> {
       }),
     });
 
-    const firstNameFormGroup = new FormGroup({
+    const firstNameFormGroup = new FormGroup(undefined, {
       class: 'form-group',
-      label: new Label({
+      label: new Label(undefined, {
         class: 'login-label',
         for: 'first_name',
         data: {
           text: 'Имя',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         class: 'login-input',
         type: 'text',
         id: 'first_name',
@@ -131,16 +130,16 @@ class Registration extends Block<any> {
       }),
     });
 
-    const secondNameFormGroup = new FormGroup({
+    const secondNameFormGroup = new FormGroup(undefined, {
       class: 'form-group',
-      label: new Label({
+      label: new Label(undefined, {
         class: 'login-label',
         for: 'second_name',
         data: {
           text: 'Фамилия',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         class: 'login-input',
         type: 'text',
         id: 'second_name',
@@ -149,16 +148,16 @@ class Registration extends Block<any> {
       }),
     });
 
-    const phoneFormGroup = new FormGroup({
+    const phoneFormGroup = new FormGroup(undefined, {
       class: 'form-group',
-      label: new Label({
+      label: new Label(undefined, {
         class: 'login-label',
         for: 'phone',
         data: {
           text: 'Телефон',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         class: 'login-input',
         type: 'tel',
         id: 'phone',
@@ -167,16 +166,16 @@ class Registration extends Block<any> {
       }),
     });
 
-    const passwordFormGroup = new FormGroup({
+    const passwordFormGroup = new FormGroup(undefined, {
       class: 'form-group',
-      label: new Label({
+      label: new Label(undefined, {
         class: 'login-label',
         for: 'password',
         data: {
           text: 'Пароль',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         class: 'login-input',
         type: 'password',
         id: 'password',
@@ -185,16 +184,16 @@ class Registration extends Block<any> {
       }),
     });
 
-    const repeatPasswordFormGroup = new FormGroup({
+    const repeatPasswordFormGroup = new FormGroup(undefined, {
       class: 'form-group',
-      label: new Label({
+      label: new Label(undefined, {
         class: 'login-label',
         for: 'repeat_password',
         data: {
           text: 'Пароль (ещё раз)',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         class: 'login-input',
         type: 'password',
         id: 'repeat_password',
@@ -205,7 +204,7 @@ class Registration extends Block<any> {
       }),
     });
 
-    const registerBtn = new Button({
+    const registerBtn = new Button(undefined, {
       class: 'btn-black',
       type: 'submit',
       data: {
@@ -213,7 +212,7 @@ class Registration extends Block<any> {
       },
     });
 
-    const loginLink = new Link({
+    const loginLink = new Link(undefined, {
       class: 'simple-link',
       href: 'login',
       data: {
@@ -221,7 +220,7 @@ class Registration extends Block<any> {
       },
     });
 
-    const registerInputsBlock = new Container({
+    const registerInputsBlock = new Container(undefined, {
       items: [
         emailFormGroup,
         loginFormGroup,
@@ -260,7 +259,7 @@ class Registration extends Block<any> {
       this._controller.registration(formData as RegistrationData);
     };
 
-    const registerForm = new Form({
+    const registerForm = new Form(undefined, {
       class: 'register-form',
       formItems: [formHeader, registerInputsBlock, registerBtn, loginLink],
       onSubmit: onRegisterFormSubmit,
@@ -272,11 +271,3 @@ class Registration extends Block<any> {
     });
   }
 }
-
-function mapStateToProps(state: any) {
-  return {
-    userId: state.profileState.user.id,
-  };
-}
-
-export default connect<any>(mapStateToProps)(Registration);

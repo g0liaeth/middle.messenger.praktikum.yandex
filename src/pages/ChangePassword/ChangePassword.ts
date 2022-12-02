@@ -4,17 +4,17 @@ import FormGroup from '../../components/FormGroup/FormGroup';
 import Input from '../../components/Input/Input';
 import Label from '../../components/Label/Label';
 import { ChangePasswordData } from '../../types/commonTypes';
-// import { BasePropsType } from '../../types/componentTypes';
+import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 import Validator from '../../utils/Validator';
 import ChangePasswordController from './ChangePasswordController';
 
-export default class ChangePassword extends Block<any> {
+export default class ChangePassword extends Block<BasePropsType> {
   protected _controller: ChangePasswordController;
 
-  constructor(props: any) {
-    super('main', { ...props, class: 'main-container' });
+  constructor(tag = 'main', props?: BasePropsType) {
+    super(tag, { ...props, class: 'main-container' });
     this._controller = new ChangePasswordController();
     this._controller.fetchUser();
   }
@@ -71,15 +71,15 @@ export default class ChangePassword extends Block<any> {
       onKeyup: onFocusChange,
     };
 
-    const oldPasswordFormGroup = new FormGroup({
+    const oldPasswordFormGroup = new FormGroup(undefined, {
       class: 'form-group-profile',
-      label: new Label({
+      label: new Label(undefined, {
         for: 'oldPassword',
         data: {
           text: 'Старый пароль',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         class: 'profile-editable-input',
         type: 'password',
         id: 'oldPassword',
@@ -88,15 +88,15 @@ export default class ChangePassword extends Block<any> {
       }),
     });
 
-    const newPasswordFormGroup = new FormGroup({
+    const newPasswordFormGroup = new FormGroup(undefined, {
       class: 'form-group-profile',
-      label: new Label({
+      label: new Label(undefined, {
         for: 'newPassword',
         data: {
           text: 'Новый пароль',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         class: 'profile-editable-input',
         type: 'password',
         id: 'newPassword',
@@ -105,15 +105,15 @@ export default class ChangePassword extends Block<any> {
       }),
     });
 
-    const repeatNewPasswordFormGroup = new FormGroup({
+    const repeatNewPasswordFormGroup = new FormGroup(undefined, {
       class: 'form-group-profile',
-      label: new Label({
+      label: new Label(undefined, {
         for: 'repeatNewPassword',
         data: {
           text: 'Повторите новый пароль',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         class: 'profile-editable-input',
         type: 'password',
         id: 'repeatNewPassword',
@@ -124,7 +124,7 @@ export default class ChangePassword extends Block<any> {
       }),
     });
 
-    const btnSave = new Button({
+    const btnSave = new Button(undefined, {
       class: 'btn-change',
       type: 'submit',
       data: {
@@ -160,7 +160,7 @@ export default class ChangePassword extends Block<any> {
       },
     });
 
-    const btnCancel = new Button({
+    const btnCancel = new Button(undefined, {
       class: 'btn-exit',
       type: 'button',
       data: {
@@ -198,7 +198,7 @@ export default class ChangePassword extends Block<any> {
       this._controller.changePassword(formData as ChangePasswordData);
     };
 
-    const changePasswordForm = new Form({
+    const changePasswordForm = new Form(undefined, {
       formItems: [oldPasswordFormGroup, newPasswordFormGroup, repeatNewPasswordFormGroup],
       onSubmit: onChangePassowrdFormSubmit,
     });

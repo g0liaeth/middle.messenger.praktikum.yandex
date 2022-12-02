@@ -3,8 +3,8 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Text extends Block<TextPropsType> {
-  constructor(props: TextPropsType) {
-    super('span', props);
+  constructor(tag = 'span', props?: TextPropsType) {
+    super(tag, props);
   }
 
   render() {

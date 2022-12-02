@@ -1,4 +1,4 @@
-import { BlockInheritor } from '../../types/commonTypes';
+import { BlockInheritor, Props } from '../../types/commonTypes';
 import Route from './Route';
 
 export default class Router {
@@ -21,13 +21,16 @@ export default class Router {
     Router._instance = this;
   }
 
-  use(
-    pathname: string,
-    block: BlockInheritor,
-    tag: string,
-    props: Record<string, unknown>,
-  ): Router {
-    const route = new Route(pathname, block, tag, { rootQuery: this._rootQuery, props });
+  use(pathname: string, block: BlockInheritor, tag?: string, props?: Props): Router {
+    const route = new Route(
+      pathname,
+      block,
+      {
+        rootQuery: this._rootQuery,
+        props,
+      },
+      tag,
+    );
 
     this.routes.push(route);
 
@@ -75,5 +78,9 @@ export default class Router {
 
   getRoute(pathname: string): Route | null {
     return this.routes.find((route) => route.match(pathname)) || null;
+  }
+
+  getCurrentRoute(): Route | undefined {
+    return this.routes.find((route) => route.match(window.location.pathname));
   }
 }

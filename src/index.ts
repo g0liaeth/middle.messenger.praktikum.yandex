@@ -6,29 +6,35 @@ import Profile from './pages/Profile/Profile';
 import EditProfile from './pages/EditProfile/EditProfile';
 import ChangePassword from './pages/ChangePassword/ChangePassword';
 import Router from './utils/Router/Router';
+import Store from './utils/Store/Store';
 
 const router = new Router('#root');
 
 router
-  .use('/', Login, '', {})
-  .use('/login', Login, '', {})
-  .use('/signup', Registration, '', {})
-  .use('/chat', Chat, '', {})
-  .use('/profile', Profile, '', {})
-  .use('/edit-profile', EditProfile, '', {})
-  .use('/change-password', ChangePassword, '', {})
-  .use('/500', Error, '', {
-    codeClassName: 'header-big',
-    codeValue: '500',
-    textClassName: 'main-text',
-    textValue: 'Мы уже фиксим',
+  .use('/', Login, undefined, undefined)
+  .use('/login', Login, undefined, undefined)
+  .use('/signup', Registration, undefined, undefined)
+  .use('/chat', Chat, undefined, undefined)
+  .use('/profile', Profile, undefined, undefined)
+  .use('/edit-profile', EditProfile, undefined, undefined)
+  .use('/change-password', ChangePassword, undefined, undefined)
+  .use('/500', Error, undefined, {
+    data: {
+      codeClassName: 'header-big',
+      codeValue: '500',
+      textClassName: 'main-text',
+      textValue: 'Мы уже фиксим',
+    },
   })
-  .use('/404', Error, '', {
-    codeClassName: 'header-big',
-    codeValue: '404',
-    textClassName: 'main-text',
-    textValue: 'Не туда попали',
+  .use('/404', Error, undefined, {
+    data: {
+      codeClassName: 'header-big',
+      codeValue: '404',
+      textClassName: 'main-text',
+      textValue: 'Не туда попали',
+    },
   })
   .start();
 
-// window._myRouter = router;
+(window as any)._appStore = new Store();
+(window as any)._myRouter = router;

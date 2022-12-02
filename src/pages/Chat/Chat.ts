@@ -10,7 +10,7 @@ import Text from '../../components/Text/Text';
 import UserAvatar from '../../components/UserAvatar/UserAvatar';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
-import connect from '../../utils/Store/connect';
+// import connect from '../../utils/Store/connect';
 import Validator from '../../utils/Validator';
 import ChatController from './ChatController';
 import ListItem from '../../components/ListItem/ListItem';
@@ -25,8 +25,8 @@ import unreadedMark from '../../static/check2-all.svg';
 class Chat extends Block<any> {
   protected _controller: ChatController;
 
-  constructor(props: any) {
-    super('main', { ...props, class: 'chat-wrapper' });
+  constructor(tag = 'main', props?: any) {
+    super(tag, { ...props, class: 'chat-wrapper' });
     this._controller = new ChatController();
     this._controller.fetchUser();
     this._controller.getChats();
@@ -97,19 +97,19 @@ class Chat extends Block<any> {
       }
     };
 
-    const newChatTitle = new Input({
+    const newChatTitle = new Input(undefined, {
       class: 'new-chat-input',
       type: 'text',
       id: 'new_chat_title',
       name: 'new_chat_title',
     });
 
-    const addChatBtn = new Button({
+    const addChatBtn = new Button(undefined, {
       class: 'btn-add-chat',
       type: 'submit',
     });
 
-    const newChatForm = new Form({
+    const newChatForm = new Form(undefined, {
       formItems: [newChatTitle, addChatBtn],
       class: 'new-chat-form',
       onSubmit: (event) => {
@@ -124,7 +124,7 @@ class Chat extends Block<any> {
       },
     });
 
-    const profileLink = new Link({
+    const profileLink = new Link(undefined, {
       class: 'profile-link',
       href: 'profile',
       data: {
@@ -132,7 +132,7 @@ class Chat extends Block<any> {
       },
     });
 
-    const currentChatAvatar = new UserAvatar({
+    const currentChatAvatar = new UserAvatar(undefined, {
       class: 'avatar-shield' + (!this._props.currentChat && ' hidden-block'),
       data: {
         imgPath:
@@ -144,7 +144,7 @@ class Chat extends Block<any> {
       },
     });
 
-    const currentChatTitle = new Text({
+    const currentChatTitle = new Text(undefined, {
       class: 'avatar-name',
       data: {
         //@ts-expect-error problem typing props from HOC
@@ -152,7 +152,7 @@ class Chat extends Block<any> {
       },
     });
 
-    const deleteChatTitle = new Text({
+    const deleteChatTitle = new Text(undefined, {
       class: 'chat-menu-item-title',
       data: {
         value: 'Удалить чат',
@@ -166,18 +166,18 @@ class Chat extends Block<any> {
       this._controller.setCurrentChat(null);
     };
 
-    const deleteChatBtn = new Button({
+    const deleteChatBtn = new Button(undefined, {
       class: 'delete-chat-btn',
       type: 'button',
       onClick: onDeleteButtonClick,
     });
 
-    const deleteChatItem = new Container({
+    const deleteChatItem = new Container(undefined, {
       class: 'chat-menu-item',
       items: [deleteChatTitle, deleteChatBtn],
     });
 
-    const addUserTitle = new Text({
+    const addUserTitle = new Text(undefined, {
       class: 'chat-menu-item-title',
       data: {
         value: 'Добавить пользователя',
@@ -190,18 +190,18 @@ class Chat extends Block<any> {
       newUserPopup.show();
     };
 
-    const addUserBtn = new Button({
+    const addUserBtn = new Button(undefined, {
       class: 'add-chat-user-btn',
       type: 'button',
       onClick: onAddUserButtonClick,
     });
 
-    const addUserItem = new Container({
+    const addUserItem = new Container(undefined, {
       class: 'chat-menu-item',
       items: [addUserTitle, addUserBtn],
     });
 
-    const deleteUserTitle = new Text({
+    const deleteUserTitle = new Text(undefined, {
       class: 'chat-menu-item-title',
       data: {
         value: 'Удалить пользователя',
@@ -214,18 +214,18 @@ class Chat extends Block<any> {
       deleteUserPopup.show();
     };
 
-    const deleteUserBtn = new Button({
+    const deleteUserBtn = new Button(undefined, {
       class: 'delete-chat-user-btn',
       type: 'button',
       onClick: onDeleteUserButtonClick,
     });
 
-    const deleteUserItem = new Container({
+    const deleteUserItem = new Container(undefined, {
       class: 'chat-menu-item',
       items: [deleteUserTitle, deleteUserBtn],
     });
 
-    const changeChatAvatarTitle = new Text({
+    const changeChatAvatarTitle = new Text(undefined, {
       class: 'chat-menu-item-title',
       data: {
         value: 'Сменить аватар чата',
@@ -238,18 +238,18 @@ class Chat extends Block<any> {
       uploadChatAvatarPopup.show();
     };
 
-    const changeChatAvatarBtn = new Button({
+    const changeChatAvatarBtn = new Button(undefined, {
       class: 'change-chat-avatar-btn',
       type: 'button',
       onClick: onChangeChatAvatarBtnClick,
     });
 
-    const changeChatAvatar = new Container({
+    const changeChatAvatar = new Container(undefined, {
       class: 'chat-menu-item',
       items: [changeChatAvatarTitle, changeChatAvatarBtn],
     });
 
-    const chatMenuContainer = new Container({
+    const chatMenuContainer = new Container(undefined, {
       class: 'chat-menu-container',
       id: 'chat_menu_container',
       items: [addUserItem, deleteUserItem, changeChatAvatar, deleteChatItem],
@@ -271,13 +271,13 @@ class Chat extends Block<any> {
       }
     };
 
-    const chatMenu = new Button({
+    const chatMenu = new Button(undefined, {
       class: 'btn-menu' + (this._props.currentChat ? '' : ' hidden-block'),
       type: 'button',
       onClick: onChatMenuBtnClick,
     });
 
-    const messageInput = new Input({
+    const messageInput = new Input(undefined, {
       class: 'new-message-textinput',
       type: 'text',
       id: 'message',
@@ -288,17 +288,17 @@ class Chat extends Block<any> {
       onKeyup: onFocusChange,
     });
 
-    const newMessageInput = new FormGroup({
+    const newMessageInput = new FormGroup(undefined, {
       class: 'form-group-new-message',
       input: messageInput,
     });
 
-    const attachFileBtn = new Button({
+    const attachFileBtn = new Button(undefined, {
       class: 'btn-attach-file',
       type: 'button',
     });
 
-    const sendMessageBtn = new Button({
+    const sendMessageBtn = new Button(undefined, {
       class: 'btn-black',
       type: 'submit',
       data: {
@@ -306,12 +306,12 @@ class Chat extends Block<any> {
       },
     });
 
-    const btnsBlock = new Container({
+    const btnsBlock = new Container(undefined, {
       class: 'send-message-container',
       items: [attachFileBtn, sendMessageBtn],
     });
 
-    const newMessageForm = new Form({
+    const newMessageForm = new Form(undefined, {
       class: 'form-new-message',
       formItems: [newMessageInput, btnsBlock],
       onSubmit: (event) => {
@@ -335,7 +335,7 @@ class Chat extends Block<any> {
       const minutes = msgTime.getMinutes();
       const timeStr = hours || minutes ? `${hours}:${minutes}` : '';
       dialogsList.push(
-        new Dialog({
+        new Dialog(undefined, {
           class: 'chat-item ' + (this._props.currentChat === chat.id ? 'active' : ''),
           id: chat.id,
           data: {
@@ -346,7 +346,7 @@ class Chat extends Block<any> {
             lastMessageTime: timeStr,
             newMessagesCount: chat.unread_count,
           },
-          dialogAvatar: new UserAvatar({
+          dialogAvatar: new UserAvatar(undefined, {
             data: {
               imgPath: chat.avatar && UPLOAD_URL + chat.avatar,
             },
@@ -368,7 +368,7 @@ class Chat extends Block<any> {
         const timeStr = `${msgTime.getHours()}:${msgTime.getMinutes()}`;
         const msgClass =
           this._props.currentUser === msg.user_id ? 'outgoing-message' : 'incoming-message';
-        return new Message({
+        return new Message(undefined, {
           class: msgClass,
           data: {
             readed: false,
@@ -389,7 +389,7 @@ class Chat extends Block<any> {
       // }
     };
 
-    const searchInput = new Input({
+    const searchInput = new Input(undefined, {
       class: 'search-textinput',
       type: 'text',
       placeholder: 'Поиск',
@@ -399,12 +399,12 @@ class Chat extends Block<any> {
       onKeyup: onSearchInputKeyUp,
     });
 
-    const searchResults = new Container({
+    const searchResults = new Container(undefined, {
       items: [
-        new List({
+        new List(undefined, {
           listItems: this._props.findedUsers.map(
             (item: UserData) =>
-              new ListItem({
+              new ListItem(undefined, {
                 id: item.id,
                 class: 'dropdown-list-item',
                 data: {
@@ -421,12 +421,12 @@ class Chat extends Block<any> {
       ],
     });
 
-    const addUserForm = new Form({
+    const addUserForm = new Form(undefined, {
       class: 'add-user-form',
       formItems: [searchInput, searchResults],
     });
 
-    const newUserPopup = new Popup({
+    const newUserPopup = new Popup(undefined, {
       class: 'popup',
       popupItems: [addUserForm],
       onClick: (event) => {
@@ -438,7 +438,7 @@ class Chat extends Block<any> {
       },
     });
 
-    const deleteUserLogin = new Input({
+    const deleteUserLogin = new Input(undefined, {
       class: 'delete-user-login',
       type: 'text',
       id: 'delete_user_login',
@@ -446,7 +446,7 @@ class Chat extends Block<any> {
       placeholder: 'Логин пользователя',
     });
 
-    const deleteUserBtn2 = new Button({
+    const deleteUserBtn2 = new Button(undefined, {
       class: 'btn-delete-user',
       type: 'submit',
       data: {
@@ -454,7 +454,7 @@ class Chat extends Block<any> {
       },
     });
 
-    const deleteUserForm = new Form({
+    const deleteUserForm = new Form(undefined, {
       class: 'delete-user-form',
       formItems: [deleteUserLogin, deleteUserBtn2],
       onSubmit: (event) => {
@@ -469,7 +469,7 @@ class Chat extends Block<any> {
       },
     });
 
-    const deleteUserPopup = new Popup({
+    const deleteUserPopup = new Popup(undefined, {
       class: 'popup',
       popupItems: [deleteUserForm],
       onClick: (event) => {
@@ -479,28 +479,28 @@ class Chat extends Block<any> {
       },
     });
 
-    const changeAvatarHeader = new Text({
+    const changeAvatarHeader = new Text(undefined, {
       class: 'header-form-md',
       data: {
         value: 'Загрузить файл',
       },
     });
 
-    const changeAvatarFormContent = new FormGroup({
-      label: new Label({
+    const changeAvatarFormContent = new FormGroup(undefined, {
+      label: new Label(undefined, {
         for: 'myfile',
         data: {
           text: '',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         type: 'file',
         id: 'myfile',
         name: 'myfile',
       }),
     });
 
-    const changeAvatarBtn = new Button({
+    const changeAvatarBtn = new Button(undefined, {
       class: 'btn-black-w100',
       type: 'submit',
       data: {
@@ -517,13 +517,13 @@ class Chat extends Block<any> {
       this._controller.changeChatAvatar(this._props.currentChat, inputs[0].files[0]);
     };
 
-    const uploadChatAvatarForm = new Form({
+    const uploadChatAvatarForm = new Form(undefined, {
       class: 'upload-photo-form',
       formItems: [changeAvatarHeader, changeAvatarFormContent, changeAvatarBtn],
       onSubmit: onUploadChatAvatarFormSubmit,
     });
 
-    const uploadChatAvatarPopup = new Popup({
+    const uploadChatAvatarPopup = new Popup(undefined, {
       class: 'popup',
       popupItems: [uploadChatAvatarForm],
       onClick: (event) => {
@@ -566,14 +566,16 @@ class Chat extends Block<any> {
   }
 }
 
-function mapStateToProps(state: any) {
-  return {
-    chatsList: state.chatState.chats,
-    currentChat: state.chatState.currentChat,
-    messages: state.chatState.messages,
-    findedUsers: state.chatState.findedUsers,
-    currentUser: state.profileState.user.id,
-  };
-}
+// function mapStateToProps(state: any) {
+//   return {
+//     chatsList: state.chatState.chats,
+//     currentChat: state.chatState.currentChat,
+//     messages: state.chatState.messages,
+//     findedUsers: state.chatState.findedUsers,
+//     currentUser: state.profileState.user.id,
+//   };
+// }
 
-export default connect<any>(mapStateToProps)(Chat);
+// export default connect<any>(mapStateToProps)(Chat);
+
+export default Chat;

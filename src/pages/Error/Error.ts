@@ -1,26 +1,22 @@
 import Button from '../../components/Button/Button';
 import Text from '../../components/Text/Text';
-// import { ErrorPropsType } from '../../types/componentTypes';
+import { ErrorPropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
-export default class Error extends Block<any> {
-  constructor(_tag: string, props: any) {
-    console.log(props);
-
-    super('main', { ...props, class: 'main-container' });
+export default class Error extends Block<ErrorPropsType> {
+  constructor(tag = 'main', props?: ErrorPropsType) {
+    super(tag, { ...props, class: 'main-container' } as ErrorPropsType);
   }
 
   render() {
-    // console.log(this._props);
-
     const source = `
       {{{ errorStatus }}}
       {{{ errorText }}}
       {{{ buttonBack }}}
     `;
 
-    const buttonBack = new Button({
+    const buttonBack = new Button(undefined, {
       class: 'btn-green',
       type: 'button',
       data: {
@@ -31,17 +27,17 @@ export default class Error extends Block<any> {
       },
     });
 
-    const errorStatus = new Text({
-      class: this._props.codeClassName,
+    const errorStatus = new Text(undefined, {
+      class: this._props?.data?.codeClassName,
       data: {
-        value: this._props.codeValue ? this._props.codeValue : '',
+        value: this._props?.data?.codeValue ? this._props?.data?.codeValue : '',
       },
     });
 
-    const errorText = new Text({
-      class: this._props.textClassName,
+    const errorText = new Text(undefined, {
+      class: this._props?.data?.textClassName,
       data: {
-        value: this._props.textValue ? this._props.textValue : '',
+        value: this._props?.data?.textValue ? this._props?.data?.textValue : '',
       },
     });
 

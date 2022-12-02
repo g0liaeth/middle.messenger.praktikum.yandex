@@ -9,12 +9,19 @@ export enum StoreEvents {
   Updated = 'updated',
 }
 
-class Store extends EventBus {
+export default class Store extends EventBus {
   private _state: Indexed = {};
+  static _instance: Store | null;
 
-  constructor() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  constructor(_initialState?: any) {
+    if (Store._instance) {
+      return Store._instance;
+    }
     super();
     this._state = INITIAL_STATE;
+    Store._instance = this;
+    console.log('store constructed');
   }
 
   public getState() {
@@ -22,6 +29,8 @@ class Store extends EventBus {
   }
 
   public setState(path: string, value: unknown) {
+    console.log('state changed');
+
     const oldState = cloneDeep(this._state);
     // console.log(oldState);
 
@@ -33,5 +42,3 @@ class Store extends EventBus {
     }
   }
 }
-
-export default new Store();

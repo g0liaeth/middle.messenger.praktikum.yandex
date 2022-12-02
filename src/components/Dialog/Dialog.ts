@@ -3,8 +3,8 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Dialog extends Block<DialogPropsType> {
-  constructor(props: DialogPropsType) {
-    super('li', props);
+  constructor(tag = 'li', props?: DialogPropsType) {
+    super(tag, props);
   }
 
   render() {

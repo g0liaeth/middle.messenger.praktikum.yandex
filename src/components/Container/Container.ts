@@ -3,8 +3,8 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Container extends Block<ContainerPropsType> {
-  constructor(props: ContainerPropsType) {
-    super('div', props);
+  constructor(tag = 'div', props?: ContainerPropsType) {
+    super(tag, props);
   }
 
   render() {

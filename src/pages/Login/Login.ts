@@ -4,23 +4,22 @@ import Input from '../../components/Input/Input';
 import Label from '../../components/Label/Label';
 import Link from '../../components/Link/Link';
 import Text from '../../components/Text/Text';
-import { LoginData } from '../../types/commonTypes';
+// import { LoginData } from '../../types/commonTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 import Validator from '../../utils/Validator';
-import LoginController from './LoginController';
-import connect from '../../utils/Store/connect';
-// import { BasePropsType } from '../../types/componentTypes';
+// import LoginController from './LoginController';
 import Form from '../../components/Form/Form';
 import Container from '../../components/Container/Container';
+import { BasePropsType } from '../../types/componentTypes';
 
-class Login extends Block<any> {
-  private _controller: LoginController;
+class Login extends Block<BasePropsType> {
+  // private _controller: LoginController;
 
-  constructor(props: any) {
-    super('main', { ...props, class: 'login-form-container' });
-    this._controller = new LoginController();
-    this._controller.checkAuth();
+  constructor(tag = 'main', props?: BasePropsType) {
+    super(tag, { ...props, class: 'login-form-container' });
+    // this._controller = new LoginController();
+    // this._controller.checkAuth();
   }
 
   render() {
@@ -45,23 +44,23 @@ class Login extends Block<any> {
       }
     };
 
-    const formHeader = new Text({
+    const formHeader = new Text(undefined, {
       class: 'header-form',
       data: {
         value: 'Вход',
       },
     });
 
-    const loginFormGroup = new FormGroup({
+    const loginFormGroup = new FormGroup(undefined, {
       class: 'form-group',
-      label: new Label({
+      label: new Label(undefined, {
         class: 'login-label',
         for: 'login',
         data: {
           text: 'Логин',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         class: 'login-input',
         type: 'text',
         id: 'login',
@@ -72,16 +71,16 @@ class Login extends Block<any> {
       }),
     });
 
-    const passwordFormGroup = new FormGroup({
+    const passwordFormGroup = new FormGroup(undefined, {
       class: 'form-group',
-      label: new Label({
+      label: new Label(undefined, {
         class: 'login-label',
         for: 'password',
         data: {
           text: 'Пароль',
         },
       }),
-      input: new Input({
+      input: new Input(undefined, {
         class: 'login-input',
         type: 'password',
         id: 'password',
@@ -92,7 +91,7 @@ class Login extends Block<any> {
       }),
     });
 
-    const loginBtn = new Button({
+    const loginBtn = new Button(undefined, {
       class: 'btn-black',
       data: {
         label: 'Войти',
@@ -100,7 +99,7 @@ class Login extends Block<any> {
       type: 'submit',
     });
 
-    const registerLink = new Link({
+    const registerLink = new Link(undefined, {
       class: 'simple-link',
       href: 'signup',
       data: {
@@ -108,11 +107,11 @@ class Login extends Block<any> {
       },
     });
 
-    const loginInputsBlock = new Container({
+    const loginInputsBlock = new Container(undefined, {
       items: [loginFormGroup, passwordFormGroup],
     });
 
-    const loginForm = new Form({
+    const loginForm = new Form(undefined, {
       class: 'login-form',
       formItems: [formHeader, loginInputsBlock, loginBtn, registerLink],
       onSubmit: (event: SubmitEvent) => {
@@ -139,7 +138,7 @@ class Login extends Block<any> {
         });
         console.log(formData);
 
-        this._controller.login(formData as LoginData);
+        // this._controller.login(formData as LoginData);
       },
     });
 
@@ -147,10 +146,4 @@ class Login extends Block<any> {
   }
 }
 
-function mapStateToProps(state: any) {
-  return {
-    userId: state.profileState.user.id,
-  };
-}
-
-export default connect<any>(mapStateToProps)(Login);
+export default Login;

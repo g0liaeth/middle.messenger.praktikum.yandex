@@ -3,8 +3,8 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class UserAvatar extends Block<UserAvatarPropsType> {
-  constructor(props: UserAvatarPropsType) {
-    super('div', props);
+  constructor(tag = 'div', props?: UserAvatarPropsType) {
+    super(tag, props);
   }
 
   render() {

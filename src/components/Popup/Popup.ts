@@ -3,8 +3,8 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Popup extends Block<PopupPropsType> {
-  constructor(props: PopupPropsType) {
-    super('div', props);
+  constructor(tag = 'div', props?: PopupPropsType) {
+    super(tag, props);
   }
 
   render() {

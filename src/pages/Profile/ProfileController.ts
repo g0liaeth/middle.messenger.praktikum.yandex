@@ -1,5 +1,6 @@
 import AuthAPI from '../../api/AuthAPI';
 import BaseController from '../../utils/BaseController';
+// import { StoreEvents } from '../../utils/Store/Store';
 
 export default class ProfileController extends BaseController {
   private _authAPI: AuthAPI;
@@ -20,6 +21,8 @@ export default class ProfileController extends BaseController {
           this._router.go('/login');
         }
       }
+      // //todo think about it
+      // this._store.emit(StoreEvents.Updated);
     } catch (error) {
       console.log(error);
     }

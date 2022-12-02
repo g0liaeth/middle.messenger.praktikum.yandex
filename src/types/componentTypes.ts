@@ -8,10 +8,12 @@ export interface BasePropsType {
 }
 
 export interface ErrorPropsType extends BasePropsType {
-  codeClassName: string;
-  codeValue: string;
-  textClassName: string;
-  textValue: string;
+  data: {
+    codeClassName: string;
+    codeValue: string;
+    textClassName: string;
+    textValue: string;
+  };
 }
 
 export interface BadgePropsType extends BasePropsType {

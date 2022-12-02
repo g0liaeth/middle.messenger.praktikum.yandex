@@ -3,8 +3,8 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Message extends Block<MessagePropsType> {
-  constructor(props: MessagePropsType) {
-    super('div', props);
+  constructor(tag = 'div', props?: MessagePropsType) {
+    super(tag, props);
   }
 
   render() {

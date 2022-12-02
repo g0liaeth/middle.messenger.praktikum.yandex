@@ -3,8 +3,8 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class ListItem extends Block<ListItemPropsType> {
-  constructor(props: ListItemPropsType) {
-    super('li', props);
+  constructor(tag = 'li', props?: ListItemPropsType) {
+    super(tag, props);
   }
 
   render() {

@@ -3,8 +3,8 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Label extends Block<LabelPropsType> {
-  constructor(props: LabelPropsType) {
-    super('label', props);
+  constructor(tag = 'label', props?: LabelPropsType) {
+    super(tag, props);
   }
 
   render() {

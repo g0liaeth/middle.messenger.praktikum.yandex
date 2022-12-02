@@ -20,7 +20,7 @@ export default abstract class Block<T> extends EventBus {
   _attributes: any;
   _events: any;
 
-  constructor(tag = 'div', props: T = {} as T) {
+  constructor(tag = 'div', props = {} as T) {
     super();
     this._id = makeUUID();
     this._props = this._makePropsProxy({ ...props, __id: this._id });
@@ -162,10 +162,17 @@ export default abstract class Block<T> extends EventBus {
 
   public hide() {
     const element = this.getContent();
+
     if (element) {
+      // console.log('block-hiding', element);
       element.classList.add('hidden-block');
     }
   }
+
+  // public destroy() {
+  //   const element = this.getContent();
+  //   element.innerHTML = '';
+  // }
 
   _getChildsFromProps(props: any) {
     const childrens: any = {};

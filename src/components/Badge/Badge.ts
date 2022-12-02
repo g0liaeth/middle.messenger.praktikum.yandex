@@ -3,13 +3,13 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Badge extends Block<BadgePropsType> {
-  constructor(props: BadgePropsType) {
-    super('div', props);
+  constructor(tag = 'div', props?: BadgePropsType) {
+    super(tag, props);
   }
 
   render() {
     const source = `
-      <img src={{ imgPath }} alt="avatar" class="profile-img">
+      <img src={{ data.imgPath }} alt="avatar" class="profile-img">
       <span class="img-back-text">Поменять аватар</span>
     `;
 

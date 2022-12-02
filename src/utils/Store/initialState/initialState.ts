@@ -5,3 +5,5 @@ export const INITIAL_STATE = {
   profileState: PROFILE_STATE,
   chatState: CHAT_STATE,
 };
+
+export type AppStateType = typeof INITIAL_STATE;

@@ -3,8 +3,8 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils//Block/compileComponent';
 
 export default class Link extends Block<LinkPropsType> {
-  constructor(props: LinkPropsType) {
-    super('a', props);
+  constructor(tag = 'a', props?: LinkPropsType) {
+    super(tag, props);
   }
 
   render() {

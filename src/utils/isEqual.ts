@@ -20,29 +20,33 @@ function isArrayOrObject(value: unknown): value is [] | PlainObject {
 }
 
 export default function isEqual(lhs: PlainObject, rhs: PlainObject) {
-  if (Object.keys(lhs).length !== Object.keys(rhs).length) {
-    return false;
-  }
+  try {
+    if (Object.keys(lhs).length !== Object.keys(rhs).length) {
+      return false;
+    }
 
-  for (const [key, value] of Object.entries(lhs)) {
-    const rightValue = rhs[key];
+    for (const [key, value] of Object.entries(lhs)) {
+      const rightValue = rhs[key];
 
-    if (isArrayOrObject(value) && isArrayOrObject(rightValue)) {
-      if (isEqual(value, rightValue)) {
-        continue;
+      if (isArrayOrObject(value) && isArrayOrObject(rightValue)) {
+        if (isEqual(value, rightValue)) {
+          continue;
+        }
+        return false;
       }
-      return false;
+
+      //todo think about another way
+      if (typeof value === 'function') {
+        return true;
+      }
+
+      if (value !== rightValue) {
+        return false;
+      }
     }
 
-    //todo think about another way
-    if (typeof value === 'function') {
-      return true;
-    }
-
-    if (value !== rightValue) {
-      return false;
-    }
+    return true;
+  } catch (err) {
+    console.log(err);
   }
-
-  return true;
 }

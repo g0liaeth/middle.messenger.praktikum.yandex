@@ -69,7 +69,7 @@ export type Handler = (...args: unknown[]) => void;
 
 export interface IProps {
   rootQuery: string;
-  props: Props;
+  props?: Props;
 }
 
 export type ElementEvent = {
@@ -85,9 +85,7 @@ export type PlainObject<T = unknown> = {
   [key in string]: T;
 };
 
-export type BlockInheritor = new (tag: string, props: any) => any;
-
-export type BlockInheritorV2 = new (tag: string, props: any) => any;
+export type BlockInheritor = new (tag?: string, props?: any) => any;
 
 export type Indexed<T = any> = {
   [key in string]: T;
