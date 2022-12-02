@@ -35,7 +35,7 @@ export default function isEqual(lhs: PlainObject, rhs: PlainObject) {
         return false;
       }
 
-      //todo think about another way
+      // TODO think about another way
       if (typeof value === 'function') {
         return true;
       }

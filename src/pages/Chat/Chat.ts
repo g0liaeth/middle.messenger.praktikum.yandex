@@ -66,7 +66,7 @@ class Chat extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> {
             {{{ chatMenu }}}
           </div>
         </div>
-        <div class="chat-body">
+        <div class="chat-body" id="chatBody">
           <div class="message-list">
             {{{ messagesList }}}
           </div>
@@ -383,7 +383,8 @@ class Chat extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> {
             text: msg.content,
           },
         });
-      });
+      })
+      .reverse();
 
     const onSearchInputKeyUp = (event: Event) => {
       event.preventDefault();

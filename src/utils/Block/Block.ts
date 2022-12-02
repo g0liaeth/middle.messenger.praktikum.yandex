@@ -25,7 +25,7 @@ export default abstract class Block<T> extends EventBus {
     this._id = makeUUID();
     this._props = this._makePropsProxy({ ...props, __id: this._id });
     this._meta = { tag, props };
-    //todo dont forget to optimize, no need to iterate several times
+    //TODO think about optimizing, maybe no need to iterate several times
     this._childs = this._getChildsFromProps(props);
     this._attributes = this._getAttributesFromProps(props);
     this._events = this._getEventsFromProps(props);

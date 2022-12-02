@@ -21,7 +21,7 @@ export default class AuthAPI extends BaseAPI {
     return response.data;
   }
 
-  async logout() {
+  async logout(): Promise<TResponse<string>> {
     const result = await this.httpClient.post('/logout');
     return result;
   }

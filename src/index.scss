@@ -132,7 +132,8 @@ input:focus.invalid {
 .chat-body {
   background-color: $primary-background;
   flex: 11;
-  overflow-y: auto;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 .message-list {
