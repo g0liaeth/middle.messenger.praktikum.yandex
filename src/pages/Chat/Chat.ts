@@ -130,9 +130,13 @@ class Chat extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> {
 
     const profileLink = new Link(undefined, {
       class: 'profile-link',
-      href: 'profile',
+      href: '#',
       data: {
         text: 'Профиль >',
+      },
+      onClick: (event) => {
+        event.preventDefault();
+        this._controller.goToProfile();
       },
     });
 

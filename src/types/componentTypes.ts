@@ -73,7 +73,8 @@ export interface LabelPropsType extends BasePropsType {
 }
 
 export interface LinkPropsType extends BasePropsType {
-  href: string;
+  href?: string;
+  onClick?: (event: Event) => void;
 }
 
 export interface MessagePropsType extends BasePropsType {

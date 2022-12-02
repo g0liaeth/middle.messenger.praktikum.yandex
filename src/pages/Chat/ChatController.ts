@@ -235,4 +235,8 @@ export default class ChatController extends BaseController {
       console.log(error);
     }
   }
+
+  goToProfile() {
+    this._router.go('/profile');
+  }
 }

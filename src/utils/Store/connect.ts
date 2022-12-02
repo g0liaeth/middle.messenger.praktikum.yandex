@@ -10,7 +10,6 @@ export default function connect<BeforeProps, MSPType extends (state: PlainObject
   // console.log('coonect store', store);
 
   return function (Component: any) {
-    // eslint-disable-next-line prefer-const
     let state = mapStateToProps(store.getState());
     // console.log(Component.toString(), state);
 
