@@ -4,25 +4,27 @@ import Input from '../../components/Input/Input';
 import Label from '../../components/Label/Label';
 import Link from '../../components/Link/Link';
 import Text from '../../components/Text/Text';
-// import { LoginData } from '../../types/commonTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 import Validator from '../../utils/Validator';
-// import LoginController from './LoginController';
+import LoginController from './LoginController';
 import Form from '../../components/Form/Form';
 import Container from '../../components/Container/Container';
 import { BasePropsType } from '../../types/componentTypes';
+import { LoginData, PlainObject } from '../../types/commonTypes';
 
-class Login extends Block<BasePropsType> {
-  // private _controller: LoginController;
+export default class Login extends Block<BasePropsType> {
+  private _controller: LoginController;
 
   constructor(tag = 'main', props?: BasePropsType) {
     super(tag, { ...props, class: 'login-form-container' });
-    // this._controller = new LoginController();
-    // this._controller.checkAuth();
+    this._controller = new LoginController();
+    this._controller.checkAuth();
   }
 
   render() {
+    console.log('render login', this._props);
+
     const source = `{{{ loginForm }}}`;
 
     const onFocusChange = (event: Event) => {
@@ -131,19 +133,17 @@ class Login extends Block<BasePropsType> {
           console.log(errors);
           return;
         }
-        const formData: Record<string, unknown> = {};
+        const formData: PlainObject = {};
         inputs.forEach((input) => {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           formData[input.getAttribute('id')!] = input.value;
         });
         console.log(formData);
 
-        // this._controller.login(formData as LoginData);
+        this._controller.login(formData as LoginData);
       },
     });
 
     return compileComponent(source, { ...this._props, loginForm });
   }
 }
-
-export default Login;

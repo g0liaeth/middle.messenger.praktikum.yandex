@@ -90,3 +90,7 @@ export type BlockInheritor = new (tag?: string, props?: any) => any;
 export type Indexed<T = any> = {
   [key in string]: T;
 };
+
+export type RegistrationResponse = {
+  id: number;
+};

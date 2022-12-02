@@ -1,5 +1,6 @@
 import AuthAPI from '../../api/AuthAPI';
 import BaseController from '../../utils/BaseController';
+import Profile from './Profile';
 // import { StoreEvents } from '../../utils/Store/Store';
 
 export default class ProfileController extends BaseController {
@@ -10,29 +11,24 @@ export default class ProfileController extends BaseController {
     this._authAPI = new AuthAPI();
   }
 
-  async fetchUser() {
+  async getUserDetails(view: Profile) {
     try {
-      const state = this._store.getState();
-      if (!state.profileState.user.login) {
-        const res = await this._authAPI.getUserInfo();
-        if (res.status === 200) {
-          this._store.setState('profileState.user', res.data);
-        } else {
-          this._router.go('/login');
-        }
+      const res = await this._authAPI.getUserInfo();
+      if (res.status === 200) {
+        view.setProps({ user: res.data });
+      } else {
+        this._router.go('/login');
       }
-      // //todo think about it
-      // this._store.emit(StoreEvents.Updated);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async logout() {
+  async logout(view: Profile) {
     try {
       const res = await this._authAPI.logout();
       if (res.status === 200) {
-        this._store.setState('profileState.user', {});
+        view.setProps({ user: null });
         this._router.go('/login');
       }
     } catch (error) {

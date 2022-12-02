@@ -19,9 +19,12 @@ export default class Registration extends Block<BasePropsType> {
   constructor(tag = 'main', props?: BasePropsType) {
     super(tag, { ...props, class: 'register-form-container' });
     this._controller = new RegistrationController();
+    this._controller.checkAuth();
   }
 
   render() {
+    console.log('render signup', this._props);
+
     const source = `{{{ registerForm }}}`;
 
     const onFocusChange = (event: Event) => {

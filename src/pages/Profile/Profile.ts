@@ -4,7 +4,6 @@ import { UPLOAD_URL } from '../../constants/apiConstants';
 import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
-import connect from '../../utils/Store/connect';
 import { AppStateType } from '../../utils/Store/initialState/initialState';
 import ProfileController from './ProfileController';
 
@@ -15,12 +14,10 @@ class Profile extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> 
     super(tag, { ...props, class: 'main-container' } as BasePropsType &
       ReturnType<typeof mapStateToProps>);
     this._controller = new ProfileController();
-    // this._controller.fetchUser();
+    this._controller.getUserDetails(this);
   }
 
   render() {
-    console.log('render profile', this._props);
-
     const source = `
       <img src={{ avatarUrl }} alt="avatar-img" class="profile-photo">
       {{{ userName }}}
@@ -90,7 +87,7 @@ class Profile extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> 
         label: 'Выйти',
       },
       onClick: () => {
-        this._controller.logout();
+        this._controller.logout(this);
       },
     });
 
@@ -124,4 +121,4 @@ function mapStateToProps(state: AppStateType) {
   };
 }
 
-export default connect<BasePropsType, typeof mapStateToProps>(mapStateToProps)(Profile);
+export default Profile;
