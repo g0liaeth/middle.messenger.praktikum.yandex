@@ -123,7 +123,7 @@ export default class ChatController extends BaseController {
     return this._store.getState();
   }
 
-  setCurrentChat(id: number) {
+  setCurrentChat(id: number | null) {
     this._store.setState('chatState.currentChat', id);
   }
 

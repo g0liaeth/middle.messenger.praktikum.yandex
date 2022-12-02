@@ -53,6 +53,7 @@ export type wsMessageType = {
   type: string;
   user_id: string;
   content: string;
+  is_read: boolean;
   file?: {
     id: number;
     user_id: number;

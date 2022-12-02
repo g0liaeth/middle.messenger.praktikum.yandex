@@ -41,8 +41,6 @@ export default abstract class Block<T> extends EventBus {
   }
 
   private _init() {
-    // console.log(this._meta.tag);
-
     this._element = this._createDocumentElement(this._meta.tag);
     this.emit(Block.EVENTS.FLOW_RENDER);
   }
@@ -64,6 +62,7 @@ export default abstract class Block<T> extends EventBus {
     this._element.appendChild(block as unknown as HTMLElement);
     this._addEvents();
     this._addAttributes();
+    this.emit(Block.EVENTS.FLOW_CDM);
   }
 
   protected render() {}

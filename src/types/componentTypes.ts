@@ -24,13 +24,7 @@ export interface ButtonPropsType extends BasePropsType {
 }
 
 export interface DialogPropsType extends BasePropsType {
-  id: number;
-  lastMessageText?: string;
-  lastMessageSender?: boolean;
-  lastMessageTime?: string;
-  hasNewMessages: boolean;
-  newMessagesCount?: number;
-  senderUserName?: string;
+  id?: string;
   dialogAvatar?: UserAvatar;
   onClick?: (event: Event) => void;
 }

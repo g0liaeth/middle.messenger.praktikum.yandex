@@ -9,3 +9,5 @@ export default abstract class BaseController {
     this._router = new Router();
   }
 }
+
+// window._myStore = Store;

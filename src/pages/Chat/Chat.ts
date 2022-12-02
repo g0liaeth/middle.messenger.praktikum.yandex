@@ -8,7 +8,6 @@ import Message from '../../components/Message/Message';
 import FormGroup from '../../components/FormGroup/FormGroup';
 import Text from '../../components/Text/Text';
 import UserAvatar from '../../components/UserAvatar/UserAvatar';
-// import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 import connect from '../../utils/Store/connect';
@@ -20,6 +19,8 @@ import { UserData, wsMessageType } from '../../types/commonTypes';
 import Popup from '../../components/Popup/Popup';
 import Label from '../../components/Label/Label';
 import List from '../../components/List/List';
+import readedMark from '../../static/check2.svg';
+import unreadedMark from '../../static/check2-all.svg';
 
 class Chat extends Block<any> {
   protected _controller: ChatController;
@@ -31,8 +32,11 @@ class Chat extends Block<any> {
     this._controller.getChats();
   }
 
+  protected componentDidMount(): void {
+    console.log('chat mounted', this._props);
+  }
+
   render() {
-    const chatController = this._controller;
     const source = `
       <div class="left-container">
         <div class="profile-link-container">
@@ -108,14 +112,14 @@ class Chat extends Block<any> {
     const newChatForm = new Form({
       formItems: [newChatTitle, addChatBtn],
       class: 'new-chat-form',
-      onSubmit(event) {
+      onSubmit: (event) => {
         event.preventDefault();
         const target = event.target as HTMLFormElement;
         const data = new FormData(target);
         if (!data.get('new_chat_title')) {
           return;
         }
-        chatController.createChat(data.get('new_chat_title') as string);
+        this._controller.createChat(data.get('new_chat_title') as string);
         target.reset();
       },
     });
@@ -129,7 +133,7 @@ class Chat extends Block<any> {
     });
 
     const currentChatAvatar = new UserAvatar({
-      class: 'avatar-shield',
+      class: 'avatar-shield' + (!this._props.currentChat && ' hidden-block'),
       data: {
         imgPath:
           // @ts-expect-error problem typing props from HOC
@@ -158,7 +162,8 @@ class Chat extends Block<any> {
     const onDeleteButtonClick = () => {
       const menu = document.getElementById('chat_menu_container');
       menu?.classList.remove('active');
-      chatController.deleteChat(this._props.currentChat);
+      this._controller.deleteChat(this._props.currentChat);
+      this._controller.setCurrentChat(null);
     };
 
     const deleteChatBtn = new Button({
@@ -267,7 +272,7 @@ class Chat extends Block<any> {
     };
 
     const chatMenu = new Button({
-      class: 'btn-menu',
+      class: 'btn-menu' + (this._props.currentChat ? '' : ' hidden-block'),
       type: 'button',
       onClick: onChatMenuBtnClick,
     });
@@ -309,15 +314,15 @@ class Chat extends Block<any> {
     const newMessageForm = new Form({
       class: 'form-new-message',
       formItems: [newMessageInput, btnsBlock],
-      onSubmit(event) {
+      onSubmit: (event) => {
         event.preventDefault();
         const target = event.target as HTMLFormElement;
         const data = new FormData(target);
         if (!data.get('message')) {
           return;
         }
-        chatController.sendMessage(data.get('message') as string);
-        chatController.getChats();
+        this._controller.sendMessage(data.get('message') as string);
+        this._controller.getChats();
         target.reset();
       },
     });
@@ -331,14 +336,16 @@ class Chat extends Block<any> {
       const timeStr = hours || minutes ? `${hours}:${minutes}` : '';
       dialogsList.push(
         new Dialog({
-          class: 'chat-item ' + this._props.currentChat === chat.id ? 'active' : '',
+          class: 'chat-item ' + (this._props.currentChat === chat.id ? 'active' : ''),
           id: chat.id,
-          hasNewMessages: chat.unread_count > 0,
-          lastMessageSender: true,
-          senderUserName: chat.title,
-          lastMessageText: chat.last_message?.content,
-          lastMessageTime: timeStr,
-          newMessagesCount: chat.unread_count,
+          data: {
+            hasNewMessages: chat.unread_count > 0,
+            lastMessageSender: true,
+            senderUserName: chat.title,
+            lastMessageText: chat.last_message?.content,
+            lastMessageTime: timeStr,
+            newMessagesCount: chat.unread_count,
+          },
           dialogAvatar: new UserAvatar({
             data: {
               imgPath: chat.avatar && UPLOAD_URL + chat.avatar,
@@ -347,8 +354,8 @@ class Chat extends Block<any> {
           onClick: (event) => {
             //@ts-expect-error problem typing props from HOC
             const selectedChat = Number(event.currentTarget?.id);
-            chatController.setCurrentChat(selectedChat);
-            chatController.connectToChat(selectedChat);
+            this._controller.setCurrentChat(selectedChat);
+            this._controller.connectToChat(selectedChat);
           },
         }),
       );
@@ -366,7 +373,7 @@ class Chat extends Block<any> {
           data: {
             readed: false,
             sendTime: timeStr,
-            readMarkImg: '',
+            readMarkImg: msg.is_read ? unreadedMark : readedMark,
             text: msg.content,
           },
         });
@@ -378,7 +385,7 @@ class Chat extends Block<any> {
       const currVal = event.target.value;
       this.setProps({ ...this._props, searchUserValue: currVal });
       //@ts-expect-error problem typing event
-      chatController.findUsers(event?.target?.value);
+      this._controller.findUsers(event?.target?.value);
       // }
     };
 
@@ -388,15 +395,11 @@ class Chat extends Block<any> {
       placeholder: 'Поиск',
       name: 'search',
       id: 'search',
-      //@ts-expect-error problem typing props from HOC
-      inputValue: this._props.searchUserValue,
-      events: {
-        keyup: onSearchInputKeyUp,
-      },
+      value: this._props.searchUserValue,
+      onKeyup: onSearchInputKeyUp,
     });
 
     const searchResults = new Container({
-      class: '',
       items: [
         new List({
           listItems: this._props.findedUsers.map(
@@ -409,8 +412,8 @@ class Chat extends Block<any> {
                 },
                 onClick: (event) => {
                   //@ts-expect-error problem typing event click on <div>
-                  chatController.addUser(event?.target?.id);
-                  chatController.clearFindedUsers();
+                  this._controller.addUser(event?.target?.id);
+                  this._controller.clearFindedUsers();
                 },
               }),
           ),
@@ -454,14 +457,14 @@ class Chat extends Block<any> {
     const deleteUserForm = new Form({
       class: 'delete-user-form',
       formItems: [deleteUserLogin, deleteUserBtn2],
-      onSubmit(event) {
+      onSubmit: (event) => {
         event.preventDefault();
         const target = event.target as HTMLFormElement;
         const data = new FormData(target);
         if (!data.get('delete_user_login')) {
           return;
         }
-        chatController.deleteUser(data.get('delete_user_login') as string);
+        this._controller.deleteUser(data.get('delete_user_login') as string);
         target.reset();
       },
     });

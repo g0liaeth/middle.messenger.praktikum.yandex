@@ -30,3 +30,5 @@ router
     textValue: 'Не туда попали',
   })
   .start();
+
+// window._myRouter = router;
