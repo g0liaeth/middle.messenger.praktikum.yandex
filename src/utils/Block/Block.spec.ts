@@ -40,7 +40,7 @@ describe('Block tests:', () => {
       const block = new MockBlock('main', { class: 'wow' });
       block.setProps({ test: '123' });
       //@ts-expect-error ???
-      expect(block._props.test).to.eq('123aaa');
+      expect(block._props.test).to.eq('123');
     });
   });
 
