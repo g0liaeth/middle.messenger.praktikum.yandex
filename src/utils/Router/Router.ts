@@ -45,7 +45,7 @@ export default class Router {
     this._onRoute(window.location.pathname);
   }
 
-  _onRoute(pathname: string): void {
+  _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
     if (!route) {
       this.go('/404');
@@ -61,7 +61,7 @@ export default class Router {
     route.render();
   }
 
-  go(pathname: string): void {
+  go(pathname: string) {
     this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
