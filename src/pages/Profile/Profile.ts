@@ -11,8 +11,10 @@ class Profile extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> 
   protected _controller: ProfileController;
 
   constructor(tag = 'main', props?: BasePropsType & ReturnType<typeof mapStateToProps>) {
-    super(tag, { ...props, class: 'main-container' } as BasePropsType &
-      ReturnType<typeof mapStateToProps>);
+    super(tag, {
+      ...props,
+      class: 'main-container bg-white',
+    } as BasePropsType & ReturnType<typeof mapStateToProps>);
     this._controller = new ProfileController();
     this._controller.getUserDetails(this);
   }

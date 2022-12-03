@@ -21,7 +21,7 @@ export default class EditProfile extends Block<
   protected _controller: EditProfileController;
 
   constructor(tag = 'main', props?: BasePropsType & Pick<AppStateType['profileState'], 'user'>) {
-    super(tag, { ...props, class: 'main-container' } as BasePropsType &
+    super(tag, { ...props, class: 'main-container bg-white' } as BasePropsType &
       Pick<AppStateType['profileState'], 'user'>);
     this._controller = new EditProfileController();
     this._controller.getUserDetails(this);

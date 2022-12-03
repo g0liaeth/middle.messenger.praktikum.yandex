@@ -14,7 +14,7 @@ export default class ChangePassword extends Block<BasePropsType> {
   protected _controller: ChangePasswordController;
 
   constructor(tag = 'main', props?: BasePropsType) {
-    super(tag, { ...props, class: 'main-container' });
+    super(tag, { ...props, class: 'main-container bg-white' });
     this._controller = new ChangePasswordController();
     this._controller.checkAuth();
   }

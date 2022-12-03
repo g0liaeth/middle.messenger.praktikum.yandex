@@ -106,6 +106,7 @@ class Chat extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> {
       type: 'text',
       id: 'new_chat_title',
       name: 'new_chat_title',
+      placeholder: 'Создать чат...',
     });
 
     const addChatBtn = new Button(undefined, {
@@ -403,7 +404,7 @@ class Chat extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> {
       name: 'search',
       id: 'search',
       // @ts-expect-error because of ??? need to research
-      value: this._props?.searchUserValue,
+      value: this._props?.searchUserValue !== undefined ? this._props?.searchUserValue : '',
       onKeyup: onSearchInputKeyUp,
     });
 
