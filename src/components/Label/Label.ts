@@ -3,9 +3,13 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Label extends Block<LabelPropsType> {
-  render() {
-    const source = `<label for={{ labelFor }} class={{ className }}>{{ text }}</label>`;
+  constructor(tag = 'label', props?: LabelPropsType) {
+    super(tag, props);
+  }
 
-    return compileComponent(source, this.props);
+  render() {
+    const source = `{{ data.text }}`;
+
+    return compileComponent(source, this._props);
   }
 }

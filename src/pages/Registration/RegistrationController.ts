@@ -14,7 +14,17 @@ export default class RegistrationController extends BaseController {
     try {
       const res = await this._authAPI.registration(data);
       if (res.status === 200) {
-        this._store.setState('profileState.user', res.data);
+        this._router.go('/chat');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async checkAuth() {
+    try {
+      const res = await this._authAPI.getUserInfo();
+      if (res.status === 200) {
         this._router.go('/chat');
       }
     } catch (error) {

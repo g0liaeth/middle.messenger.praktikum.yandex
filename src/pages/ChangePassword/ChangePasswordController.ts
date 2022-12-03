@@ -13,22 +13,6 @@ export default class ChangePasswordController extends BaseController {
     this._authAPI = new AuthAPI();
   }
 
-  async fetchUser() {
-    try {
-      const state = this._store.getState();
-      if (!state.profileState.user.login) {
-        const res = await this._authAPI.getUserInfo();
-        if (res.status === 200) {
-          this._store.setState('profileState.user', res.data);
-        } else {
-          this._router.go('/login');
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   async changePassword(formData: ChangePasswordData) {
     try {
       const res = await this._userAPI.changePassword(formData);
@@ -42,5 +26,16 @@ export default class ChangePasswordController extends BaseController {
 
   cancel() {
     this._router.go('/profile');
+  }
+
+  async checkAuth() {
+    try {
+      const res = await this._authAPI.getUserInfo();
+      if (res.status !== 200) {
+        this._router.go('/login');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

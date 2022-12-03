@@ -13,12 +13,15 @@
 ## Команды используемые в проекте
 
 - `npm install` — установка стабильной версии,
-- `npm run dev` — запуск версии для разработчика,
 - `npm run test` — запуск тестов Mocha + Chai,
-- `npm run build` — сборка стабильной версии,
-- `npm run start` — сборка стабильной версии + запуск Express-сервера с раздачей статики — файла index.html,
+- `npm run dev` — сборка webpack development build,
+- `npm run build` — сборка webpack production build,
+- `npm run start` — сборка webpack production build + запуск Express-сервера с раздачей статики — файла index.html,
 - `npm run lint` — анализ кода при помощи ESLint,
-- `npm run lint:fix` — анализ кода при помощи ESLint и автоматическое исправление ошибок.
+- `npm run lint:fix` — анализ кода при помощи ESLint и автоматическое исправление ошибок,
+- `npm run wds` — запуск webpack-dev-server,
+- `npm run watch` — сборка webpack development build + "watch" all files within your dependency graph for changes,
+- `npm run prepare` — запуск husky install.
 
 ## Страницы
 
