@@ -339,7 +339,7 @@ class Chat extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> {
           id: chat.id.toString(),
           data: {
             hasNewMessages: chat.unread_count > 0,
-            lastMessageSender: chat.last_message.user.login,
+            lastMessageSender: chat?.last_message?.user?.login,
             senderUserName: chat.title,
             lastMessageText: chat.last_message?.content,
             lastMessageTime: timeStr,
