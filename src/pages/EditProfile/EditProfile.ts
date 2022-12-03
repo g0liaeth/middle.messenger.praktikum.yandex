@@ -28,8 +28,6 @@ export default class EditProfile extends Block<
   }
 
   render() {
-    console.log('edit-profile render', this._props);
-
     const source = `
       {{{ profileImg }}}
       {{{ userName }}}

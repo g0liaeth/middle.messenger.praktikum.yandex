@@ -186,11 +186,15 @@ export default class ChatController extends BaseController {
           ws.send('0', 'get old');
         });
         ws.message((data) => {
-          const prepearedData = JSON.parse(data as string);
-          if (Array.isArray(prepearedData)) {
-            this._store.setState('chatState.messages', [...prepearedData]);
-          } else if (prepearedData.type === 'message') {
-            ws.send('0', 'get old');
+          try {
+            const prepearedData = JSON.parse(data as string);
+            if (Array.isArray(prepearedData)) {
+              this._store.setState('chatState.messages', [...prepearedData]);
+            } else if (prepearedData.type === 'message') {
+              ws.send('0', 'get old');
+            }
+          } catch (error) {
+            console.log(error);
           }
         });
         ws.close(

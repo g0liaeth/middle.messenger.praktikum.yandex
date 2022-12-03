@@ -23,8 +23,6 @@ export default class Login extends Block<BasePropsType> {
   }
 
   render() {
-    console.log('render login', this._props);
-
     const source = `{{{ loginForm }}}`;
 
     const onFocusChange = (event: Event) => {

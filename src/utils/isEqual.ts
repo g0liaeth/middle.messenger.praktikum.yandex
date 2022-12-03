@@ -46,7 +46,7 @@ export default function isEqual(lhs: PlainObject, rhs: PlainObject) {
     }
 
     return true;
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 }

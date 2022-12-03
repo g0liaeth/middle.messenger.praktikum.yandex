@@ -28,8 +28,6 @@ class Profile extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> 
   }
 
   render() {
-    console.log('render profile', this._props);
-
     const source = `
       <img src={{ avatarUrl }} alt="avatar-img" class="profile-photo">
       {{{ userName }}}

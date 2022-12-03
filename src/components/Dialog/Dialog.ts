@@ -12,9 +12,9 @@ export default class Dialog extends Block<DialogPropsType> {
       <div class="chat-item-left">
         {{{ dialogAvatar }}}
         <div class="chat-info">
-          <div class="sender"><b>{{data.senderUserName}}</b></div>
+          <div class="sender"><b>{{ data.senderUserName }}</b></div>
           <div>
-            <span class="last-message-sender">{{#if data.lastMessageSender}}Вы:{{else}}{{null}}{{/if}}</span>
+            <span class="last-message-sender">{{ data.lastMessageSender }}</span>
             {{data.lastMessageText}}
           </div>
         </div>

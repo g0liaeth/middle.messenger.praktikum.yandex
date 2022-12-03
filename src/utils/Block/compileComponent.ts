@@ -11,8 +11,8 @@ export default function compileComponent(source: string, props: Record<string, a
 
       try {
         propsWithStubs[key] = `<div id="id-${value.getId()}"></div>`;
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
       }
     }
     if (value instanceof Array) {
@@ -27,8 +27,8 @@ export default function compileComponent(source: string, props: Record<string, a
       if (multiValues.length) {
         try {
           propsWithStubs[key] = multiValues.join('');
-        } catch (err) {
-          console.log(err);
+        } catch (error) {
+          console.log(error);
         }
       }
     }

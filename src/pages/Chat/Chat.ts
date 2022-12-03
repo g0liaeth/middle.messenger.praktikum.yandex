@@ -34,13 +34,7 @@ class Chat extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> {
     this._controller.getChats();
   }
 
-  protected componentDidMount(): void {
-    console.log('chat mounted', this._props);
-  }
-
   render() {
-    console.log('render chat', this._props);
-
     const source = `
       <div class="left-container">
         <div class="profile-link-container">
@@ -345,7 +339,7 @@ class Chat extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> {
           id: chat.id.toString(),
           data: {
             hasNewMessages: chat.unread_count > 0,
-            lastMessageSender: true,
+            lastMessageSender: chat.last_message.user.login,
             senderUserName: chat.title,
             lastMessageText: chat.last_message?.content,
             lastMessageTime: timeStr,

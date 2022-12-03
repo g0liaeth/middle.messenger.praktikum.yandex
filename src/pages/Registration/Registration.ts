@@ -23,8 +23,6 @@ export default class Registration extends Block<BasePropsType> {
   }
 
   render() {
-    console.log('render signup', this._props);
-
     const source = `{{{ registerForm }}}`;
 
     const onFocusChange = (event: Event) => {

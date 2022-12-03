@@ -21,7 +21,6 @@ export default class Store extends EventBus {
     super();
     this._state = INITIAL_STATE;
     Store._instance = this;
-    console.log('store constructed');
   }
 
   public getState() {
@@ -29,8 +28,6 @@ export default class Store extends EventBus {
   }
 
   public setState(path: string, value: unknown) {
-    console.log('state changed');
-
     const oldState = cloneDeep(this._state);
 
     setProp(this._state, path, value);
