@@ -3,17 +3,19 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class FormGroup extends Block<FormGroupPropsType> {
-  render() {
-    const errorId = `${this.props.input?.props.inputId}-error`;
+  constructor(tag = 'div', props?: FormGroupPropsType) {
+    super(tag, props);
+  }
 
-    const source = `
-    <div class="{{ className }}">
+  render() {
+    const errorId = `${this._props.input?._props.id}-error`;
+
+    const source = `  
       {{{ label }}}
       {{{ input }}}
       <span id="{{errorId}}" class="error" aria-live="polite"></span>
-    </div>
     `;
 
-    return compileComponent(source, { ...this.props, errorId });
+    return compileComponent(source, { ...this._props, errorId });
   }
 }

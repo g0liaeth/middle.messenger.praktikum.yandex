@@ -34,14 +34,11 @@ export default class ChatController extends BaseController {
 
   async fetchUser() {
     try {
-      const state = this._store.getState();
-      if (!state.profileState.user.login) {
-        const res = await this._authAPI.getUserInfo();
-        if (res.status === 200) {
-          this._store.setState('profileState.user', res.data);
-        } else {
-          this._router.go('/login');
-        }
+      const res = await this._authAPI.getUserInfo();
+      if (res.status === 200) {
+        this._store.setState('profileState.user', res.data);
+      } else {
+        this._router.go('/login');
       }
     } catch (error) {
       console.log(error);
@@ -60,8 +57,12 @@ export default class ChatController extends BaseController {
     }
   }
 
-  async deleteChat(chatId: number) {
+  async deleteChat(chatId: number | null) {
     try {
+      if (!chatId) {
+        return;
+      }
+
       const res = await this._chatAPI.deleteChatById(chatId);
       if (res.status === 200) {
         console.log(`Chat ${chatId} successfully deleted`);
@@ -123,7 +124,7 @@ export default class ChatController extends BaseController {
     return this._store.getState();
   }
 
-  setCurrentChat(id: number) {
+  setCurrentChat(id: number | null) {
     this._store.setState('chatState.currentChat', id);
   }
 
@@ -185,11 +186,15 @@ export default class ChatController extends BaseController {
           ws.send('0', 'get old');
         });
         ws.message((data) => {
-          const prepearedData = JSON.parse(data as string);
-          if (Array.isArray(prepearedData)) {
-            this._store.setState('chatState.messages', [...prepearedData]);
-          } else if (prepearedData.type === 'message') {
-            ws.send('0', 'get old');
+          try {
+            const prepearedData = JSON.parse(data as string);
+            if (Array.isArray(prepearedData)) {
+              this._store.setState('chatState.messages', [...prepearedData]);
+            } else if (prepearedData.type === 'message') {
+              ws.send('0', 'get old');
+            }
+          } catch (error) {
+            console.log(error);
           }
         });
         ws.close(
@@ -233,5 +238,9 @@ export default class ChatController extends BaseController {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  goToProfile() {
+    this._router.go('/profile');
   }
 }

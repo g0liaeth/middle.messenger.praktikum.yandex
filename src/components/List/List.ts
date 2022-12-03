@@ -3,13 +3,15 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class List extends Block<ListPropsType> {
+  constructor(tag = 'ul', props?: ListPropsType) {
+    super(tag, props);
+  }
+
   render() {
     const source = `
-    <ul class="{{ className }}">
       {{{ listItems }}}
-    </ul>
     `;
 
-    return compileComponent(source, this.props);
+    return compileComponent(source, this._props);
   }
 }

@@ -10,12 +10,10 @@ export default class LoginController extends BaseController {
     this._authAPI = new AuthAPI();
   }
 
-  async login(data: LoginData) {
+  async checkAuth() {
     try {
-      await this._authAPI.login(data);
       const res = await this._authAPI.getUserInfo();
       if (res.status === 200) {
-        this._store.setState('user', res.data);
         this._router.go('/chat');
       }
     } catch (error) {
@@ -23,20 +21,10 @@ export default class LoginController extends BaseController {
     }
   }
 
-  async getUserInfo() {
+  async login(data: LoginData) {
     try {
-      const res = await this._authAPI.getUserInfo();
-      return res;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async checkAuth() {
-    try {
-      const res = await this._authAPI.getUserInfo();
+      const res = await this._authAPI.login(data);
       if (res.status === 200) {
-        this._store.setState('user', res.data);
         this._router.go('/chat');
       }
     } catch (error) {

@@ -4,18 +4,17 @@ import { BlockInheritor, IProps } from '../../types/commonTypes';
 
 export default class Route {
   private _pathname: string;
-
   private _blockClass: BlockInheritor;
-
   private _block: Block<any> | null;
-
   private _props: IProps;
+  private _tag?: string;
 
-  constructor(pathname: string, view: BlockInheritor, props: IProps) {
+  constructor(pathname: string, view: BlockInheritor, props: IProps, tag?: string) {
     this._pathname = pathname;
     this._blockClass = view;
     this._block = null;
     this._props = props;
+    this._tag = tag;
   }
 
   public navigate(pathname: string) {
@@ -37,11 +36,14 @@ export default class Route {
 
   public render() {
     if (!this._block) {
-      this._block = new this._blockClass(this._props.props);
+      this._block = new this._blockClass(this._tag, this._props.props);
       renderDOM(this._props.rootQuery, this._block as Block<any>);
       return;
     }
-
     this._block.show();
+  }
+
+  getBlock() {
+    return this._block;
   }
 }

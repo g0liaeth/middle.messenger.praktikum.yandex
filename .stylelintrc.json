@@ -3,7 +3,10 @@
   "plugins": ["stylelint-scss"],
   "customSyntax": "postcss-scss",
   "rules": {
-    "color-hex-case": "lower"
+    "color-hex-case": "lower",
+    "color-function-notation": "legacy",
+    "alpha-value-notation": "number",
+    "import-notation": "string"
   },
   "ignoreFiles": ["build/*", "dist/*"]
 }

@@ -3,13 +3,13 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Form extends Block<FormPropsType> {
-  render() {
-    const source = `
-    <form id="{{ tagId }}" class="{{ className }}">
-      {{{ formItems }}}
-    </form>
-    `;
+  constructor(tag = 'form', props?: FormPropsType) {
+    super(tag, props);
+  }
 
-    return compileComponent(source, this.props);
+  render() {
+    const source = `{{{ formItems }}}`;
+
+    return compileComponent(source, this._props);
   }
 }

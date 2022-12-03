@@ -1,50 +1,56 @@
 import Button from '../../components/Button/Button';
 import Text from '../../components/Text/Text';
 import { UPLOAD_URL } from '../../constants/apiConstants';
+import { AppStateType } from '../../types/commonTypes';
 import { BasePropsType } from '../../types/componentTypes';
 import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
-import connect from '../../utils/Store/connect';
 import ProfileController from './ProfileController';
 
-class Profile<T extends BasePropsType> extends Block<T> {
-  protected _profileController: ProfileController;
+class Profile extends Block<BasePropsType & ReturnType<typeof mapStateToProps>> {
+  protected _controller: ProfileController;
 
-  constructor(props: T) {
-    super(props);
-    this._profileController = new ProfileController();
-    this._profileController.fetchUser();
+  constructor(tag = 'main', props?: BasePropsType & ReturnType<typeof mapStateToProps>) {
+    super(tag, {
+      ...props,
+      class: 'main-container bg-white',
+    } as BasePropsType & ReturnType<typeof mapStateToProps>);
+    this._controller = new ProfileController();
+    this._controller.getUserDetails(this);
   }
 
-  componentDidMount(): void {
-    if (this.props.backgroundColor) document.body.style.background = this.props.backgroundColor;
+  public show() {
+    this._controller.getUserDetails(this);
+    const element = this.getContent();
+    if (element) {
+      element.classList.remove('hidden-block');
+    }
   }
 
   render() {
     const source = `
-    <main class="main-container">
       <img src={{ avatarUrl }} alt="avatar-img" class="profile-photo">
       {{{ userName }}}
 
       <div class="form-group-profile">
         <div>Почта</div>
-        <div class="disabled-text">{{userInfo.email}}</div>
+        <div class="disabled-text">{{user.email}}</div>
       </div>
       <div class="form-group-profile">
         <div>Логин</div>
-        <div class="disabled-text">{{userInfo.login}}</div>
+        <div class="disabled-text">{{user.login}}</div>
       </div>
       <div class="form-group-profile">
         <div>Имя</div>
-        <div class="disabled-text">{{userInfo.first_name}}</div>
+        <div class="disabled-text">{{user.first_name}}</div>
       </div>
       <div class="form-group-profile">
         <div>Фамилия</div>
-        <div class="disabled-text">{{userInfo.second_name}}</div>
+        <div class="disabled-text">{{user.second_name}}</div>
       </div>
       <div class="form-group-profile">
         <div>Телефон</div>
-        <div class="disabled-text">{{userInfo.phone}}</div>
+        <div class="disabled-text">{{user.phone}}</div>
       </div>
 
       {{{ btnProfileEdit }}}
@@ -53,79 +59,80 @@ class Profile<T extends BasePropsType> extends Block<T> {
       {{{ btnBack }}}
 
       {{{ popup }}}
-    </main>
     `;
 
-    const userName = new Text({
-      className: 'profile-name',
-      //@ts-expect-error HOC returns anonymouse class
-      value: this.props.userInfo.login,
-    });
-
-    const btnProfileEdit = new Button({
-      label: 'Изменить данные',
-      className: 'btn-change',
-      type: 'button',
-      events: {
-        click: () => {
-          window.location.assign('edit-profile');
-        },
+    const userName = new Text(undefined, {
+      class: 'profile-name',
+      data: {
+        value: this._props?.user?.login,
       },
     });
 
-    const btnChangePassword = new Button({
-      label: 'Изменить пароль',
-      className: 'btn-change',
+    const btnProfileEdit = new Button(undefined, {
+      class: 'btn-change',
       type: 'button',
-      events: {
-        click: () => {
-          window.location.assign('change-password');
-        },
+      data: {
+        label: 'Изменить данные',
+      },
+      onClick: (event) => {
+        event.preventDefault();
+        this._controller.goChangeProfile();
       },
     });
 
-    const btnExit = new Button({
-      label: 'Выйти',
-      className: 'btn-exit',
+    const btnChangePassword = new Button(undefined, {
+      class: 'btn-change',
       type: 'button',
-      events: {
-        click: () => {
-          this._profileController.logout();
-        },
+      data: {
+        label: 'Изменить пароль',
+      },
+      onClick: (event) => {
+        event.preventDefault();
+        this._controller.goChangePassword();
       },
     });
 
-    const btnBack = new Button({
-      label: '< назад к чатам',
-      className: 'btn-back',
+    const btnExit = new Button(undefined, {
+      class: 'btn-exit',
       type: 'button',
-      events: {
-        click: () => {
-          window.location.assign('/chat');
-        },
+      data: {
+        label: 'Выйти',
+      },
+      onClick: (event) => {
+        event.preventDefault();
+        this._controller.logout(this);
+      },
+    });
+
+    const btnBack = new Button(undefined, {
+      class: 'btn-back',
+      type: 'button',
+      data: {
+        label: '< назад к чатам',
+      },
+      onClick: (event) => {
+        event.preventDefault();
+        this._controller.goToChat();
       },
     });
 
     return compileComponent(source, {
-      ...this.props,
+      ...this._props,
       userName,
       btnProfileEdit,
       btnChangePassword,
       btnExit,
       btnBack,
-      //@ts-expect-error HOC returns anonymouse class
-      avatarUrl: Object.prototype.hasOwnProperty.call(this.props.userInfo, 'avatar')
-        ? //@ts-expect-error HOC returns anonymouse class
-          UPLOAD_URL + this.props.userInfo.avatar
-        : null,
+
+      avatarUrl: this._props?.user && UPLOAD_URL + this._props?.user?.avatar,
     });
   }
 }
 
-function mapStateToProps(state: any) {
+function mapStateToProps(state: AppStateType) {
   return {
-    userInfo: state.profileState.user,
+    user: state.profileState.user,
   };
 }
 
-export default connect<BasePropsType>(mapStateToProps)(Profile);
+export default Profile;

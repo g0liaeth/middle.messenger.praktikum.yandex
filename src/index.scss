@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
-@import './components/variables.scss';
+// @import './components/variables.scss';
+@import './components/index.scss';
 
 body,
 html {
@@ -29,6 +30,7 @@ body {
   height: 100%;
   display: flex;
   width: 100%;
+  justify-content: center;
 }
 
 .chat-wrapper {
@@ -115,6 +117,7 @@ input:focus.invalid {
   align-items: center;
   padding-left: 20px;
   padding-right: 20px;
+  min-height: 60px;
 }
 
 .chat-header-left {
@@ -130,7 +133,8 @@ input:focus.invalid {
 .chat-body {
   background-color: $primary-background;
   flex: 11;
-  overflow-y: auto;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 .message-list {
@@ -238,4 +242,50 @@ input:focus.invalid {
   height: 150px;
   border-radius: 100%;
   margin-bottom: 20px;
+}
+
+.hidden-block {
+  display: none !important;
+}
+
+.dropdown-wrapper {
+  position: absolute;
+  display: none;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+.dropdown-wrapper.dropdown-active {
+  display: block;
+  position: absolute;
+}
+
+.dropdown-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 5px 0 0 0;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.dropdown-list-item {
+  padding: 7px;
+  background: #000;
+  color: #fff;
+  margin-bottom: 2px;
+  transition: all 0.2s;
+}
+
+.dropdown-list-item:focus,
+.dropdown-list-item:hover {
+  background: grey;
+}
+
+.dropdown-list-item:active {
+  transition: none;
+  background: orange;
+}
+
+.bg-white {
+  background-color: $primary-background;
 }

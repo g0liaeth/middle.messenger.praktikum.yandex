@@ -10,25 +10,27 @@ import Router from './utils/Router/Router';
 const router = new Router('#root');
 
 router
-  .use('/', Login, { backgroundColor: '#d4e3f7' })
-  .use('/login', Login, { backgroundColor: '#d4e3f7' })
-  .use('/signup', Registration, { backgroundColor: '#d4e3f7' })
-  .use('/chat', Chat, { backgroundColor: '#fff' })
-  .use('/profile', Profile, { backgroundColor: '#fff' })
-  .use('/edit-profile', EditProfile, { backgroundColor: '#fff' })
-  .use('/change-password', ChangePassword, { backgroundColor: '#fff' })
-  .use('/500', Error, {
-    codeClassName: 'header-big',
-    codeValue: '500',
-    textClassName: 'main-text',
-    textValue: 'Мы уже фиксим',
-    backgroundColor: '#d4e3f7',
+  .use('/', Login, undefined, undefined)
+  .use('/login', Login, undefined, undefined)
+  .use('/signup', Registration, undefined, undefined)
+  .use('/chat', Chat, undefined, undefined)
+  .use('/profile', Profile, undefined, undefined)
+  .use('/edit-profile', EditProfile, undefined, undefined)
+  .use('/change-password', ChangePassword, undefined, undefined)
+  .use('/500', Error, undefined, {
+    data: {
+      codeClassName: 'header-big',
+      codeValue: '500',
+      textClassName: 'main-text',
+      textValue: 'Мы уже фиксим',
+    },
   })
-  .use('/404', Error, {
-    codeClassName: 'header-big',
-    codeValue: '404',
-    textClassName: 'main-text',
-    textValue: 'Не туда попали',
-    backgroundColor: '#d4e3f7',
+  .use('/404', Error, undefined, {
+    data: {
+      codeClassName: 'header-big',
+      codeValue: '404',
+      textClassName: 'main-text',
+      textValue: 'Не туда попали',
+    },
   })
   .start();

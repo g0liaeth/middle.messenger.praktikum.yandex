@@ -3,34 +3,36 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Dialog extends Block<DialogPropsType> {
+  constructor(tag = 'li', props?: DialogPropsType) {
+    super(tag, props);
+  }
+
   render() {
     const source = `
-    <li class="chat-item {{ className }}" id="{{ id }}">
       <div class="chat-item-left">
         {{{ dialogAvatar }}}
         <div class="chat-info">
-          <div class="sender"><b>{{senderUserName}}</b></div>
+          <div class="sender"><b>{{ data.senderUserName }}</b></div>
           <div>
-            <span class="last-message-sender">{{#if lastMessageSender}}Вы:{{else}}{{null}}{{/if}}</span>
-            {{lastMessageText}}
+            <span class="last-message-sender">{{ data.lastMessageSender }}</span>
+            {{data.lastMessageText}}
           </div>
         </div>
       </div>
       <div class="chat-item-right">    
           <div class="last-message-time">
-            <time datetime={{lastMessageTime}}>
-              {{lastMessageTime}}
+            <time datetime={{data.lastMessageTime}}>
+              {{data.lastMessageTime}}
             </time>
           </div>
-          {{#if hasNewMessages}}
+          {{#if data.hasNewMessages}}
           <div class="new-messages">
-            {{newMessagesCount}}
+            {{data.newMessagesCount}}
           </div>
           {{/if}}
       </div>
-    </li>
     `;
 
-    return compileComponent(source, this.props);
+    return compileComponent(source, this._props);
   }
 }

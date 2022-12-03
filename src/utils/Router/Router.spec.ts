@@ -2,7 +2,20 @@ import { expect } from 'chai';
 import { JSDOM } from 'jsdom';
 import * as sinon from 'sinon';
 import { BlockInheritor } from '../../types/commonTypes';
+import { BasePropsType } from '../../types/componentTypes';
+import Block from '../Block/Block';
+import compileComponent from '../Block/compileComponent';
 import Router from './Router';
+
+class MockBlock extends Block<BasePropsType> {
+  constructor(tag?: string, props?: BasePropsType) {
+    super(tag, props);
+  }
+
+  render() {
+    return compileComponent('', this._props);
+  }
+}
 
 describe('Router tests:', () => {
   beforeEach(() => {
@@ -35,7 +48,7 @@ describe('Router tests:', () => {
   describe('use', () => {
     it('should return instance of router', () => {
       const router = new Router('#root');
-      const result = router.use('/mock-path', {} as BlockInheritor, {});
+      const result = router.use('/mock-path', MockBlock, undefined, undefined);
       expect(router).to.eq(result);
     });
   });
@@ -43,10 +56,18 @@ describe('Router tests:', () => {
   describe('go', () => {
     it('should change path in browser history', () => {
       const router = new Router('#root');
-      router.use('/mock-path', {} as BlockInheritor, {});
+      router.use('/test', MockBlock, undefined, undefined);
       router.go('/test');
 
       expect(global.window.location.pathname).to.eq('/test');
+    });
+    it('should redirect to 404 when no such routes initialized', () => {
+      const router = new Router('#root');
+      router.use('/test', MockBlock, undefined, undefined);
+      router.use('/404', MockBlock, undefined, undefined);
+      router.go('/test2');
+
+      expect(global.window.location.pathname).to.eq('/404');
     });
   });
 
@@ -71,7 +92,7 @@ describe('Router tests:', () => {
   describe('getRoute', () => {
     it('should return specified route', () => {
       const router = new Router('#root');
-      router.use('/mock-path', {} as BlockInheritor, {});
+      router.use('/mock-path', {} as BlockInheritor, undefined, undefined);
       const result = router.getRoute('/mock-path');
       expect(result).to.not.be.null;
       expect(result).not.to.be.undefined;

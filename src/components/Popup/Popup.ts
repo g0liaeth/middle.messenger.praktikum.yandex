@@ -3,15 +3,17 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class Popup extends Block<PopupPropsType> {
+  constructor(tag = 'div', props?: PopupPropsType) {
+    super(tag, props);
+  }
+
   render() {
     const source = `
-    <div class="popup">
       <div class="popup-body">
         {{{ popupItems }}}
       </div>
-    </div>
     `;
 
-    return compileComponent(source, { ...this.props });
+    return compileComponent(source, { ...this._props });
   }
 }

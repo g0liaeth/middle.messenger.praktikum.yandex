@@ -1,4 +1,5 @@
-import { LoginData, RegistrationData } from '../types/commonTypes';
+import { LoginData, RegistrationData, RegistrationResponse, UserData } from '../types/commonTypes';
+import { TResponse } from '../utils/Http/HTTPClient';
 import BaseAPI from './BaseAPI';
 
 const headers = {
@@ -10,22 +11,22 @@ export default class AuthAPI extends BaseAPI {
     super('/auth');
   }
 
-  async login(data: LoginData) {
+  async login(data: LoginData): Promise<TResponse<string>> {
     const result = await this.httpClient.post('/signin', { data, headers });
     return result;
   }
 
-  async registration(data: RegistrationData) {
+  async registration(data: RegistrationData): Promise<TResponse<RegistrationResponse>> {
     const response = await this.httpClient.post('/signup', { data, headers });
     return response.data;
   }
 
-  async logout() {
+  async logout(): Promise<TResponse<string>> {
     const result = await this.httpClient.post('/logout');
     return result;
   }
 
-  async getUserInfo() {
+  async getUserInfo(): Promise<TResponse<UserData>> {
     const result = await this.httpClient.get('/user');
     return result;
   }

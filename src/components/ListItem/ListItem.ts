@@ -3,9 +3,13 @@ import Block from '../../utils/Block/Block';
 import compileComponent from '../../utils/Block/compileComponent';
 
 export default class ListItem extends Block<ListItemPropsType> {
-  render() {
-    const source = `<li id={{ id }} class="{{ className }}">{{ content }}</li>`;
+  constructor(tag = 'li', props?: ListItemPropsType) {
+    super(tag, props);
+  }
 
-    return compileComponent(source, this.props);
+  render() {
+    const source = `{{ data.content }}`;
+
+    return compileComponent(source, this._props);
   }
 }
