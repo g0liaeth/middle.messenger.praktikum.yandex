@@ -5,7 +5,7 @@ export default class MessagesAPI {
     this._socket = new WebSocket(url);
   }
 
-  public open(callback: (...args: any) => void): void {
+  public open(callback: (...args: unknown[]) => void): void {
     this._socket.addEventListener('open', (...args) => {
       callback(...args);
     });

@@ -1,4 +1,4 @@
-import { Indexed } from '../../types/commonTypes';
+import { AppStateType, Indexed } from '../../types/commonTypes';
 import cloneDeep from '../cloneDeep';
 import EventBus from '../EventBus/EventBus';
 import isEqual from '../isEqual';
@@ -14,7 +14,7 @@ export default class Store extends EventBus {
   static _instance: Store | null;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  constructor(_initialState?: any) {
+  constructor(_initialState?: AppStateType) {
     if (Store._instance) {
       return Store._instance;
     }

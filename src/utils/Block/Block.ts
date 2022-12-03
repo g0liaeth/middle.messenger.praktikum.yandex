@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { v4 as makeUUID } from 'uuid';
+import { PlainObject } from '../../types/commonTypes';
 import EventBus from '../EventBus/EventBus';
 import isEqual from '../isEqual';
 
@@ -161,7 +162,7 @@ export default abstract class Block<T> extends EventBus {
   }
 
   _getChildsFromProps(props: any) {
-    const childrens: any = {};
+    const childrens: PlainObject = {};
 
     Object.keys(props).forEach((key) => {
       if (props[key] instanceof Block) {
@@ -173,7 +174,7 @@ export default abstract class Block<T> extends EventBus {
   }
 
   _getAttributesFromProps(props: any) {
-    const attributes: any = {};
+    const attributes: PlainObject = {};
 
     Object.keys(props).forEach((key) => {
       if (
@@ -188,7 +189,7 @@ export default abstract class Block<T> extends EventBus {
   }
 
   _getEventsFromProps(props: any) {
-    const events: any = {};
+    const events: PlainObject = {};
 
     Object.keys(props).forEach((key) => {
       if (key.match(/^on/g)) {
