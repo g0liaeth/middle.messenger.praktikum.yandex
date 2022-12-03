@@ -5,17 +5,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: ['./src/index.ts', './src/index.scss'],
+
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'ya-messenger.bundle.js',
   },
-  devtool: 'source-map',
+
   resolve: {
     extensions: ['.ts', '.js', '.json'],
     alias: {
       handlebars: 'handlebars/dist/handlebars.js',
     },
   },
+
   module: {
     rules: [
       {
@@ -55,17 +57,4 @@ module.exports = {
       template: './src/index.html',
     }),
   ],
-
-  devServer: {
-    port: 1234,
-    historyApiFallback: {
-      rewrites: [{ from: /^\/$/, to: '/src/index.html.html' }],
-    },
-    // open: false,
-    open: {
-      app: {
-        name: 'google-chrome',
-      },
-    },
-  },
 };
